@@ -1,0 +1,47 @@
+--------------------------------
+Title
+--------------------------------
+XML Output and the Debug Page
+
+
+--------------------------------
+Description
+--------------------------------
+Once the sections have been set up and the data sources have been configured in Symphony, XML output can be attached to a page to be processed using the XSLT page template specified in the Body field of the page configuration. The result document can be XML, HTML or text.
+
+
+
+--------------------------------
+Body
+--------------------------------
+The purpose of configuring data sources is to produce the XML output that XSLT page templates can process to create HTML, XML or text to render to the browser. Usually, the goal is to produce HTML. The smaller the XML data source and the faster it is to build the XML, the sooner the processor can render the HTML and serve the page to the browser. So, it is important to optimize the XML output to include only what is necessary to build the page. The options to filter, sort, limit and paginate the data sources provide several options to optimize the performance of the site. Symphony provides a means of being able to view the XSLT Page Parameters, the XML data, and to analyze performance data by providing debug information in the browser.
+
+If an admin user or Author is logged in to the Symphony admin, front end pages are given the ability to display debug information. Simply add `?debug` to the page URL to view Page Parameters, XML Output, XSLT page templates and utilities and Profile data. Refer to the documentation for more information.
+
+#### Page Parameters
+
+The following page parameters are available for use in XSLT page templates to provide information about the current date and time, the selected page, path and URL, and other details about the site and user data. Custom data source parameters, created when specifying Parameter Output Options for data sources, are added at the bottom of the list.
+
+
+--------------------------------
+Date
+--------------------------------
+20 May 2009 8:31pm
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xslt

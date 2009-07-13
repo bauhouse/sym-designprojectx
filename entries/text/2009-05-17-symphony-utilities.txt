@@ -1,0 +1,48 @@
+--------------------------------
+Title
+--------------------------------
+Symphony Utilities
+
+
+--------------------------------
+Description
+--------------------------------
+Utilities are XSLT templates that can be used for a number of different applications. XML can be transformed into text, html, or xml, so the applications can be virtually limitless.
+
+
+
+--------------------------------
+Body
+--------------------------------
+There are a few XSLT templates available on the Symphony CMS site:
+
+* [HTML Truncate Advanced](http://symphony-cms.com/downloads/xslt/file/20816/)
+* [Basic Tumblr.com API Utility](http://symphony-cms.com/downloads/xslt/file/20746/)
+* [Format Date/Time Advanced](http://symphony-cms.com/downloads/xslt/file/20744/)
+* [E-mail Obfuscator](http://symphony-cms.com/downloads/xslt/file/20574/)
+* [HTML To Markdown Text](http://symphony-cms.com/downloads/xslt/file/20573/)
+
+
+
+--------------------------------
+Date
+--------------------------------
+17 May 2009 5:48pm
+
+
+--------------------------------
+Section
+--------------------------------
+Journal
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms

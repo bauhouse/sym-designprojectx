@@ -1,0 +1,163 @@
+--------------------------------
+Title
+--------------------------------
+Using GitHub to Build a Symphony Ensemble
+
+
+--------------------------------
+Description
+--------------------------------
+This may be less a tutorial than a record of the steps I took to build a Symphony ensemble while using GitHub as a version control system. One challenge I have yet to come to terms with is how to deal with changes to the database as I make changes to the application.
+
+
+
+--------------------------------
+Body
+--------------------------------
+#### Domain Registration and DNS
+
+First, I registered the domain name, [fluidgrids.com](http://fluidgrids.com/), and configured the domain name to point to the following DNS servers:
+
+* dns1.joyentdns.com
+* dns2.joyentdns.com
+* dns3.joyentdns.com
+* dns4.joyentdns.com
+
+#### Server Configuration
+
+Then, I set up a virtual server on a Joyent Shared Accelerator account. I logged into Virtualmin and enabled the following features for the virtual server:
+
+* Web virtual server
+* MySQL login
+* PowerDNS domain
+
+##### PHP Configuration
+
+To fulfill the minimum requirements to install Symphony on a Joyent Shared Accelerator, I needed to create a MySQL database and modify the php.ini file for PHP5. I was able to accomplish both through the Virtualmin interface. For PHP configuration, I needed to enable the following extensions:
+
+* extension=dom.so
+* extension=xsl.so
+* extension=zip.so
+
+#### Create a GitHub Repository
+
+I created a repository called [sym-fluidgrids](git://github.com/bauhouse/sym-fluidgrids.git) on GitHub to manage version control for the project.
+
+To create the local repository, I opened up Coda (or I could have just logged into Terminal on my Mac) and entered the following commands. First, I changed the working directory to the directory that contains all my GitHub repositories: 
+
+	cd ~/Work/github/bauhouse
+
+Then, I created a directory with the same name as my GitHub repository:
+
+	mkdir sym-fluidgrids
+
+I changed directories, moving into the directory I just created:
+	
+	cd sym-fluidgrids
+
+I initialized the local Git repository:
+
+	git init
+
+I created the first file, a README file:
+
+	touch README
+
+I added the README file to the staging area for files that are ready to be committed to the repository:
+
+	git add README
+
+Then, I committed the new file to the local repository:
+
+	git commit -m 'first commit'
+
+To sync the GitHub repository with my local Git repository, I need to first add the location of the remote repository:
+
+	git remote add origin git@github.com:bauhouse/sym-fluidgrids.git
+
+Finally, I push my local changes to the master branch of the remote repository, specifying the location I just added, called "origin":
+
+	git push origin master
+
+That's it. I've just created a GitHub repository with a blank README file. The commit is identified with a hash, [090b993c3825da1df3d4121ee8902882b24495ff](http://github.com/bauhouse/sym-fluidgrids/commit/090b993c3825da1df3d4121ee8902882b24495ff), a unique 32-character string that will represent a snapshot of the state of the code at the time the file was committed to the repository.
+
+
+##### Add Files to Staging
+
+Now, I just need to add, edit and/or remove files and directories, commit the changes to the local repository, and push the changes up to GitHub. I'll start by adding some content to the README file, then I can check the status of the local repository:
+
+	git status
+
+Git will indicate that the README file has been modified. I can add this to the list of files in the staging area, ready to be committed:
+
+	git add .
+
+Using the dot in the add command will add all the files in the current directory and will also recursively select all files in child and descendant directories. In this case, a single file will be selected: README.
+
+I'm not quite ready to commit yet, as I would like to start by adding a `.gitignore` file and include the offical download of [Symphony CMS 2.0.2](http://symphony-cms.com/). The `.gitignore` file tells Git which files to ignore when staging files to be committed. There's no point in saving the hidden files that store preferences for the Mac Finder, so I can create a file called `.gitignore` with the following contents:
+
+	*.DS_Store
+
+The star (`*`) is a wildcard character, so this tells Git to ignore any files called `.DS_Store` in all directories and subdirectories. Now, these files will never be committed to the repositories.
+
+Next, I copy all the files from the official download of Symphony, except for the README file. Rather than overwrite the file I just modified, I'll update it with the installation instructions from the Symphony download. Then, I'm ready to add some more files to staging.
+
+	git add .
+
+I can check the status of my repo to see the list of files that have been added to staging:
+
+	git status
+
+##### Committing and Pushing Changes to GitHub 
+
+Everything is ready to commit the install files for Symphony. Using the `-m` flag allows me to use a single command to [commit and add a message to accompany to describe the changes](http://github.com/bauhouse/sym-fluidgrids/commits/).
+
+	git commit -m "Add .gitignore, update README, and include Symphony CMS 2.0.2 official 
+download files"
+
+Alternatively, if I want to include a longer description with the commit, I can omit the `-m` flag, and Git will launch the default text editor to compose the description. Once committed, I can push these changes to GitHub:
+
+	git push origin master
+
+##### Removing Files 
+
+I'm thinking that I will start with a clean install of Symphony, so I should remove the workspace directory. I can do this with a Git command with the `-r` flag to tell Git to remove files recursively:
+
+	git rm -r workspace
+
+I can then check the status of the repository:
+
+	git status
+
+And Git returns a list of the files that are staged for deleting from the repository. Since they were included in the repository in the last commit, I can recall those files back into the repository at a later time, if I so choose. I am ready to commit again and [push the changes to GitHub](http://github.com/bauhouse/sym-fluidgrids/commit/4ea7c96579b7699d8225d97eb0ee8e62f5e7e79d):
+
+	git commit -m "Remove workspace to create a clean install of Symphony"
+	git push origin master
+	
+#### Symphony on GitHub
+
+That's a very basic introduction to working with Git. Next, I'll be discovering how best to manage changes to the Symphony workspace and database. For more information on [using or contributing to Symphony 2.0 on GitHub](http://symphony-cms.com/forum/discussions/495/), refer to the thread on the Symphony CMS forum regarding GitHub or consult the documentation on [installing from the GitHub repository](http://symphony-cms.com/documentation/installation/).
+
+
+--------------------------------
+Date
+--------------------------------
+20 Jun 2009 7:09pm
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+github, symphony cms, xslt

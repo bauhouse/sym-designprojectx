@@ -1,0 +1,51 @@
+--------------------------------
+Title
+--------------------------------
+Building a Blog with Symphony
+
+
+--------------------------------
+Description
+--------------------------------
+A step-by-step tutorial to build a blog with XML and XSLT, using Symphony CMS
+
+
+
+--------------------------------
+Body
+--------------------------------
+#### Sections and Custom Fields
+
+The core of Symphony has been built around the concept of developing data structures that fit the type of content that you want to publish, without limitations or preconceptions. This is what makes Symphony extremely flexible, but in some ways a little more complex. Creating relationships between data is what Symphony does very well. The system is built around the ability to create Sections of entries that are made up of similar types of information. Using XSLT, this information can be displayed on Pages in different ways, depending on the parameters that are used to filter the views. The core is intentionally kept very lean to avoid forcing developers and authors to use features that they don’t need.
+
+#### Extensions
+
+Extensions enable features beyond those available in the Symphony core. Out of the box, Symphony requires content in textarea fields to be valid XHTML. To simplify the entry of information, text formatters such as Markdown or Textile can be added to Symphony as Extensions. For each textarea field added to a Section, a different text formatter can be enabled. I generally prefer Markdown.
+
+Other extensions add interface enhancements. For example, another Extension uses a script called Markitup that adds a row of formatting buttons that will help users format text with Markdown.
+
+It makes sense to add the extensions necessary to make possible the sorts of data structures and functionality that you will need to develop your site.
+
+
+
+--------------------------------
+Date
+--------------------------------
+06 May 2009 2:33pm
+
+
+--------------------------------
+Section
+--------------------------------
+Journal
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------

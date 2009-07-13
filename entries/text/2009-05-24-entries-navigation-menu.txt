@@ -1,0 +1,42 @@
+--------------------------------
+Title
+--------------------------------
+Entries Navigation Menu
+
+
+--------------------------------
+Description
+--------------------------------
+Using XSLT and Symphony, it is a fairly simple matter to develop a list of entries that can indicate the currently selected entry using URL parameters, some page parameters and an `xsl:choose` instruction. We will be relying heavily on attribute value templates to build the links for the pages.
+
+
+
+--------------------------------
+Body
+--------------------------------
+Starting with the XML for the entries data, we can build the XSLT template to display a list of entries in descending chronological order.
+
+
+
+--------------------------------
+Date
+--------------------------------
+24 May 2009 7:44am
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xslt

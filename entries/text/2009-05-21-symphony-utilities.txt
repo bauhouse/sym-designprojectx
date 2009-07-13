@@ -1,0 +1,221 @@
+--------------------------------
+Title
+--------------------------------
+Symphony Utilities
+
+
+--------------------------------
+Description
+--------------------------------
+The term "utilities" is a Symphony-specific term that refers to XSLT templates that are imported by a page template using an `xsl:import` instruction. Utilities are often used as master templates that can be used to manage common elements of a page template, such as the html, head and body elements, and for site-wide control of common layout elements, such as the header and footer of the page. They can also be used to build navigation and pagination elements, or to format dates, layout calendars, or perform math or string functions.
+
+
+--------------------------------
+Body
+--------------------------------
+XSLT templates need not necessarily be imported into an XSL stylesheet to be used by the page template. Multiple templates can exist in a single stylesheet. An `xsl:template` can have either a `match` attribute or a `name` attribute. 
+
+#### XSLT Match Templates
+
+A match template matches the XML data node set selected by the `select` attribute. An `xsl:apply-templates` instruction is used to process the XML data source by applying any match templates that match the XPath expression specified by the `select` attribute.
+
+The following match template selects the root of the XML document and defines the template for the entire XML document.
+
+	<xsl:template match="/">
+		<xsl:apply-templates/>
+	</xsl:template>
+	
+The following match template selects the data node of the XML document and processes the XSL instructions for the `data` node set. This `data` match template would be called by the `xsl:apply-templates` instruction contained within the root match template. This match template uses an `xsl:apply-templates` instruction to call any templates that match the `navigation` node that is a child of the `data` XML node.
+
+	<xsl:template match="data">
+		<xsl:apply-templates match="navigation"/>
+	</xsl:template>
+
+##### A Navigation Match Template
+
+The default Symphony theme, Spectrum, uses the following template to match the navigation node: 
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	
+	<xsl:template match="navigation">
+	  <ul id="menu">
+		<xsl:apply-templates select="page[not(types/type = 'hidden') and not(types/type = 'admin')]"/>
+	
+		<xsl:if test="/data/events/login-info/@logged-in = 'true'">
+		  <li><a href="{$root}/drafts/">Drafts</a></li>
+		  <li><a href="{$root}/symphony/">Admin</a></li>
+		  <li><a href="?debug">Debug</a></li>
+		</xsl:if>
+	
+	  </ul>
+	</xsl:template>
+	
+	<xsl:template match="page">
+	  <li>
+		<a href="{$root}/{@handle}/">
+		  <xsl:if test="@handle = $current-page">
+			<xsl:attribute name="class">active</xsl:attribute>
+		  </xsl:if>
+		  <xsl:value-of select="name"/>
+		</a>
+	  </li>
+	</xsl:template>
+	
+	</xsl:stylesheet>
+	
+There's a lot going on here, and it's sometimes difficult to figure out exactly what is happening with these match templates at first glance. Match templates are very powerful, but difficult to comprehend at first. Rather than delve too deeply into match templates right away, we'll start with a simpler example.
+
+#### XSLT Named Templates
+
+A named template is called by an `xsl:call-template` instruction with a `name` attribute that matches the name attribute of the `xsl:template`. The name attribute value must be unique for all XSL templates called or imported by an XSL stylesheet.
+
+The following root match template uses an `xsl:call-template` instruction to call a template named "navigation".
+
+	<xsl:template match="/">
+		<xsl:call-template name="navigation"/>
+	</xsl:template>
+
+	<xsl:template name="navigation">
+		<ul>
+			<li><a href="http://www.example.com/">Home</a></li>
+			<li><a href="http://www.example.com/journal/">Journal</a></li>
+			<li><a href="http://www.example.com/tutorials/">Tutorials</a></li>
+			<li><a href="http://www.example.com/about/">About</a></li>
+		</ul>
+	</xsl:template>
+
+A named template can be used to store frequently used snippets of HTML code, such as the navigation, the contents of the head element, and common layout elements. For example, named templates could be used as utilities that can be called by every page of the site. This allows for the ability to modify these snippets of code on a site-wide basis by modifying a single template file. For example, the title element, CSS links and scripts contained in the head element could be managed by a single XSL template.
+
+	<xsl:template name="head">
+		<head>
+			<title>The Title of My Site</title>
+			<link rel="stylesheet" type="text/css" href="http://www.example.com/workspace/css/screen.css" media="screen"/>
+			<script type="text/javascript" src="http://www.example.com/workspace/js/jquery.js"></script>
+		</head>
+	</xsl:template>
+
+	<xsl:template name="header">
+		<h1>My Site</h1>
+	</xsl:template>
+
+	<xsl:template name="footer">
+		<p class="footer">Copyright 2009. My Site Name. All rights reserved.</p>
+	</xsl:template>
+
+
+#### A Navigation Utility
+
+To build the navigation for this site, I used the following named template:
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsl:stylesheet version="1.0"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	
+	<xsl:template name="main-navigation">
+		<ul class="nav">
+			<xsl:for-each select="/data/navigation/page">
+				<li>
+					<xsl:if test="$current-page = @handle">
+						<xsl:attribute name="class">current</xsl:attribute>
+					</xsl:if>
+					<a href="{$root}/{@handle}/">
+						<xsl:if test="types/type = 'index'">
+							<xsl:attribute name="href">
+								<xsl:value-of select="concat($root, '/')"/>
+							</xsl:attribute>
+						</xsl:if>
+						<xsl:value-of select="name"/>
+					</a>
+				</li>
+			</xsl:for-each>
+		</ul>
+	</xsl:template>
+	
+	</xsl:stylesheet>
+
+The main navigation template is created as a utility in Symphony. Then, it is imported into the XSL style sheet with an `xsl:import` instruction at the beginning of the document.
+
+#### A Master Template
+
+The following template could be saved as a utility and imported into a Symphony page template as a master template. This template demonstrates the use of the `xsl:import` instruction to import the main navigation template:
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsl:stylesheet version="1.0"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	
+	<xsl:import href="../utilities/main-navigation.xsl"/>
+	
+	<xsl:template match="/">
+		<xsl:call-template name="head"/>
+		<xsl:call-template name="header"/>
+		<xsl:call-template name="main-navigation"/>
+		<xsl:apply-templates/>
+		<xsl:call-template name="footer"/>
+	</xsl:template>
+
+	</xsl:stylesheet>
+	
+#### A Page Template
+
+By importing the master template, the page template could be as simple as the following:
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsl:stylesheet version="1.0"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	
+	<xsl:import href="../utilities/master.xsl"/>
+	
+	<xsl:template match="data">
+		<h2>The Title of My Page</h2>
+		<p>This is the content of my page</p>
+	</xsl:template>
+
+	</xsl:stylesheet>
+	
+This pretty much covers all the basics of using Symphony. From this point on, there is still more to learn about Symphony events and developing extensions. I would recommend learning as much as you can about XSLT to take full advantage of all the powerful features that Symphony makes possible by its XSLT-based approach to content management.
+
+#### Symphony Downloads: XSLT Utilities
+
+The community is always busy discovering, sharing and developing code snippets to help each other build finely crafted site designs. As of this writing, there are 15 [XSLT utilities](http://symphony-cms.com/downloads/xslt/) available on the Downloads area of the Symphony CMS site:
+
+* [Basic Tumblr.com API Utility](http://symphony-cms.com/downloads/xslt/file/20746/)
+* [Calendar generation](http://symphony-cms.com/downloads/xslt/file/21812/)
+* [Data Source Pagination](http://symphony-cms.com/downloads/xslt/file/20482/)
+* [E-mail Obfuscator](http://symphony-cms.com/downloads/xslt/file/20574/)
+* [Format Date/Time](http://symphony-cms.com/downloads/xslt/file/20506/)
+* [Format Date/Time Advanced](http://symphony-cms.com/downloads/xslt/file/20744/)
+* [Form Controls](http://symphony-cms.com/downloads/xslt/file/21550/)
+* [HTML Manipulation](http://symphony-cms.com/downloads/xslt/file/20035/)
+* [HTML To Markdown Text](http://symphony-cms.com/downloads/xslt/file/20573/)
+* [HTML Truncate](http://symphony-cms.com/downloads/xslt/file/20036/)
+* [HTML Truncate Advanced](http://symphony-cms.com/downloads/xslt/file/20816/)
+* [IE Conditional Comments in XSLT](http://symphony-cms.com/downloads/xslt/file/21798/)
+* [Number To Words](http://symphony-cms.com/downloads/xslt/file/20486/)
+* [RSS feed RFC date format to ISO date format](http://symphony-cms.com/downloads/xslt/file/20457/)
+* [Time Ago](http://symphony-cms.com/downloads/xslt/file/20484/)
+
+
+
+--------------------------------
+Date
+--------------------------------
+21 May 2009 8:40pm
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms

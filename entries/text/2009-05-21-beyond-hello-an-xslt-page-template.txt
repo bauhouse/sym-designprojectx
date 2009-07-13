@@ -1,0 +1,396 @@
+--------------------------------
+Title
+--------------------------------
+Beyond Hello: An XSLT Page Template
+
+
+--------------------------------
+Description
+--------------------------------
+I started with the basic [Hello World](http://www.designprojectx.com/tutorials/hello-world-a-basic-xsl-stylesheet/) example. This tutorial assumes that [sections](http://www.designprojectx.com/tutorials/symphony-sections/) have been created in Symphony and [data sources](http://www.designprojectx.com/tutorials/symphony-data-sources/) attached to a page. This example shows how I developed the page template that displays the entries that you are currently reading.
+
+
+
+--------------------------------
+Body
+--------------------------------
+The [Hello World](http://designprojectx.com/tutorials/hello-world-a-basic-xsl-stylesheet/) example used a skeleton XSL stylesheet to provide the minimum necessary to create a web page with an XHTML 1.0 Strict doctype. For this tutorial, we will be recreating the Journal overview page. We can refer to the XML output shown in the previous entry on [XML Output and the Debug Page](http://designprojectx.com/tutorials/xml-output-and-the-debug-page/) for the XML data that will be processed by the XSLT template.
+
+##### The Journal Page
+
+First, create the Journal page. Use the following settings to configure the page:
+
+###### URL Settings
+
+* Parent Page: /
+* URL Handle: journal
+* URL Parameters: entry
+
+###### Page Metadata
+
+* Events: (none)
+* Data Sources: Entries, Entry, Navigation, Section
+* Page Type: (none)
+
+###### Page Data
+
+* Title: Journal
+* Body: (see the page template below)
+* Utilities: (none)
+
+##### The Page Template
+
+Using a couple of the available page parameters, `$website-name` and `$page-title`, we can add a page title to the template use an `xsl:value-of` instruction.
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <xsl:stylesheet version="1.0"
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    
+    <xsl:output method="xml"
+        doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+        omit-xml-declaration="yes"
+        encoding="UTF-8"
+        indent="yes" />
+    
+    <xsl:template match="/">
+    <html>
+    <head>
+        <title><xsl:value-of select="$page-title"/> | <xsl:value-of select="$website-name"/></title>
+    </head>
+    <body>
+        <h1><xsl:value-of select="$website-name"/></h1>
+        <h2><xsl:value-of select="$page-title"/></h2>
+    </body>
+    </html>
+    </xsl:template>
+    
+    </xsl:stylesheet>
+	
+#### Adding Data from the XML to the Result Document
+
+Using an XPath expression, the value of an entry title can be output to the result document. To find the title of every entry in our list of entries, we can use the Entries data source and an `xsl:for-each` instruction to select every entry node and output the entry Title field value with an `xsl:value-of` instruction.
+
+	<xsl:for-each select="data/entries/entry">
+		<h3><xsl:value-of select="title"/></h3>
+	</xsl:for-each>
+
+To include the date the entry was posted, we can add a paragraph element with another `xsl:value-of` instruction.
+
+	<xsl:for-each select="data/entries/entry">
+		<h3><xsl:value-of select="title"/></h3>
+		<p class="meta">Posted <xsl:value-of select="date"/></p>
+	</xsl:for-each>
+
+To include the category the assigned to the entry, we can test whether a value exists for the category field and add the value to the output if it does.
+
+	<xsl:for-each select="data/entries/entry">
+		<h3><xsl:value-of select="title"/></h3>
+		<p class="meta">Posted <xsl:value-of select="date"/>
+			<xsl:if test="category">
+				<xsl:text> in </xsl:text>
+				<xsl:value-of select="category/item"/>
+			</xsl:if>
+		</p>
+	</xsl:for-each>
+
+To include the value of the `description` field, we can use a different instruction that includes not only the text value of a node but also the XML nodes contained by the `description` node. Since Markdown is being used to format the entries, the `description` node of the XML will contain at least `<p>` elements, and possibly several different HTML elements. The `xsl:copy-of` instruction will output a copy of the selected XML node including the selected element. To select all the child elements of the `description` element, without including the body element node itself, use the wildcard selector `*` to select all child elements.
+
+	<xsl:for-each select="data/entries/entry">
+		<h3><xsl:value-of select="title"/></h3>
+		<p class="meta">Posted <xsl:value-of select="date"/>
+			<xsl:if test="category">
+				<xsl:text> in </xsl:text>
+				<xsl:value-of select="category/item"/>
+			</xsl:if>
+		</p>
+		<xsl:copy-of select="description/*"/>
+	</xsl:for-each>
+
+
+#### The Overview Page Template
+
+The completed overview page will display the list of available Journal entries with a title, date, category and a brief description of the entry. 
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <xsl:stylesheet version="1.0"
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    
+    <xsl:output method="xml"
+        doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+        omit-xml-declaration="yes"
+        encoding="UTF-8"
+        indent="yes" />
+    
+    <xsl:template match="/">
+    <html>
+    <head>
+        <title><xsl:value-of select="$page-title"/> | <xsl:value-of select="$website-name"/></title>
+    </head>
+    <body>
+        <h1><xsl:value-of select="$website-name"/></h1>
+        <h2><xsl:value-of select="$page-title"/></h2>
+		<xsl:for-each select="data/entries/entry">
+			<h3><xsl:value-of select="title"/></h3>
+			<p class="meta">Posted <xsl:value-of select="date"/>
+				<xsl:if test="category">
+					<xsl:text> in </xsl:text>
+					<xsl:value-of select="category/item"/>
+				</xsl:if>
+			</p>
+			<xsl:copy-of select="description/*"/>
+		</xsl:for-each>
+    </body>
+    </html>
+    </xsl:template>
+    
+    </xsl:stylesheet>
+
+The completed overview page will display the list of available Journal entries with a title, date, category and brief description of the entry. 
+
+#### Filtering Entries with XSLT
+
+To limit the number of entries that is output by the template, the selected node set can be filtered by using a predicate on the `xsl:for-each` instruction. The following instruction will select the first entry.
+
+	<xsl:for-each select="data/entries/entry[position() = 1]">
+ 
+The shorthand version omits the need for the equality operator. For example, to select the fourth entry: 
+
+	<xsl:for-each select="data/entries/entry[4]">
+
+To select the first 4 entries: 
+
+	<xsl:for-each select="data/entries/entry[position() &lt;= 4]">
+ 
+To select the last entry:
+
+	<xsl:for-each select="data/entries/entry[position() = last()]">
+ 
+To select an entry by its `id` attribute use the attribute selector, `@`:
+
+	<xsl:for-each select="data/entries/entry[@id = 36]">
+ 
+#### Sorting Entries with XSLT
+
+To sort the entries that is output by the template, the selected node set can be sorted by using an `xsl:sort` instruction. To avoid throwing an XSLT processor error, the `xsl:sort` instruction must immediately follow the opening tag of the `xsl:for-each` instruction. It is always expressed as a self-closing XML element. The following XSL instructions will sort the entries by the text value of the date field.
+
+	<xsl:for-each select="data/entries/entry">
+		<xsl:sort select="date" order="ascending"/>
+		<h3><xsl:value-of select="title"/></h3>
+	</xsl:for-each>
+ 
+If more than one entry has been posted on the same day, you might also want to sort the entries by the time to keep the entries in correct chronological order. Use the `@` selector to select attributes of an XML element. In this case, we are selecting the `time` attribute of the `date` element. The following instructions will sort first by the `date` field, then by the `time` field.
+
+	<xsl:for-each select="data/entries/entry">
+		<xsl:sort select="date" order="ascending"/>
+		<xsl:sort select="date/@time" order="ascending"/>
+		<h3><xsl:value-of select="title"/></h3>
+	</xsl:for-each>
+
+Note that sorting by the date field works correctly here, even though the default sort mode evaluates a value as string data type, only because the ISO format of the date can correctly be sorted as a string value. The default sort order is also `ascending`, so we could have omitted the order attribute of the `xsl:sort` instruction. To sort by System ID, it is possible to change the sort mode:
+
+	<xsl:for-each select="data/entries/entry">
+		<xsl:sort select="@id" data-type="number"/>
+		<h3><xsl:value-of select="title"/></h3>
+	</xsl:for-each>
+
+#### Data Source Filtering and Sorting
+
+To keep the XML efficient and optimized, it is often best to filter and sort entries when configuring data sources. Refer to the Data Sources section in the [documentation](http://symphony-cms.com/documentation/interface/#sec-2) for more information.
+
+The [Symphony Data Sources](http://designprojectx.com/tutorials/symphony-data-sources/) tutorial describes how to configure the Entry data source to filter the Entries section by the Title field and sort by the Date field.
+
+##### Managing Views with URL Parameters
+
+Symphony uses URL parameters to manage different views of the same data set, or to dynamically modify the XML data set based on page parameters or data source parameters. Using XSLT conditional instructions, it is possible to serve different views using the same page template. When creating pages, URL parameters can be configured. Instead of using traditional PHP GET strings with name/value pairs, such as `?name=value&foo=bar`, Symphony uses clean URLs that are mapped to XSL page parameters configured in the page template. The drawback is that the values have to appear in the order specified by the page template. So, with the GET example, we could configure a page with the URL parameters `name/foo`. Then to navigate to a page that is filtered by these two parameters, we could express the values in the URL:
+
+	http://www.example.com/journal/value/bar/
+
+You can specify any valid XSL parameter name for each URL parameter. Since Symphony entry handles are created with lowercase characters and hyphens, it's generally best to stick to this character set. As with any XSL parameter, never begin the name with a number. You could potential use the following as your URL Parameters in the page template: `a/b/c/d/e/f/g` and these would be mapped to the following XSL parameters:
+
+* $a
+* $b
+* $c
+* $d
+* $e
+* $f
+* $g
+
+To manage different views, however, this would require at least the following logic to display different results for each parameter:
+
+	<xsl:choose>
+		<xsl:when test="$g">
+			<!-- Do something when $g has a value -->
+		</xsl:when>
+		<xsl:when test="$f">
+			<!-- Do something when $f has a value -->
+		</xsl:when>
+		<xsl:when test="$e">
+			<!-- Do something when $e has a value -->
+		</xsl:when>
+		<xsl:when test="$d">
+			<!-- Do something when $d has a value -->
+		</xsl:when>
+		<xsl:when test="$c">
+			<!-- Do something when $c has a value -->
+		</xsl:when>
+		<xsl:when test="$b">
+			<!-- Do something when $b has a value -->
+		</xsl:when>
+		<xsl:otherwise>
+			<!-- Do something when $a has a value -->
+		</xsl:otherwise>
+	</xsl:choose>
+
+The `xsl:choose` instruction is the XSLT version of a switch statement or if/else conditionals in procedural programming languages.
+
+The Journal page has been configured with a single URL parameter: `entry`. To create a page template that will display an overview when the `$entry` parameter has no value, that is, when the browser has navigated to the Journal page at `http://www.example.com/journal/`, we can use the Entries data source. When the browser has navigated to a specific entry, `http://www.example.com/journal/entry-title/`, we can use the Entry data source. An `xsl:choose` instruction provides the logic to display an overview of entries or the full selected entry.
+
+	<xsl:choose>
+		<xsl:when test="$entry">
+			<!-- Do something when $entry has a value -->
+		</xsl:when>
+		<xsl:otherwise>
+			<!-- Do something when $entry has no value -->
+		</xsl:otherwise>
+	</xsl:choose>
+
+
+#### The Journal Page Using a Single Data Source
+
+Apply this logic to the Journal page template, where we filter the entry using XSLT. Notice the predicate in the `xsl:for-each` instruction:
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <xsl:stylesheet version="1.0"
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    
+    <xsl:output method="xml"
+        doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+        omit-xml-declaration="yes"
+        encoding="UTF-8"
+        indent="yes" />
+    
+    <xsl:template match="/">
+    <html>
+    <head>
+        <title><xsl:value-of select="$page-title"/> | <xsl:value-of select="$website-name"/></title>
+    </head>
+    <body>
+        <h1><xsl:value-of select="$website-name"/></h1>
+        <h2><xsl:value-of select="$page-title"/></h2>
+		<xsl:choose>
+			<xsl:when test="$entry">
+				<xsl:for-each select="data/entries/entry[title/@handle = $entry]">
+					<h3><xsl:value-of select="title"/></h3>
+					<p class="meta">Posted <xsl:value-of select="date"/>
+						<xsl:if test="category">
+							<xsl:text> in </xsl:text>
+							<xsl:value-of select="category/item"/>
+						</xsl:if>
+					</p>
+					<xsl:copy-of select="description/*"/>
+				</xsl:for-each>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:for-each select="data/entries/entry">
+					<h3><xsl:value-of select="title"/></h3>
+					<p class="meta">Posted <xsl:value-of select="date"/>
+						<xsl:if test="category">
+							<xsl:text> in </xsl:text>
+							<xsl:value-of select="category/item"/>
+						</xsl:if>
+					</p>
+					<xsl:copy-of select="description/*"/>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
+    </body>
+    </html>
+    </xsl:template>
+    
+    </xsl:stylesheet>
+
+#### The Journal Page Using Two Data Sources
+
+The problem with this is that the Entries data source does not include all the elements required to display the full entry. We could include all the elements in the XML, but this would not be efficient to have all the data for every entry included in the XML output for the page. The most efficient way to display the full entry would be to prevent the entry from being included in the XML output if the `$entry` parameter has no value, but to include the full entry data in the XML output when the `$entry` parameter does have a value. To display the entry, simply select the entry node set in the `xsl:for-each` instruction.
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <xsl:stylesheet version="1.0"
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    
+    <xsl:output method="xml"
+        doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+        omit-xml-declaration="yes"
+        encoding="UTF-8"
+        indent="yes" />
+    
+    <xsl:template match="/">
+    <html>
+    <head>
+        <title><xsl:value-of select="$page-title"/> | <xsl:value-of select="$website-name"/></title>
+    </head>
+    <body>
+        <h1><xsl:value-of select="$website-name"/></h1>
+        <h2><xsl:value-of select="$page-title"/></h2>
+		<xsl:choose>
+			<xsl:when test="$entry">
+				<xsl:for-each select="data/entry/entry">
+					<h3><xsl:value-of select="title"/></h3>
+					<p class="meta">Posted <xsl:value-of select="date"/>
+						<xsl:if test="category">
+							<xsl:text> in </xsl:text>
+							<xsl:value-of select="category/item"/>
+						</xsl:if>
+					</p>
+					<xsl:copy-of select="description/*"/>
+				</xsl:for-each>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:for-each select="data/entries/entry">
+					<h3><xsl:value-of select="title"/></h3>
+					<p class="meta">Posted <xsl:value-of select="date"/>
+						<xsl:if test="category">
+							<xsl:text> in </xsl:text>
+							<xsl:value-of select="category/item"/>
+						</xsl:if>
+					</p>
+					<xsl:copy-of select="description/*"/>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
+    </body>
+    </html>
+    </xsl:template>
+    
+    </xsl:stylesheet>
+
+So, in this case, the data source does the filtering for us.
+
+Once you understand the basics of configuring sections, data sources and pages, and building templates with XSLT, you should be well on your way to discovering just how flexible Symphony can be for developing sites that go far beyond the traditional blog or brochure site.
+
+
+--------------------------------
+Date
+--------------------------------
+21 May 2009 9:10am
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xslt

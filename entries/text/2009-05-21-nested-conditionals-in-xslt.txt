@@ -1,0 +1,197 @@
+--------------------------------
+Title
+--------------------------------
+Nested Conditionals in XSLT
+
+
+--------------------------------
+Description
+--------------------------------
+Symphony URLs are actually URL parameters that can be used to manage page views by configuring data sources to limit entries displayed on a page and by using XSLT conditionals to output different results based on the value of each URL parameter. This tutorial is in answer to a [question](http://symphony-cms.com/forum/discussions/21702/#position-4) posted on the Symphony forum.
+
+
+
+--------------------------------
+Body
+--------------------------------
+The question was about how to manage a page that needed to distinguish between categories of entries, such a series of campaigns organized into three categories: “type”, “industry” and “client”. The page URLs might look like this:
+
+    http://www.example.com/casestudies/a-type-name/a-specific-campaign/
+    http://www.example.com/casestudies/a-industry-name/a-specific-campaign/
+    http://www.example.com/casestudies/a-client-name/a-specific-campaign/
+
+If the page parameters were `a/b` you could use these parameters to filter the data sources:
+
+* $a
+* $b
+
+Then the page template could look something like this:
+
+    <xsl:choose>
+        <xsl:when test="$b">
+            <!-- Do something when $b has a value, 
+                such as display entries that have a title handle
+                that matches the $b parameter -->
+            <xsl:choose>
+                <xsl:when test="$a = 'type'">
+                    <xsl:for-each select="/data/casestudy/entry[category = $a and title/@handle = $b]">
+                        <!-- A case study from the type category -->
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$a = 'industry'">
+                    <xsl:for-each select="/data/casestudy/entry[category = $a and title/@handle = $b]">
+                        <!-- A case study from the industry category -->
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$a = 'client'">
+                    <xsl:for-each select="/data/casestudy/entry[category = $a and title/@handle = $b]">
+                        <!-- A case study from the client category -->
+                    </xsl:for-each>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$a">
+            <!-- Do something when $a has a value and $b has no value, 
+                such as display an overview of all entries 
+                of a particular category -->
+            <xsl:choose>
+                <xsl:when test="$a = 'type'">
+                    <xsl:for-each select="/data/casestudies/entry[category = $a]">
+                        <!-- A case study from the type category -->
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$a = 'industry'">
+                    <xsl:for-each select="/data/casestudies/entry[category = $a]">
+                        <!-- A case study from the industry category -->
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$a = 'client'">
+                    <xsl:for-each select="/data/casestudies/entry[category = $a]">
+                        <!-- A case study from the client category -->
+                    </xsl:for-each>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+            <!-- Do something when neither $a nor $b has a value, 
+                such as an introduction to case studies -->
+        </xsl:otherwise>
+    </xsl:choose>
+
+Use two data sources: `Case Studies` and `Case Study`. Select the `casestudies` node for the overview data source. Select the `casestudy` node for the complete entry. Filter the `Case Study` data source to include the entry with the Title field that matches `$a` with a required URL parameter `$b`.
+
+#### The Same Result: Simplified Code
+
+This can actually be simplified to the following, since it accomplishes the same thing:
+
+    <xsl:choose>
+        <xsl:when test="$b">
+            <xsl:for-each select="/data/casestudy/entry[category = $a and title/@handle = $b]">
+                <!-- A case study: full entry -->
+            </xsl:for-each>
+        </xsl:when>
+        <xsl:when test="$a">
+            <xsl:for-each select="/data/casestudies/entry[category = $a]">
+                <!-- A case study: excerpt -->
+            </xsl:for-each>
+        </xsl:when>
+        <xsl:otherwise>
+            <!-- Do something when neither $a nor $b has a value, 
+                such as an introduction to case studies -->
+        </xsl:otherwise>
+    </xsl:choose>
+
+But this doesn’t demonstrate the concept of nested conditionals. It does demonstrate a rather elegant solution to a problem that might be much more difficult to accomplish using another templating system.
+
+#### Testing Node Values
+
+Perhaps, the question was a little more complex than I first thought. The goal was not to specify a category, but a particular subcategory of a parent category. Then, it would be necessary to test the value of the items in each category field. Assuming that each category is a select box or select box link with its own field, then we can use the first example with some node selection in the conditionals. More than likely, the entry title will be unique for each entry, so the full case study requires very basic logic. The overviews might be a little different, since the value of the `$a` parameter needs to match the title handle of the item in each category.
+
+    <xsl:choose>
+        <xsl:when test="$b">
+            <!-- Do something when $b has a value, 
+                such as display entries that have a title handle
+                that matches the $b parameter -->
+            <xsl:for-each select="/data/casestudy/entry[title/@handle = $b]">
+                <!-- A case study selected by type -->
+            </xsl:for-each>
+        </xsl:when>
+        <xsl:when test="$a">
+            <!-- Do something when $a has a value and $b has no value, 
+                such as display an overview of all entries 
+                of a particular category -->
+            <xsl:choose>
+                <xsl:when test="$a = /data/casestudies/entry/type/item/@handle">
+                    <xsl:for-each select="/data/casestudies/entry[type/item/@handle = $a]">
+                        <!-- A case study with an type title handle equal to $a -->
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$a = /data/casestudies/entry/industry/item/@handle">
+                    <xsl:for-each select="/data/casestudies/entry[industry/item/@handle = $a]">
+                        <!-- A case study with an industry title handle equal to $a -->
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$a = /data/casestudies/entry/client/item/@handle">
+                    <xsl:for-each select="/data/casestudies/entry[client/item/@handle = $a]">
+                        <!-- A case study with an client title handle equal to $a -->
+                    </xsl:for-each>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+            <!-- Do something when neither $a nor $b has a value, 
+                such as an introduction to case studies -->
+        </xsl:otherwise>
+    </xsl:choose>
+
+##### Simplified
+
+Again, this could probably be simplified:
+
+
+    <xsl:choose>
+        <xsl:when test="$b">
+            <xsl:for-each select="/data/casestudy/entry[title/@handle = $b]">
+                <!-- A case study selected by type -->
+            </xsl:for-each>
+        </xsl:when>
+        <xsl:when test="$a">
+            <xsl:for-each select="/data/casestudies/entry[type/item/@handle = $a]">
+                <!-- A case study with a type title handle equal to $a -->
+            </xsl:for-each>
+            <xsl:for-each select="/data/casestudies/entry[industry/item/@handle = $a]">
+                <!-- A case study with an industry title handle equal to $a -->
+            </xsl:for-each>
+            <xsl:for-each select="/data/casestudies/entry[client/item/@handle = $a]">
+                <!-- A case study with a client title handle equal to $a -->
+            </xsl:for-each>
+        </xsl:when>
+        <xsl:otherwise>
+            <!-- Do something when neither $a nor $b has a value, 
+                such as an introduction to case studies -->
+        </xsl:otherwise>
+    </xsl:choose>
+
+
+--------------------------------
+Date
+--------------------------------
+21 May 2009 10:37am
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xslt

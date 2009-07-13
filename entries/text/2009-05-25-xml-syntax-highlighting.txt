@@ -1,0 +1,235 @@
+--------------------------------
+Title
+--------------------------------
+XML Syntax Highlighting
+
+
+--------------------------------
+Description
+--------------------------------
+I noticed that both the new [Symphony CMS site]() and [Nick Dunn’s personal site](http://nick-dunn.co.uk/) both use similar syntax highlighting for XML code examples and snippets and I wanted to see what it might take to implement the same thing on this site. As it turns out, it wasn’t very difficult at all.
+
+
+
+--------------------------------
+Body
+--------------------------------
+I took a guess that the Symphony CMS site and Nick Dunn's site were both using some JavaScript to dynamically add the hooks necessary to style the code with CSS. Taking a look at the source of Nick's site made things a little clearer, since his site design is about as sparse as it gets, as it makes good use of a clean, minimalist one-column layout. The `syntax-xml.js` file caught my eye, so I took a look at the source. It looks like it was written by our talented JavaScript and Symphony CMS developer, Scott Hughes, and released relatively recently: 30 April 2009. I've not been able to find a github account or other code repository to link to as a source for this file. I'll make a formal request on the forum. Seeing as Scott has kindly released his code under the terms of the MIT licence and explicitly stated, "Feel free to reuse/repurpose it," I'm going to do just that. Here's the JavaScript file, `syntax-xml.js`:
+
+	jQuery(function() {
+	  /*
+	
+	  This function loops through all <pre> elements in the document, applying syntax
+	  highlighting for XML-like languages. Feel free to reuse/repurpose it!
+	
+	  -> created by Scott Hughes on 2009/04/30
+	  -> last updated 2009/05/26
+	  -> released under the terms of the MIT Licence: http://www.opensource.org/licenses/mit-license.php
+	
+	  */
+	
+	  var COMMENT = '<span class="comment">&lt;',
+	      CDATA   = '<span class="cdata">&lt;',
+	      DOCTYPE = '<span class="doctype">&lt;',
+	      ELEMENT = '&lt;',
+	      ATTR_A  = '<span class="attribute">',
+	      ATTR_B  = '</span><span class="attribute-data">',
+	      TEXT    = '<span class="text">',
+	      END     = '</span>',
+	      PARSER  = /<([?!](?:--(?:[^-]*-)+?(-)|\[CDATA\[(?:[^\]]*])+?(])|[^>]*)>)(\s*)|(?:<([^\s<>&]*)|(\s+)([^\s/<>&=]+=?)("[^"]*"|'[^']*'|[^\s/<>]*))(\s*\/?>\s*|)|[^<]+/g;
+	
+	  var m = document.getElementsByTagName('pre'),
+	      i = 0;
+	
+	  (function next() {
+	    if (m.length === i) {
+	      return;
+	    }
+	
+	    var o = m[i++],
+	        d = trim(o.textContent || o.innerText);
+	
+	    if (d.charAt(0) !== '<' || d.charAt(d.length - 1) !== '>') { // I guess it's not XML.
+	      next();
+	      return;
+	    }
+	
+	    var a = [],
+	        p = o.cloneNode(false);
+	
+	    (function replace() {
+	      var $,
+	          t = +new Date + 100; // If the following takes more than .1s, sleep for a moment to let the main thread catch up, then resume.
+	
+	      do {
+	        if ($ = PARSER.exec(d)) {
+	          if ($[5]) {
+	            a.push(ELEMENT, $[5], $[9]);
+	          } else if ($[6]) {
+	            a.push($[6], ATTR_A, $[7], ATTR_B, encode($[8]), END, $[9]);
+	          } else if ($[2]) {
+	            a.push(COMMENT, encode($[1]), END, $[4]);
+	          } else if ($[3]) {
+	            a.push(CDATA, encode($[1]), END, $[4]);
+	          } else if ($[1]) {
+	            a.push(DOCTYPE, encode($[1]), END, $[4]);
+	          } else {
+	            a.push(TEXT, encode($[0]), END);
+	          }
+	        } else {
+	          p.innerHTML = a.join('');
+	          p.className = 'element';
+	
+	          o.parentNode.replaceChild(p, o);
+	          setTimeout(next, 20);
+	
+	          return;
+	        }
+	      } while (+new Date < t);
+	
+	      setTimeout(replace, 20);
+	    })();
+	  })();
+	
+	  function trim(s) {
+	    for (var i = s.length; /\s/.test(s.charAt(--i)););
+	
+	    return s.slice(s.search(/\S/), i + 1);
+	  }
+	
+	  function encode(data) {
+	    return data.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+	  }
+	});
+
+I decided that the Journal entries, which are currently in a bit of disarray, would be left untouched, in regard to syntax highlighting, while the Tutorials entries would have the JavaScript applied to code snippets. If you haven't noticed yet, the Journal entries include everything in reverse chronological order, so that the most recent are at the top of the lists. All other pages filter out the appropriate entries for the designated section. The Home page displays entries that have the Section field set as "Home". The About page displays entries that have a Section field value of "About". And the Tutorials page ... well, you get the idea. It made more sense to list the Tutorials in ascending chronological order, that is, in the order that I wrote them and in the order in which it makes the most sense to follow along in a step-by-step fashion. It demonstrates the flexibility of Symphony by using a single Entries section to maintain the content for all sections. The serving of content to the appropriate pages is handled by data source filtering.
+
+So, then, to serve the JavaScript to only the tutorials page, I added some logic to the `master.xsl` template:
+
+	<xsl:template name="js">
+		<script type="text/javascript" src="{$js-path}jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="{$js-path}jquery-ui-1.7.1.custom.min.js"></script>
+		<script type="text/javascript" src="{$js-path}jquery-fluid.js"></script>
+		<xsl:if test="$current-page = 'tutorials'">
+			<script type="text/javascript" src="{$js-path}syntax-xml.js"></script>
+		</xsl:if>
+	</xsl:template>
+
+Then, to style the XML syntax highlighting, I added a CSS file, `xml.css`, and added the logic to serve it only to the Tutorials page.
+
+	<xsl:template name="css">
+		<link rel="stylesheet" type="text/css" href="{$css-path}reset.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$css-path}text.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$css-path}grids.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$css-path}layout.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$css-path}nav.css" media="all" />
+		<xsl:if test="$current-page = 'tutorials'">
+			<link rel="stylesheet" type="text/css" href="{$css-path}xml.css" media="all" />
+		</xsl:if>
+	</xsl:template>
+
+
+#### Handling White Space
+
+One thing that I did find a bit perplexing was handling white space. I had a CSS rule that was solving a problem caused by the indenting of code by the XSLT template attribute of the `xsl:output` instruction:
+
+	<xsl:output method="xml" indent="yes" />
+
+Because the XSLT was adding white space to the code elements, it was necessary to add a couple CSS rules as a workaround to remove the added space, [a clever solution](http://archive.overture21.com/forum/comments.php?DiscussionID=1452) suggested by Scott on the Symphony CMS forum:
+
+	pre {
+	    white-space: normal;
+	}
+	pre code {
+	    display: block;
+	    white-space: pre;
+	}
+
+I saw that Nick's site omitted the `code` element nested within the `pre` element. So, I figured that this would require the [XSLT Ninja technique](http://chaoticpattern.com/article/manipulating-html-in-xml/), using the [HTML Manipulation utility](http://symphony-cms.com/downloads/xslt/file/20035/) written by Allen Chang. The trick was to use an `xsl:apply-templates` instruction instead of the `xsl:copy-of` instruction for the `body` element of the entry:
+
+	<xsl:apply-templates select="body/*" mode="entry-html"/>
+
+The mode limits the execution of the following templates to the `xsl:apply-templates` instructions that explicitly use this mode:
+
+	<xsl:template match="*" mode="entry-html">
+		<xsl:element name="{name()}">
+			<xsl:apply-templates select="* | @* | text()" mode="entry-html"/>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="@*" mode="entry-html">
+		<xsl:attribute name="{name()}">
+			<xsl:value-of select="."/>
+		</xsl:attribute>
+	</xsl:template>
+	
+	<xsl:template match="pre" priority="1" mode="entry-html">
+		<pre><xsl:value-of select="./code"/></pre>
+	</xsl:template>
+
+The priority attribute for the `pre` match template overrides the default match templates for the other match templates using the "entry-html" mode, and removes the `code` element from all `pre` elements. As it turns out, though, this wasn't really necessary for the proper formatting of the white space for XML code. It was still necessary, though, for non-XML code snippets, so I kept this solution for the Tutorials section.
+
+The problem came from the CSS I had added to control the white space on `pre` elements. By overriding this rule within the CSS for formatting the syntax highlighting, I was able to solve the problem of the white space characters being truncated to a single space and collapsing the code snippets and making them very difficult to read. In the end, my CSS ended up with the following rules:
+
+	/* Syntax Highlighting
+	----------------------------------------------- */
+	
+	.box pre {
+		background-color: #eee;
+		white-space: pre;
+	}
+	
+	.box pre.element {
+		color: #881280;
+	}
+	pre .text {
+		color: #000;
+	}
+	pre .attribute {
+		color: #994500;
+	}
+	pre .attribute-data {
+		color: #1A1AA6;
+	}
+	pre .comment {
+		color: #236E25;
+		border: none !important;
+	}
+	pre .doctype {
+		color: #999;
+	} 
+	
+Now, you can see the difference between the syntax highlighting added to the [entries in the Tutorials section](/tutorials/xml-syntax-highlighting/) and the [identical entries in the Journal section](/journal/xml-syntax-highlighting/) without syntax highlighting.
+
+
+#### May 26, 2009: Updated the JavaScript to Patch a Vulnerability
+
+Scott Hughes created an updated version of the script:
+
+> I’ve just updated it to be more tolerant of random input, valid XML or not, and fixed that pesky error where it incorrectly highlights opening tags with attributes. If you’re using this on a site where public visitors can post code that gets highlighted, I strongly urge you to update to the newest version, since it fixes a security vulnerability. (You could previously craft malicious code that ends up writing a `<script>` element. Now, there’s no way it will output HTML containing any elements besides `<span>`s.)
+
+Find out more about [how to implement the syntax highlighting script](http://symphony-cms.com/forum/discussions/21896/1/#position-7) on the forum.
+
+
+--------------------------------
+Date
+--------------------------------
+25 May 2009 7:54am
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xml

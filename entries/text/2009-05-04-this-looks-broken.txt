@@ -1,0 +1,43 @@
+--------------------------------
+Title
+--------------------------------
+This Looks Broken
+
+
+--------------------------------
+Description
+--------------------------------
+#### Expect things to be broken here.
+
+I would be surprised if they are not.
+
+
+
+--------------------------------
+Body
+--------------------------------
+I may have built a reputation for being the guy who starts things, but never finishes. I’m okay with that. As I generalist, I try to learn as much as I can about a myriad of things. As a specialist, I get wrapped up in the details, and sometimes get lost in them. I have some goals in mind, but they tend to be a little lofty. Maybe some day the generalist, the specialist and the idealist will come together and actually finish something useful, beautiful or both.
+
+
+
+--------------------------------
+Date
+--------------------------------
+04 May 2009 8:00am
+
+
+--------------------------------
+Section
+--------------------------------
+About
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------

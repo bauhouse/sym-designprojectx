@@ -1,0 +1,151 @@
+--------------------------------
+Title
+--------------------------------
+Symphony and Git Submodules
+
+
+--------------------------------
+Description
+--------------------------------
+Now that Symphony 2.0.3 has been released, I want to take advantage of this new release in the development of the FluidGrids CSS Framework. Symphony CMS has been built as a set of core PHP classes that are extended by other classes called extensions. Admin and front end development takes place in the workspace directory, using XSL files for templating and PHP files for events and data sources. As the core of Symphony is being developed as a superproject with submodules, it makes sense to develop in the same way.
+
+
+
+--------------------------------
+Body
+--------------------------------
+### Symphony CMS is Open Source
+
+Since the official release of version 2.0 to GitHub in December of 2008, Symphony CMS has been an open source project, licensed under the GPL and MIT licences. (Actually, Symphony 2.0 Beta revision 5 was the initial open source release of Symphony.) This release marks a significant change, now that the way the community is now able to be directly involved in the ongoing development of the application. 
+
+#### Repositories, Forks and Branches
+
+I started at first by downloading Symphony 2.0.2 as a ZIP archive from the [Symphony CMS home page](http://symphony-cms.com/). Now, I'm thinking that's probably not the best way to go about doing this. Since I have yet to commit anything of any real significance, I'm going to start over, as it might make more sense to fork the GitHub Symphony 2.0 repository and work on modifications to the core as submodules.
+
+But, how will I fork? I already have a fork of the symphony-2 repository. Since I will be working more on the admin and front-end interfaces, most, if not all, of my work will be happening in the workspace directory. There is a separate GitHub project for the workspace, so the sym-fluidgrids repository should probably be a fork of the workspace repository. Then, what do I do about database updates? For a Symphony ensemble, the database information is stored in the `install.php` file as a Base64 encoded string. As this file exists outside of the workspace, this file would require a separate Git repository. If the end result is to be an ensemble, though, the workspace is a necessary part of the install and must be integrated into the repository along with the `install.php` file. A fork of the Symphony 2.0 install is going to be the best way to end up with an ensemble that can be installed in the same way. I will also need to decide on the dependencies that I want to create, specifically, which extensions to include in the ensemble. Ideally, I don't want to create any dependencies. The grids should require as little database interaction as possible, since one of the benefits of using the system should be that there are no preconceptions about the database structure of the site. There will, however, be some database interaction if I need to create pages. I could potentially create a single page with URL parameters that allowed for a sufficient number of levels of hierarchy, then use the Improved Page Resolve extension to create pages. The downside would be that all XSL files would be loaded for every page view of the site. This would be extremely inefficient. It would be best to use actual pages.
+
+Now, if this is to an ensemble, should this repository be a fork, a branch or an unrelated repository? This might depend on the goals of the project. Should I be able to pull changes from the official Symphony 2.0 repository? Ideally, I believe this should be possible. But, to do this, the repository should probably be a development branch, rather than the master. As far as I can tell, there is no way to create multiple forks of the same project on GitHub. But perhaps I could create a fork of a fork. Hmm, not as far as I can tell.
+
+Well, first, I need to update my fork of the Symphony 2.0 GitHub repository. I created the fork about the time that the initial release was made available on GitHub. Many things have changed since then. I start up a Terminal session in Coda and change the working directory to my forked GitHub repository:
+
+	cd Work/github/bauhouse/symphony-2
+
+I check the status of my repository:
+
+	git status
+
+Nothing has changed. I check the branches that I have checkout out:
+
+	git branch
+
+I have only the `master` branch checked out. I check the remote repositories:
+
+	git remote
+
+I have only the `origin` remote location, which refers to my GitHub fork. To update my repository, I need to fetch the changes from the official Symphony 2.0 repository. I add another remote location called `symphony`:
+
+	git remote add symphony git://github.com/symphony/symphony-2.git
+
+Then, I fetch the HEAD references from the remote `symphony` repository:
+
+	git fetch symphony
+
+This updates the objects and refs as a separate operation from `git merge`. To do both at once, use `git pull`. So, to pull the changes from the `master` branch of the remote `symphony` repository:
+
+	git pull symphony master
+
+Create a new branch for the `integration` branch of the remote `symphony` repository:
+
+	git checkout -b integration
+
+This switches to the `integration` branch so I can pull the changes from `remote`.
+
+	git pull symphony integration
+
+At this time, there haven't been any further changes since the release of 2.0.3, so, since both the master and integration branches are identical, all is as before. To sync up my forked repositories, I need to push the latest changes up to my own repositories:
+
+	git push origin master
+	git push origin integration
+
+To sync up the tags, I push the tags references:
+
+	git push --tags
+
+I have an old branch left from a time when there was also an `optimisation` branch. I remove this branch from GitHub:
+
+	git push origin :optimisation
+
+Now, I have the option of creating a branch of this repository or creating a new repository that is a clone of this branch. I'm going to treat ensembles as something different than the official install of Symphony. Even though the default Symphony ensemble is itself an ensemble, it is actually a particular combination of submodules, including the default extensions and the default workspace, that together create the default installation of Symphony. If I want to make changes to the core, these changes are separate from changes I might want to make to an ensemble that depends on the core. An ensemble is a collection of extensions plus a workspace. So, I'll create another repository that represents the full ensemble. I might as well use the same configuration of submodules, as each should be updated independently of each other, but the ensemble will represent something that extends a clean install of Symphony, including some of the features of the default theme, but offering other features that are beyond the confines of a fork of the Symphony core.
+
+
+#### Installing Symphony from GitHub
+
+First, I'll go to the Admin menu for the sym-fluidgrids repository and delete. Then, create a new repository that will be a clone of the Symphony 2.0 repository, but it will not be a fork, so that I can have an actual fork of the core repository that I can make modifications to if I ever have something that might require a pull request from the developers. The ensemble will never be used in this way, so it need not be a part of the GitHub network for the Symphony 2.0 project.
+
+Then, I go through the steps to create the initial repository:
+
+I changed the working directory to the directory that contains all my GitHub repositories: 
+
+	cd ~/Work/github/bauhouse
+
+Then, I remove the repository that I had created before. I had made no significant changes to the repository, so I can recursively remove all files and folders in the repository, setting a flag to do so without prompts for files where I don't have permissions to make changes:
+
+	rm -R -f sym-fluidgrids
+
+Then, I create a directory with the same name as my GitHub repository:
+
+	mkdir sym-fluidgrids
+
+I change directories, moving into the directory I just created:
+	
+	cd sym-fluidgrids
+
+I initialize the local Git repository:
+
+	git init
+
+Add a remote repository for the Symphony 2.0 core:
+
+	git remote add symphony git://github.com/symphony/symphony-2.git
+
+Fetch the objects and refs and pull the files into my local repository:
+
+	git fetch symphony
+	git pull symphony master
+
+Add a remote location for my GitHub project:
+
+	git remote add origin git@github.com:bauhouse/sym-fluidgrids.git
+
+Then push the Symphony 2.0 files to GitHub:
+
+	git push origin master
+
+I've just created a GitHub repository with a copy of the Symphony 2.0.3 install files. This will be my starting point for the [FluidGrids ensemble](http://github.com/bauhouse/sym-fluidgrids/tree/master).
+
+
+
+
+
+--------------------------------
+Date
+--------------------------------
+27 Jun 2009 7:42am
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+github, symphony cms, xslt

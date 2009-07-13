@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="32" items="0">
+	<title handle="lets-get-started-again">Let's Get Started ... Again</title>
+	<description word-count="41"><h4>Then, let’s see if I can finish</h4>
+
+<p>The thing is, when is something really finished on the web? The web is fluid. It is constantly evolving. There’s always more to learn. So, I think “finished” will always be an elusive goal.</p></description>
+	<body word-count="74"><h4>A different goal: what can I learn today?</h4>
+
+<p>I learn by doing. So this is me doing stuff. I’m also a perfectionist, which sometimes leads to a condition of paralysis, if I don’t want to release something into the wild if it’s not ready for public consumption. I have resolved that things will not be perfect. Mistakes are part of the process. So this is me in process. Stream of consciousness code and design.</p></body>
+	<section>
+		<item handle="about" id="16">About</item>
+	</section>
+	<date time="13:00" weekday="1">2009-05-04</date>
+	<publish>Yes</publish>
+</entry>

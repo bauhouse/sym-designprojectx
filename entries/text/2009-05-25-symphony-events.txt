@@ -1,0 +1,168 @@
+--------------------------------
+Title
+--------------------------------
+Symphony Events
+
+
+--------------------------------
+Description
+--------------------------------
+Events are PHP classes or functions that can be attached to a page template to perform specific functions that are out of the realm of what XSLT alone can accomplish. Extensions can sometimes include events that can be attached to a page. Built into Symphony is a way of creating events that can be used to save data to the database from front-end forms with the option of sending an email message on successfully saving an entry, or even multiple entries.
+
+
+
+--------------------------------
+Body
+--------------------------------
+PHP code cannot be inserted into XSLT, since it is not valid XML. Plus, it might compromise the security of the site if it were possible. Symphony events have been created as a way of enabling pages to take advantage of the PHP classes available in the Symphony core, or to extend these core classes with additional functionality. Continuing on with the tutorial for [Importing XML in Symphony](http://www.designprojectx.com/tutorials/importing-xml-in-symphony/), I will be creating an event to save entries by importing data from an external XML file.
+
+#### Create an Event
+
+The easiest way to create an event is to use the Events Editor by navigating to Blueprints : Components and clicking on the "Create New" button beside "Events". Use the following preferences to create a new event:
+
+##### Essentials
+
+* Name: **Save Entry**
+* Source: **Entries**
+* Filter Rules: **Admin Only**
+
+##### Description
+
+Once saved, a PHP file will be saved to the events directory in the workspace. Also, a Description will provide instructions for using the event with a front-end form. Here's the Description for my new "Save Entry" event:
+
+###### Success and Failure XML Examples
+
+When saved successfully, the following XML will be returned:
+
+	<save-entries>
+	  <entry index="0" result="success" type="create | edit">
+	    <message>Entry [created | edited] successfully.</message>
+	  </entry>
+	</save-entries>
+	
+When an error occurs during saving, due to either missing or invalid fields, the following XML will be returned (Notice that it is possible to get mixtures of success and failure messages when using the "Allow Multiple" option):
+
+	<save-entries>
+	  <entry index="0" result="error">
+	    <message>Entry encountered errors when saving.</message>
+	    <field-name type="invalid | missing" />
+	  </entry>
+	  <entry index="1" result="success" type="create | edit">
+	    <message>Entry [created | edited] successfully.</message>
+	  </entry>
+	  ...
+	</save-entries>
+
+The following is an example of what is returned if any filters fail:
+
+	<save-entries result="error">
+	  <message>Entry encountered errors when saving.</message>
+	  <filter name="admin-only" status="failed" />
+	  <filter name="send-email" status="failed">Recipient username was invalid</filter>
+	  ...
+	</save-entries>
+
+###### Example Front-end Form Markup
+
+This is an example of the form markup you can use on your frontend:
+
+	<form method="post" action="" enctype="multipart/form-data">
+	  <input name="MAX_FILE_SIZE" type="hidden" value="5242880" />
+	  <label>Title
+	    <input name="fields[title]" type="text" />
+	  </label>
+	  <label>Description
+	    <textarea name="fields[description]" rows="6" cols="50"></textarea>
+	  </label>
+	  <label>Body
+	    <textarea name="fields[body]" rows="15" cols="50"></textarea>
+	  </label>
+	  <input name="fields[section]" type="hidden" value="..." />
+	  <input name="fields[category]" type="hidden" value="..." />
+	  <label>Tags
+	    <input name="fields[tags]" type="text" />
+	  </label>
+	  <label>Date
+	    <input name="fields[date]" type="text" />
+	  </label>
+	  <label>Publish
+	    <input name="fields[publish]" type="checkbox" />
+	  </label>
+	  <input name="action[save-entry]" type="submit" value="Submit" />
+	</form>
+
+To edit an existing entry, include the entry ID value of the entry in the form. This is best as a hidden field like so:
+
+	<input name="id[0]" type="hidden" value="23" />
+
+To redirect to a different location upon a successful save, include the redirect location in the form. This is best as a hidden field like so, where the value is the URL to redirect to:
+
+	<input name="redirect" type="hidden" value="http://www.designprojectx.com/success/" />
+
+#### Allow Multiple Entries
+
+By clicking on the "Allow Multiple" option under Filter Rules when creating an event, it is possible to save several entries at once.
+
+##### Essentials
+
+* Name: **Save Entries**
+* Source: **Entries**
+* Filter Rules: **Admin Only, Allow Multiple**
+
+##### Description
+
+The front-end form markup will change to allow the mapping of data to a POST array:
+
+###### Example Front-end Form Markup
+
+This is an example of the form markup you can use on your frontend:
+
+	<form method="post" action="" enctype="multipart/form-data">
+	  <input name="MAX_FILE_SIZE" type="hidden" value="5242880" />
+	  <label>Title
+	    <input name="fields[0][title]" type="text" />
+	  </label>
+	  <label>Description
+	    <textarea name="fields[0][description]" rows="6" cols="50"></textarea>
+	  </label>
+	  <label>Body
+	    <textarea name="fields[0][body]" rows="15" cols="50"></textarea>
+	  </label>
+	  <input name="fields[0][section]" type="hidden" value="..." />
+	  <input name="fields[0][category]" type="hidden" value="..." />
+	  <label>Tags
+	    <input name="fields[0][tags]" type="text" />
+	  </label>
+	  <label>Date
+	    <input name="fields[0][date]" type="text" />
+	  </label>
+	  <label>Publish
+	    <input name="fields[0][publish]" type="checkbox" />
+	  </label>
+	  <input name="action[save-entries]" type="submit" value="Submit" />
+	</form> 
+
+
+
+--------------------------------
+Date
+--------------------------------
+25 May 2009 12:26pm
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xslt

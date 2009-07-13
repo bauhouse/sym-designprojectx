@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="33" items="0">
+	<title handle="symphony-utilities">Symphony Utilities</title>
+	<description word-count="30"><p>Utilities are XSLT templates that can be used for a number of different applications. XML can be transformed into text, html, or xml, so the applications can be virtually limitless.</p></description>
+	<body word-count="28"><p>There are a few XSLT templates available on the Symphony CMS site:</p>
+
+<ul>
+<li><a href="http://symphony-cms.com/downloads/xslt/file/20816/">HTML Truncate Advanced</a></li>
+<li><a href="http://symphony-cms.com/downloads/xslt/file/20746/">Basic Tumblr.com API Utility</a></li>
+<li><a href="http://symphony-cms.com/downloads/xslt/file/20744/">Format Date/Time Advanced</a></li>
+<li><a href="http://symphony-cms.com/downloads/xslt/file/20574/">E-mail Obfuscator</a></li>
+<li><a href="http://symphony-cms.com/downloads/xslt/file/20573/">HTML To Markdown Text</a></li>
+</ul></body>
+	<section>
+		<item handle="journal" id="17">Journal</item>
+	</section>
+	<category>
+		<item handle="technology" id="15">Technology</item>
+	</category>
+	<date time="17:48" weekday="7">2009-05-17</date>
+	<publish>Yes</publish>
+	<tags>
+		<item handle="symphony-cms">symphony cms</item>
+	</tags>
+</entry>

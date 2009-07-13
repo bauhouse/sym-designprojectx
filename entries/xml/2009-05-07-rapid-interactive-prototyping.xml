@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="19" items="0">
+	<title handle="rapid-interactive-prototyping">Rapid Interactive Prototyping</title>
+	<description word-count="36"><p>I credit Andy Clarke with the idea of improving the approach of working with wireframes by using the Grey Box Method. I highly recommend his book, Trancending CSS, for both the fantastic content and beautiful design.</p></description>
+	<body word-count="49"><p>I love the idea of changing the process of developing web sites to be content-driven rather than design-driven. And I’m saying that as a designer. Of course, design has a huge part to play, but content is the critical piece of the site. Without it, the design is pointless.</p></body>
+	<section>
+		<item handle="journal" id="17">Journal</item>
+	</section>
+	<category>
+		<item handle="technology" id="15">Technology</item>
+	</category>
+	<date time="08:46" weekday="4">2009-05-07</date>
+	<publish>Yes</publish>
+</entry>

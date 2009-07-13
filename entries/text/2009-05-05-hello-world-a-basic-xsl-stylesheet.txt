@@ -1,0 +1,108 @@
+--------------------------------
+Title
+--------------------------------
+Hello World: A Basic XSL Stylesheet
+
+
+--------------------------------
+Description
+--------------------------------
+Developing a site with Symphony CMS starts with a basic XSL stylesheet. This is the traditional “Hello, world” example.
+
+
+
+--------------------------------
+Body
+--------------------------------
+#### Page
+
+First, create the home page. Navigate to Blueprints : Pages and click on the Create New button.
+
+##### The Index Page
+
+The index page is a special type of page that is designated as the root of your site. There can only be one page with a type of `index`. If the home page does not have the `index` page type assigned to it, Symphony will throw an error:
+
+> The page you requested does not exist.
+
+Other pages do not require a page type, so, for all other pages, the Page Type field is optional.
+
+##### URL Handle
+
+The URL handle is the text string that can be used to identify an entry in a URL. If you do not specify a URL handle, Symphony automatically modifies the string supplied in the Title field, transforming uppercase characters to lowercase characters and turning space characters into hyphens to create the handle.
+
+Use the following settings to configure the page:
+
+###### URL Settings
+
+* Parent Page: /
+* URL Handle: home
+* URL Parameters: (none)
+
+###### Page Metadata
+
+* Events: (none)
+* Data Sources: (none)
+* Page Type: index **(this is important)**
+
+###### Page Data
+
+* Title: Home
+* Body: (see the page template below)
+* Utilities: (none)
+
+#### The Page Template
+
+Symphony uses XSLT as its templating system. XSLT is a W3C recommendation. It’s strength is in its ability to transform XML into XML, Text, HTML or XHTML with the ability to use conditionals, recursion, and a number of math and string manipulation functions. This skeleton XSL stylesheet provides the minimum necessary to create a web page with an XHTML 1.0 Strict doctype.
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <xsl:stylesheet version="1.0"
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    
+    <xsl:output method="xml"
+        doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+        omit-xml-declaration="yes"
+        encoding="UTF-8"
+        indent="yes" />
+    
+    <xsl:template match="/">
+    <html>
+    <head>
+        <title>Hello</title>
+    </head>
+    <body>
+        <h1>Hello, world</h1>
+    </body>
+    </html>
+    </xsl:template>
+    
+    </xsl:stylesheet>
+
+View the example [XSLT template](/workspace/pages/tutorials_examples_hello.xsl) and [HTML output](/tutorials/examples/hello/).
+
+So, you can have one XSL stylesheet that contains several XSL templates that do a number of different things. But, we’ll find out about that later. Just be aware that everything is based on XML, so everything has to be “well-formed” or “valid” XML. And that includes the HTML.
+
+
+
+--------------------------------
+Date
+--------------------------------
+05 May 2009 6:00pm
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms

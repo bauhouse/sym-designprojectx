@@ -1,0 +1,247 @@
+--------------------------------
+Title
+--------------------------------
+Ninja Domains: A Multi-Domain Setup using the Symphony XSLT Content Management System
+
+
+--------------------------------
+Description
+--------------------------------
+My first contributing author, [Michael Eichelsdšrfer](http://www.michael-eichelsdoerfer.de/), has been using Symphony CMS in some very interesting ways. This particular technique, using a single Symphony install to run multiple domains, intrigued me. Michael has been kind enough to satisfy my curiosity by putting together a tutorial.
+
+This tutorial covers an advanced multi-domain setup. Several websites may be powered by a single Symphony installation, using a single backend. This may be useful in case of websites having the same owner, intended to share content and/or technical solutions.
+
+
+
+--------------------------------
+Body
+--------------------------------
+Prerequisites:
+
+* Symphony XSLT Content Management System
+* Apache webserver meeting Symphony's requirements
+* 2 domain names
+
+On websites running Symphony, sharing content between sites may be achieved rather easily using XML output on one site and dynamic datasources on other ("client") websites. This will be the best way to go if only a few content streams will be shared. Moreover, it will be the only way if separate admin areas are needed.
+
+Now think of a different situation: Imagine a client who wants to manage several websites from a single backend. Additionally, these websites should share lots of content and "functions". Is there an elegant solution to this?
+
+From version 2.0, Symphony does no more execute "strong redirects" to a preset domain. Nor does it save a server path anywhere in the configuration. Instead, the domain name and the server path are determined on-the-fly where needed. This behaviour, while unfamiliar for long-time users of Symphony, provides much greater flexibility (and may therefore be regarded as "typically symphonese"). So Symphony indeed allows for the following scenario:
+
+* A single backend (e.g. admin area) may be used for two (or more) websites
+* Those websites will share the same database, meaning that there is direct access to any content for any website.
+* Maintenance will be simplified because of a single shared codebase (Symphony core, Symphony extensions, XSLT templates, CSS files etc.).
+* There is fine-grained control over independent and shared resources.
+
+The downsides will be:
+
+* Symphony configuration is the same for all domains. There is, for example, no known way to switch one site in maintenance mode while keeping the others "alive". (Of course you could add a 'simulated maintenance mode' using XSLT.)
+* Any content will be visible to every author or admin user (as long as there is no advanced author management). This might lead to an over-populated admin area. The problem will be much smaller with Symphony's ability to build navigation groups.
+
+
+Basic Setup
+-----------
+
+Domain1 and Domain2 should point to the same directory on the server, like so:
+
+    http://www.domain1.com  =>  /var/www/www.domainx.com
+    http://www.domain2.com  =>  /var/www/www.domainx.com
+
+Install a Symphony ensemble in `/var/www/domainx.com`.
+
+After installation you should be able to access your website via `http://www.domain1.com` or `http://www.domain2.com`.
+
+You should as well be able to login from either `http://www.domain1.com/symphony` or `http://www.domain2.com/symphony`. You will note that, because Symphony switched to login-management using PHP sessions lately, these logins (giving access to the admin area) will be domain-specific. This is by nature of PHP sessions. It is, of course, important only if you need a valid login cookie for a specific domain (because you are checking for logged-in users in XSLT, or you are trying to access Symphony's debug mode). Publish actions and other work in the admin area may be executed using any of the domains. Remember: This is a single installation of Symphony.
+
+Now take a first step: Open your main `.htaccess` file and paste the following code at the very top:
+
+    <IfModule mod_rewrite.c>
+    
+        RewriteEngine On
+        RewriteBase /
+    
+        ### GLOBAL REWRITE
+    
+        RewriteCond %{HTTP_HOST} ^www.domain1.com$ [NC]
+        RewriteRule ^(.*)$ http://domain1.com/$1 [R,L]
+    
+        RewriteCond %{HTTP_HOST} ^domain2.com$ [NC]
+        RewriteRule ^(.*)$ http://www.domain2.com/$1 [R,L]
+    
+    </IfModule>
+
+Now you can access Domain1 exclusively without the "www" prefix, while Domain2 will always include the "www" prefix. Symphony doesn't care about that at all.
+
+
+Delivering Domain-specific Content
+----------------------------------
+
+Here is the big idea: Domain1's website will have one special page which will be the homepage of Domain2. Any sub-pages of this special page will be pages of the Domain2 website. Thinking in page hierarchy, accessing Domain2 will be like accessing a sub-folder (of the Domain1 folder) on your computer's hard drive.
+
+Prepare for your "satellite website" by adding a new page in Symphony. Let's call this page "domain2". Page type: hidden. (It should not appear in your navigation.) Append the Login Info Event and the Navigation Datasource. Fill in some content. Use your existing master stylesheet for the moment Ð we'll improve this in a minute.
+
+The new page is at `http://domain1.com/domain2/`.
+
+Here comes the `mod_rewrite` magic. Add the following rules in your main `.htaccess` file (after the "Global Rewrite" block you created, immediately before the closing `</IfModule>` tag):
+
+    ### DOMAIN2
+    
+    RewriteCond %{HTTP_HOST} domain1.com$ [NC]
+    RewriteRule ^domain2/(.*)$ http://www.domain2.com/$1 [R,L]
+    
+    RewriteCond %{HTTP_HOST} domain2.com$ [NC]
+    RewriteRule ^$ /index.php?page=domain2&%{QUERY_STRING} [L]
+    
+    RewriteCond %{HTTP_HOST} domain2.com$ [NC]
+    RewriteRule ^(.*)/$ /index.php?page=domain2/$1&%{QUERY_STRING} [L]
+
+These rules (tested on Apache 2) do the following:
+
+* The "original URL" of your satellite website will be redirected to Domain2. (Rule 1)
+* If the request is for domain2, then fool symphony by using `page=domain2` for its URL rewriting. (Rules 2 and 3)
+
+Try to access your page at `domain1.com/domain2`. You should be redirected to `http://www.domain2.com`. Your new page is now the homepage of Domain2!
+
+If you have followed with a default installation of Symphony 2, you may have noticed that the navigation on the homepage of domain2 is missing the navigation elements for logged-in users. Guess why? You are probably logged in to Domain1, but not to Domain2. Try and log in to `http://www.domain2.com/symphony`. Boom - it works.
+
+Well, not quite. Actually the standard page links in the navigation dont't work. This is because those pages are not Domain2 pages, meaning they do not have "domain2" as their parent page. They should not even be here, in Domain2's navigation. Domain2 will need its own navigation datasource and navigation template.
+
+So create a datasource called "Navigation Domain2". The source must be "Navigation". Filter this datasource by the Parent Page "/domain2". Append this datasource to your page called "domain2".
+
+Open the utiliy `navigation.xsl` and replace line 4:
+
+    <xsl:template match="navigation">
+
+by:
+
+    <xsl:template match="navigation | navigation-domain2">
+
+(This will make the template work with either navigation datasource.)
+
+Now open your `master.xsl`. Replace:
+
+    <xsl:apply-templates select="data/navigation"/>
+
+by:
+
+    <xsl:choose>
+        <xsl:when test="contains($root, 'domain2.com')">
+            <xsl:apply-templates select="data/navigation-domain2"/>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:apply-templates select="data/navigation"/>
+        </xsl:otherwise>
+    </xsl:choose>
+
+(This will apply navigation templates depending on the value of the `$root` parameter.
+
+Now all you need is some pages having "domain2" as their parent page. If they show up in your page XML of your Domain2 homepage (on the debug screen), you should as well see them in the navigation. You should be able to navigate through your website "Domain2".
+
+You have started to set courses, still re-using most of Domain1's codebase for Domain2. Play around. Symphony allows to build "domain-specific" datsources or events simply by attaching them to the right pages. All of your existing XSL templates may be used, some of them needing slight modifications. You may build "domain-specific" utilities as well. It's up to your imagination.
+
+
+Increasing future-proofness: Global Variables
+---------------------------------------------
+
+Checking for a site root in many of your XSL templates is not very future-proof. If your client decides to change the domain of the "satellite website", you would have to go through all your page and utility templates.
+
+To make life easier you might for example add the following global variable to your `master.xsl` file:
+
+    <xsl:variable name="satellite-site">
+        <xsl:choose>
+            <xsl:when test="contains($root, 'domain2.com')">
+                <xsl:text>domain2</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>NULL</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+
+Now you can do things like the following in your template files (here: `master.xsl`):
+
+    <xsl:if test="$satellite-site = 'domain2'">
+        <link rel="stylesheet" type="text/css" media="screen" href="{$workspace}/css/domain2.css" />
+    </xsl:if>
+
+(This would load an additional "overriding" CSS Stylesheet for the satellite website called domain2.)
+
+Or this:
+
+    <xsl:if test="$satellite-site = 'NULL'">
+        <xsl:call-template name="advertisement-for-domain2.xsl"/>
+    </xsl:if>
+
+Or this, as a replacement for the navigation logic you already implemented:
+
+    <xsl:choose>
+        <xsl:when test="$satellite-site = 'domain2">
+            <xsl:apply-templates select="data/navigation-domain2"/>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:apply-templates select="data/navigation"/>
+        </xsl:otherwise>
+    </xsl:choose>
+
+If you ever have to change the domain name of your satellite website, simply change the corresponding `<xsl:when>` statement in your master template.
+
+
+One step further: Adding Multi-Directory-Support
+------------------------------------------------
+
+You might find situations where it is useful to have different domains pointing to different directories on the server. For example if other applications (like intranet systems) are running on one of the domains. In this case you may not want to manage access restrictions by `.htaccess` exclusively (which indeed might become very complicated over time). Instead you would like to have different home directories for your domains on the server.
+
+**You will need SSH access to the webspace/webserver.**
+
+Domain1 and Domain2 point to different directories on the server, like so:
+
+    http://www.domain1.com  =>  /var/www/www.domain1.com
+    http://www.domain2.com  =>  /var/www/www.domain2.com
+
+We assume that Symphony is in `/var/www/domain1`. You will find the following files and folders:
+
+    .htaccess
+    extensions
+    index.php
+    manifest
+    symphony
+    workspace
+
+All you need to get Domain2 working with Symphony is to create some symbolic links from `/var/www/domain1` to `/var/www/domain2`. Connect to your server via SSH using an SSH client application (e.g. the Mac OS X Terminal) and create the following links:
+
+    ln -s  /var/www/www.domain1.com/extensions  /var/www/www.domain2.com/extensions;
+    ln -s  /var/www/www.domain1.com/index.php   /var/www/www.domain2.com/index.php;
+    ln -s  /var/www/www.domain1.com/manifest    /var/www/www.domain2.com/manifest;
+    ln -s  /var/www/www.domain1.com/symphony    /var/www/www.domain2.com/symphony;
+    ln -s  /var/www/www.domain1.com/workspace   /var/www/www.domain2.com/workspace;
+
+If none of the .htaccess files was supposed to contain domain-specific rulesets, even this file could be linked by a symbolic link. However, in most cases domain-specific content will be added over time. So it is much more future-proof to create a physical `.htaccess` file for Domain2 and to paste the Symphony part of Domain1's `.htaccess` file there.
+
+You should then be able to access your website via `http://www.domain1.com` or `http://www.domain2.com`. You should as well be able to login from either `http://www.domain1.com/symphony` or `http://www.domain2.com/symphony`.
+
+If you intend to deliver different content for your domains, you will have to transcribe the `.htaccess` rules explained above. Now you have two independent `.htaccess` files. Actually this will make things a bit more simple, because you do not need to check for the HTTP_HOST so often. But you will need to integrate some "satellite domain redirects" into the "Symphony part" of the corresponding `.htaccess` file.
+
+
+
+--------------------------------
+Date
+--------------------------------
+15 Jun 2009 6:57am
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xslt

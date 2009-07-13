@@ -1,0 +1,73 @@
+--------------------------------
+Title
+--------------------------------
+
+Hello World - A Basic XSL Stylesheet
+
+
+--------------------------------
+Description
+--------------------------------
+
+Developing a site with Symphony CMS starts with a basic XSL stylesheet. This is the traditional "Hello, world" example.
+
+
+--------------------------------
+Body
+--------------------------------
+
+First, I need a home page. I already have this, but, I'll show the guts of the XSL file. Why XSL? That's what Symphony uses as a templating system. Unfortunately, it is not as widely used as it probably should be, in my opinion. It is also the opinion of the W3C that it should be more widely used. They created the standard, and I think standards are good. At least, better than the alternative.
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsl:stylesheet version="1.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	
+	<xsl:output method="xml"
+	doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+	doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+	omit-xml-declaration="yes"
+	encoding="UTF-8"
+	indent="yes" />
+	
+	<xsl:template match="/">
+	<html>
+	<head>
+		<title>Hello</title>
+	</head>
+	<body>
+		<h1>Hello, world</h1>
+	</body>
+	</html>
+	</xsl:template>
+	
+	</xsl:stylesheet>
+
+So, you can have one XSL stylesheet that contains several XSL templates that do a number of different things. But, we'll find out about that later. Just be aware that everything is based on XML, so everything has to be "well-formed" or "valid" XML. And that includes the HTML.
+
+### Note
+
+For this XSL template to work as a home page in Symphony, the page type needs to be designated as "index".
+
+
+--------------------------------
+Date
+--------------------------------
+5 May 2009 6:00:00 pm
+
+
+--------------------------------
+Section
+--------------------------------
+Journal
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xslt

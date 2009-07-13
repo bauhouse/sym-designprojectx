@@ -1,0 +1,41 @@
+--------------------------------
+Title
+--------------------------------
+Rapid Interactive Prototyping
+
+
+--------------------------------
+Description
+--------------------------------
+I credit Andy Clarke with the idea of improving the approach of working with wireframes by using the Grey Box Method. I highly recommend his book, Trancending CSS, for both the fantastic content and beautiful design.
+
+
+
+--------------------------------
+Body
+--------------------------------
+I love the idea of changing the process of developing web sites to be content-driven rather than design-driven. And I’m saying that as a designer. Of course, design has a huge part to play, but content is the critical piece of the site. Without it, the design is pointless.
+
+
+
+--------------------------------
+Date
+--------------------------------
+07 May 2009 8:46am
+
+
+--------------------------------
+Section
+--------------------------------
+Journal
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------

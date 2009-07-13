@@ -1,0 +1,46 @@
+--------------------------------
+Title
+--------------------------------
+What is this?
+
+
+--------------------------------
+Description
+--------------------------------
+#### It is a live build of Symphony
+
+It started out as a [live build of a Symphony site](http://designprojectx.com/about/) during [An Event Apart](http://aneventapart.com/2009/seattle/), while listening to Jeffrey Zeldman and Eric Meyer, and many other fascinating people.
+
+
+
+--------------------------------
+Body
+--------------------------------
+#### How it really started
+
+I bought this domain as a sandbox to play in. If I needed somewhere to send a client to see the current iteration of a project, I would send them here. The days of freelance are officially over. But I still like to play around. I tend to play around on the fringes of design and technology. But these experiments usually involve open source standards, or at least free tools and technologies that can be widely adapted and shared.
+
+
+
+--------------------------------
+Date
+--------------------------------
+04 May 2009 12:00am
+
+
+--------------------------------
+Section
+--------------------------------
+About
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+an event apart, symphony cms

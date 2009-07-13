@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="24" items="0">
+	<title handle="what-is-this">What is this?</title>
+	<description word-count="35"><h4>It is a live build of Symphony</h4>
+
+<p>It started out as a <a href="http://designprojectx.com/about/">live build of a Symphony site</a> during <a href="http://aneventapart.com/2009/seattle/">An Event Apart</a>, while listening to Jeffrey Zeldman and Eric Meyer, and many other fascinating people.</p></description>
+	<body word-count="83"><h4>How it really started</h4>
+
+<p>I bought this domain as a sandbox to play in. If I needed somewhere to send a client to see the current iteration of a project, I would send them here. The days of freelance are officially over. But I still like to play around. I tend to play around on the fringes of design and technology. But these experiments usually involve open source standards, or at least free tools and technologies that can be widely adapted and shared.</p></body>
+	<section>
+		<item handle="about" id="16">About</item>
+	</section>
+	<category>
+		<item handle="technology" id="15">Technology</item>
+	</category>
+	<date time="00:00" weekday="1">2009-05-04</date>
+	<publish>Yes</publish>
+	<tags>
+		<item handle="an-event-apart">an event apart</item>
+		<item handle="symphony-cms">symphony cms</item>
+	</tags>
+</entry>

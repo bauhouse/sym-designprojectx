@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="25" items="0">
+	<title handle="this-looks-broken">This Looks Broken</title>
+	<description word-count="14"><h4>Expect things to be broken here.</h4>
+
+<p>I would be surprised if they are not.</p></description>
+	<body word-count="88"><p>I may have built a reputation for being the guy who starts things, but never finishes. I’m okay with that. As I generalist, I try to learn as much as I can about a myriad of things. As a specialist, I get wrapped up in the details, and sometimes get lost in them. I have some goals in mind, but they tend to be a little lofty. Maybe some day the generalist, the specialist and the idealist will come together and actually finish something useful, beautiful or both.</p></body>
+	<section>
+		<item handle="about" id="16">About</item>
+	</section>
+	<category>
+		<item handle="technology" id="15">Technology</item>
+	</category>
+	<date time="08:00" weekday="1">2009-05-04</date>
+	<publish>Yes</publish>
+</entry>

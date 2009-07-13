@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<navigation>
+	<sections>
+		<section>
+			<title handle="home">Home</title>
+		</section>
+		<section>
+			<title handle="about">About</title>
+		</section>
+		<section>
+			<title handle="journal">Journal</title>
+		</section>
+		<section>
+			<title handle="contact">Contact</title>
+		</section>
+	</sections>
+</navigation>

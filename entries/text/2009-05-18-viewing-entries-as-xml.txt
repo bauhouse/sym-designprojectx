@@ -1,0 +1,124 @@
+--------------------------------
+Title
+--------------------------------
+Viewing Entries as XML
+
+
+--------------------------------
+Description
+--------------------------------
+To make the process of saving XML files of each entry a little easier, I thought I could create an XSL stylesheet that would output the XML of a single entry. I ended up using Marc Liyanage's XML Pretty Printer template to create nicely indented XML files.
+
+
+
+--------------------------------
+Body
+--------------------------------
+Marc Liyanage created a useful application called TestXSLT. He also published an [XSLT template](http://www.entropy.ch/software/xsl/xml-prettyprinter.xslt) that helps to make XML output look pretty, that is, to be indented according to the hierarchical structure of the XML file.
+
+I wasn't happy with the output of the basic `<xsl:copy-of select="/data/entry/*"/>` instruction. The formatting was looking a little weird. So, I remembered Marc's work and went about seeing how his handy [XML Pretty Printer](http://www.entropy.ch/software/xsl/xml-prettyprinter.xslt) template might change things.
+
+I created a page with a Parent Page of "Journal" and a URL Parameter of "entry" and ended up with something like this for the template body:
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    
+    <xsl:import href="../utilities/xml-pretty-printer.xsl"/>
+    
+    <xsl:output method="xml" encoding="UTF-8" indent="yes" />
+    
+    <xsl:template match="/">
+        <xsl:for-each select="data/entry">
+            <xsl:apply-templates />
+        </xsl:for-each>
+    </xsl:template>
+    
+    </xsl:stylesheet>
+
+I made a very minor modification to Marc's template to output tabs instead of two spaces for indents:
+
+    <?xml version='1.0' encoding='iso-8859-1'?>
+    
+    <!-- xml pretty printing xslt -->
+    
+    <xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'>
+    
+    <xsl:output method='html' version='1.0' encoding='iso-8859-1' indent='no'/>
+    
+    <xsl:variable name="indent_text" select="'&#x09;'"/>
+    
+    <xsl:template match="*[count(*) = 0]">
+    <xsl:param name="indent" select="0"/>
+    <xsl:call-template name="indent"><xsl:with-param name="count" select="$indent"/></xsl:call-template>
+    <xsl:element name="{name()}"><xsl:copy-of select="@*"/><xsl:value-of select="normalize-space(.)"/></xsl:element><xsl:text>
+    </xsl:text>
+    </xsl:template>
+    
+    <xsl:template match="*[count(*) > 0]">
+    <xsl:param name="indent" select="0"/>
+    <xsl:call-template name="indent"><xsl:with-param name="count" select="$indent"/></xsl:call-template>
+    <xsl:element name="{name()}"><xsl:copy-of select="@*"/><xsl:text>
+    </xsl:text>
+    <xsl:apply-templates><xsl:with-param name="indent" select="$indent + 1"/></xsl:apply-templates>
+    <xsl:call-template name="indent"><xsl:with-param name="count" select="$indent"/></xsl:call-template></xsl:element><xsl:text>
+    </xsl:text>
+    </xsl:template>
+    
+    <xsl:template name="indent">
+    <xsl:param name="count"/>
+    
+    <xsl:if test="$count > 0">
+    <xsl:copy-of select="$indent_text"/>
+    <xsl:call-template name="indent">
+    <xsl:with-param name="count" select="$count - 1"/>
+    </xsl:call-template>
+    </xsl:if>
+    
+    </xsl:template>
+    
+    <xsl:template match="text()[string-length(normalize-space(.)) &lt; 1]">
+    </xsl:template>
+    
+    <xsl:template match="text()[string-length(normalize-space(.)) > 1]">
+    <xsl:param name="indent" select="0"/>
+    <xsl:call-template name="indent"><xsl:with-param name="count" select="$indent"/></xsl:call-template>
+    <xsl:value-of select="normalize-space(.)"/><xsl:text>
+    </xsl:text>
+    </xsl:template>
+    
+    </xsl:stylesheet>
+
+The tab character needed to be expressed as a [numeric character entity reference](http://www.w3.org/TR/html4/sgml/entities.html): `&#x09;`. For more information about white space handling in XML and XSLT, Dave Pawson has put together some [helpful resources](http://www.dpawson.co.uk/xsl/sect2/N8321.html#d12587e947). To view the XML for the current page, I can add some code to the entries template to output a link with the following signature:
+
+    {$root}/{$current-page}/xml/{$entry}/
+
+For this to work on the Journal overview, I'll need to use this instead:
+
+    <a href="{$root}/{$current-page}/xml/{title/@handle}/" title="View entry as XML">XML</a>
+
+The unfortunate by-product of using XML Pretty Printer to format the XML is that the code blocks are stripped of all white space, turning them into a single line of code. I'll have to think of a workaround for this.
+
+
+
+--------------------------------
+Date
+--------------------------------
+18 May 2009 8:59am
+
+
+--------------------------------
+Section
+--------------------------------
+Journal
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+xslt

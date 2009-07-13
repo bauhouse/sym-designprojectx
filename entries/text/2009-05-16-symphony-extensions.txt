@@ -1,0 +1,221 @@
+--------------------------------
+Title
+--------------------------------
+Symphony Extensions
+
+
+--------------------------------
+Description
+--------------------------------
+To get the most out of Symphony, we’re going to need to extend the core system using extensions. Out of the box, Symphony provides some very powerful features. But it assumes nothing about the type of site that we create. To extend the system, let’s explore the available extensions.
+
+
+
+--------------------------------
+Body
+--------------------------------
+#### The Default Extensions
+
+The default Symphony install (the Spectrum theme) uses a set of extensions that could be considered a minimum for any Symphony site. Of course, this really depends on the developer and user preferences. A minimum set of extensions might include the following 4 extensions:
+
+* [Maintenance Mode](http://github.com/pointybeard/maintenance_mode)
+* [Select Box Link Field](http://github.com/pointybeard/selectbox_link_field)
+* [Export Ensemble](http://github.com/pointybeard/export_ensemble)
+* [Markdown](http://github.com/pointybeard/markdown)
+
+#### Installing Symphony Extensions
+
+1. Upload the extension folder to your Symphony 'extensions' folder.
+
+2. Navigate to System : Extensions, select the extension, choose Enable from the with-selected menu, then click Apply.
+
+3. The extension should now be enabled. If the extension is a field, the new field type can now be added to your sections.
+
+#### Symphony CMS Extensions Library
+
+**Update:** As of 14 June 2009, there are 76 extensions available from the list of [Downloads](http://symphony-cms.com/downloads/) at the [Symphony CMS](http://symphony-cms.com/) site.
+
+In alphabetical order:
+
+* Activity Log | [github](http://github.com/rowan-lewis/activitylog/) | [clone URL](git://github.com/rowan-lewis/activitylog.git)
+* Admin CSS Override | [github](http://github.com/michael-e/admin_css_override/) | [clone URL](git://github.com/michael-e/admin_css_override.git)
+* Akismet | [github](http://github.com/pointybeard/akismet/) | [clone URL](git://github.com/pointybeard/akismet.git)
+* Advanced Symphony Database Connector (ASDC) | [github](http://github.com/pointybeard/asdc/) | [clone URL](git://github.com/pointybeard/asdc.git)
+* Bi-Link Field | [github](http://github.com/rowan-lewis/bilinkfield/) | [clone URL](git://github.com/rowan-lewis/bilinkfield.git)
+* Breadcrumb | [github](http://github.com/pointybeard/breadcrumb/) | [clone URL](git://github.com/pointybeard/breadcrumb.git)
+* CacheLite | [github](http://github.com/makenosound/cachelite/) | [clone URL](git://github.com/makenosound/cachelite.git)
+* Calendar Overlay | [github](http://github.com/rowan-lewis/calendaroverlay/) | [clone URL](git://github.com/rowan-lewis/calendaroverlay.git)
+* Can of Spam Filter | [github](http://github.com/rowan-lewis/canofspam/) | [clone URL](git://github.com/rowan-lewis/canofspam.git)
+* Clean URL Parameters | [github](http://github.com/rowan-lewis/cleanurlparams/) | [clone URL](git://github.com/rowan-lewis/cleanurlparams.git)
+* Color Chooser Field | [github](http://github.com/MrBlank/symphony_color_chooser/) | [clone URL](git://github.com/MrBlank/symphony_color_chooser.git)
+* Content Type Mappings | [github](http://github.com/pointybeard/content_type_mappings/) | [clone URL](git://github.com/pointybeard/content_type_mappings.git)
+* Cookie Monster | [github](http://github.com/pointybeard/cookiemonster/) | [clone URL](git://github.com/pointybeard/cookiemonster.git)
+* Dynamic Event Redirect | [github](http://github.com/makenosound/dynamic_event_redirect/) | [clone URL](git://github.com/makenosound/dynamic_event_redirect.git)
+* Email Template Filter | [github](http://github.com/rowan-lewis/emailtemplatefilter/) | [clone URL](git://github.com/rowan-lewis/emailtemplatefilter.git)
+* Enable Tabkey | [github](http://github.com/phoque/Symphony-Enable-Tabkey/) | [clone URL](git://github.com/phoque/Symphony-Enable-Tabkey.git)
+* Enhanced Tag List | [github](http://github.com/czheng/enhancedtaglist/) | [clone URL](git://github.com/czheng/enhancedtaglist.git)
+* Entity Diagram | [github](http://github.com/nickdunn/entity_diagram/) | [clone URL](git://github.com/nickdunn/entity_diagram.git)
+* Export Ensemble | [github](http://github.com/pointybeard/export_ensemble/) | [clone URL](git://github.com/pointybeard/export_ensemble.git)
+* EventEx | [github](http://github.com/yourheropaul/eventex/) | [clone URL](git://github.com/yourheropaul/eventex.git)
+* File Manager | [github](http://github.com/pointybeard/filemanager/) | [clone URL](git://github.com/pointybeard/filemanager.git)
+* Filter Field | [github](http://github.com/ahwayakchih/filterfield/) | [clone URL](git://github.com/ahwayakchih/filterfield.git)
+* Firebug Profiler | [github](http://github.com/nickdunn/firebug_profiler/) | [clone URL](git://github.com/nickdunn/firebug_profiler.git)
+* Flex Date Field | [github](http://github.com/rowan-lewis/flexdatefield/) | [clone URL](git://github.com/rowan-lewis/flexdatefield.git)
+* Front End Authentication | [github](http://github.com/pointybeard/frontend_authentication/) | [clone URL](git://github.com/pointybeard/frontend_authentication.git)
+* Frontend Member Manager | [github](http://github.com/rowan-lewis/frontendmembermanager/) | [clone URL](git://github.com/rowan-lewis/frontendmembermanager.git)
+* Google Custom Search Engine | [github](http://github.com/ahwayakchih/gcse/) | [clone URL](git://github.com/ahwayakchih/gcse.git)
+* German | [github](http://github.com/nilshoerrmann/german/) | [clone URL](git://github.com/nilshoerrmann/german.git)
+* Global Parameter Loader | [github](http://github.com/carsten/globalparamloader/) | [clone URL](git://github.com/carsten/globalparamloader.git)
+* Global Resource Loader | [github](http://github.com/rowan-lewis/globalresourceloader/) | [clone URL](git://github.com/rowan-lewis/globalresourceloader.git)
+* Gravatar | [github](http://github.com/nickdunn/gravatar/) | [clone URL](git://github.com/nickdunn/gravatar.git)
+* Hash Field | [github](http://github.com/pointybeard/hashfield/) | [clone URL](git://github.com/pointybeard/hashfield.git)
+* IP Location Lookup | [github](http://github.com/pointybeard/iplocation_lookup/) | [clone URL](git://github.com/pointybeard/iplocation_lookup.git)
+* jQuery Supplier | [github](http://github.com/phoque/Symphony--jQuery-supplier/) | [clone URL](git://github.com/phoque/Symphony--jQuery-supplier.git)
+* Just In Time (JIT) Image Manipulation | [github](http://github.com/pointybeard/jit_image_manipulation/) | [clone URL](git://github.com/pointybeard/jit_image_manipulation.git)
+* Language Field | [github](http://git://github.com/ahwayakchih/languagefield/) | [clone URL](git://github.com/ahwayakchih/languagefield.git)
+* MailChimp | [github](http://github.com/lewiswharf/mailchimp/) | [clone URL](git://github.com/lewiswharf/mailchimp.git)
+* Maintenance Mode | [github](http://github.com/pointybeard/maintenance_mode/) | [clone URL](git://github.com/pointybeard/maintenance_mode.git)
+* Map Location Field | [github](http://github.com/pointybeard/maplocationfield/) | [clone URL](git://github.com/pointybeard/maplocationfield.git)
+* Markdown | [github](http://github.com/pointybeard/markdown/) | [clone URL](git://github.com/pointybeard/markdown.git)
+* Markdown Labels | [github](http://github.com/michael-e/markdown_labels/) | [clone URL](git://github.com/michael-e/markdown_labels.git)
+* MarkItUp! | [github](http://github.com/ahwayakchih/markitup/) | [clone URL](git://github.com/ahwayakchih/markitup.git)
+* Mass Upload Utility | [github](http://github.com/scottkf/mass-upload-utility/) | [clone URL](git://github.com/scottkf/mass-upload-utility.git)
+* Mediathek | [github](http://github.com/nilshoerrmann/mediathek/) | [clone URL](git://github.com/nilshoerrmann/mediathek.git)
+* Multiselect to Checkboxes | [github](http://github.com/Demwunz/multiselect_to_checkboxes/) | [clone URL](git://github.com/Demwunz/multiselect_to_checkboxes.git)
+* New Visiter | [github](http://github.com/lewiswharf/new_visiter/) | [clone URL](git://github.com/lewiswharf/new_visiter.git)
+* No Editing of Entries Filter | [github](http://github.com/phoque/NoEditing/) | [clone URL](git://github.com/phoque/NoEditing.git)
+* Number Field | [github](http://github.com/pointybeard/numberfield/) | [clone URL](git://github.com/pointybeard/numberfield.git)
+* Numeric Grouping Field | [github](http://github.com/rowan-lewis/numericgroupingfield/) | [clone URL](git://github.com/rowan-lewis/numericgroupingfield.git)
+* Order Entries | [github](http://github.com/nickdunn/order_entries/) | [clone URL](git://github.com/nickdunn/order_entries.git)
+* Page Templates | [github](http://github.com/czheng/pagetemplates/) | [clone URL](git://github.com/czheng/pagetemplates.git)
+* Pages Editor Minimal | [github](http://github.com/pointybeard/pages_editor_minimal/) | [clone URL](git://github.com/pointybeard/pages_editor_minimal.git)
+* Pages Field | [github](http://github.com/pointybeard/pagesfield/) | [clone URL](git://github.com/pointybeard/pagesfield.git)
+* Ping-o-matic | [github](http://github.com/nickdunn/pingomatic/) | [clone URL](git://github.com/nickdunn/pingomatic.git)
+* Publish Filtering | [github](http://github.com/nickdunn/publishfiltering/) | [clone URL](git://github.com/nickdunn/publishfiltering.git)
+* ReCAPTCHA | [github](http://github.com/pointybeard/recaptcha/) | [clone URL](git://github.com/pointybeard/recaptcha.git)
+* Reference Link | [github](http://github.com/czheng/referencelink/) | [clone URL](git://github.com/czheng/referencelink.git)
+* Reflection Field | [github](http://github.com/rowan-lewis/reflectionfield/) | [clone URL](git://github.com/rowan-lewis/reflectionfield.git)
+* Repeating Date Field | [github](http://github.com/rowan-lewis/repeatingdatefield/) | [clone URL](git://github.com/rowan-lewis/repeatingdatefield.git)
+* Rich Text (TinyMCE) Text Formatter | [github](http://github.com/pointybeard/richtext_tinymce/) | [clone URL](git://github.com/pointybeard/richtext_tinymce.git)
+* Section Schemas | [github](http://github.com/nickdunn/section_schemas/) | [clone URL](git://github.com/nickdunn/section_schemas.git)
+* Selectbox Link Field | [github](http://github.com/pointybeard/selectbox_link_field/) | [clone URL](git://github.com/pointybeard/selectbox_link_field.git)
+* Server Headers | [github](http://github.com/pointybeard/serverheaders/) | [clone URL](git://github.com/pointybeard/serverheaders.git)
+* Session Monster | [github](http://github.com/pointybeard/sessionmonster/) | [clone URL](git://github.com/pointybeard/sessionmonster.git)
+* Signed File Upload Field | [github](http://github.com/tonyarnold/signedfileuploadfield/) | [clone URL](git://github.com/tonyarnold/signedfileuploadfield.git)
+* Templated Text Formatters | [github](http://github.com/ahwayakchih/templatedtextformatters/) | [clone URL](git://github.com/ahwayakchih/templatedtextformatters.git)
+* Text Box Field | [github](http://github.com/rowan-lewis/textboxfield/) | [clone URL](git://github.com/rowan-lewis/textboxfield.git)
+* Textformatter Labels | [github](http://github.com/michael-e/textformatter_labels/) | [clone URL](git://github.com/michael-e/textformatter_labels.git)
+* Textile Plus Formatter | [github](http://github.com/rowan-lewis/textileplusformatter/) | [clone URL](git://github.com/rowan-lewis/textileplusformatter.git)
+* Time Field | [github](http://github.com/pointybeard/extension--time-field/) | [clone URL](git://github.com/pointybeard/extension--time-field.git)
+* Unique Input Field | [github](http://github.com/pointybeard/uniqueinputfield/) | [clone URL](git://github.com/pointybeard/uniqueinputfield.git)
+* Unique Upload Field | [github](http://github.com/michael-e/uniqueuploadfield/) | [clone URL](git://github.com/michael-e/uniqueuploadfield.git)
+* Uploadify | [github](http://github.com/nickdunn/uploadify/) | [clone URL](git://github.com/nickdunn/uploadify.git)
+* Vimeo Videos | [github](http://github.com/nickdunn/vimeo_videos/) | [clone URL](git://github.com/nickdunn/vimeo_videos.git)
+* XML Field | [github](http://github.com/pointybeard/xmlfield/) | [clone URL](git://github.com/pointybeard/xmlfield.git)
+* Yahoo! Search BOSS | [github](http://github.com/ahwayakchih/ysboss/) | [clone URL](git://github.com/ahwayakchih/ysboss.git)
+
+#### Symphony Extensions on Github
+
+To get the latest version of all the extensions, install Git and run the following commands:
+
+    git clone git://github.com/ahwayakchih/filterfield.git
+    git clone git://github.com/ahwayakchih/gcse.git
+    git clone git://github.com/ahwayakchih/languagefield.git
+    git clone git://github.com/ahwayakchih/markitup.git
+    git clone git://github.com/ahwayakchih/templatedtextformatters.git
+    git clone git://github.com/ahwayakchih/ysboss.git
+    git clone git://github.com/carsten/globalparamloader.git
+    git clone git://github.com/czheng/enhancedtaglist.git
+    git clone git://github.com/czheng/pagetemplates.git
+    git clone git://github.com/czheng/referencelink.git
+    git clone git://github.com/Demwunz/multiselect_to_checkboxes.git
+    git clone git://github.com/lewiswharf/mailchimp.git
+    git clone git://github.com/lewiswharf/new_visiter.git
+    git clone git://github.com/makenosound/cachelite.git
+    git clone git://github.com/makenosound/dynamic_event_redirect.git
+    git clone git://github.com/michael-e/admin_css_override.git
+    git clone git://github.com/michael-e/markdown_labels.git
+    git clone git://github.com/michael-e/textformatter_labels.git
+    git clone git://github.com/michael-e/uniqueuploadfield.git
+    git clone git://github.com/MrBlank/symphony_color_chooser.git
+    git clone git://github.com/nickdunn/entity_diagram.git
+    git clone git://github.com/nickdunn/firebug_profiler.git
+    git clone git://github.com/nickdunn/gravatar.git
+    git clone git://github.com/nickdunn/order_entries.git
+    git clone git://github.com/nickdunn/pingomatic.git
+    git clone git://github.com/nickdunn/publishfiltering.git
+    git clone git://github.com/nickdunn/section_schemas.git
+    git clone git://github.com/nickdunn/uploadify.git
+    git clone git://github.com/nickdunn/vimeo_videos.git
+    git clone git://github.com/nilshoerrmann/german.git
+    git clone git://github.com/nilshoerrmann/mediathek.git
+    git clone git://github.com/phoque/NoEditing.git
+    git clone git://github.com/phoque/Symphony-Enable-Tabkey.git
+    git clone git://github.com/phoque/Symphony--jQuery-supplier.git
+    git clone git://github.com/pointybeard/akismet.git
+    git clone git://github.com/pointybeard/asdc.git
+    git clone git://github.com/pointybeard/breadcrumb.git
+    git clone git://github.com/pointybeard/content_type_mappings.git
+    git clone git://github.com/pointybeard/cookiemonster.git
+    git clone git://github.com/pointybeard/export_ensemble.git
+    git clone git://github.com/pointybeard/extension--time-field.git
+    git clone git://github.com/pointybeard/filemanager.git
+    git clone git://github.com/pointybeard/frontend_authentication.git
+    git clone git://github.com/pointybeard/hashfield.git
+    git clone git://github.com/pointybeard/iplocation_lookup.git
+    git clone git://github.com/pointybeard/jit_image_manipulation.git
+    git clone git://github.com/pointybeard/maintenance_mode.git
+    git clone git://github.com/pointybeard/maplocationfield.git
+    git clone git://github.com/pointybeard/markdown.git
+    git clone git://github.com/pointybeard/numberfield.git
+    git clone git://github.com/pointybeard/pages_editor_minimal.git
+    git clone git://github.com/pointybeard/pagesfield.git
+    git clone git://github.com/pointybeard/recaptcha.git
+    git clone git://github.com/pointybeard/richtext_tinymce.git
+    git clone git://github.com/pointybeard/selectbox_link_field.git
+    git clone git://github.com/pointybeard/serverheaders.git
+    git clone git://github.com/pointybeard/sessionmonster.git
+    git clone git://github.com/pointybeard/uniqueinputfield.git
+    git clone git://github.com/pointybeard/xmlfield.git
+    git clone git://github.com/rowan-lewis/activitylog.git
+    git clone git://github.com/rowan-lewis/bilinkfield.git
+    git clone git://github.com/rowan-lewis/calendaroverlay.git
+    git clone git://github.com/rowan-lewis/canofspam.git
+    git clone git://github.com/rowan-lewis/cleanurlparams.git
+    git clone git://github.com/rowan-lewis/emailtemplatefilter.git
+    git clone git://github.com/rowan-lewis/flexdatefield.git
+    git clone git://github.com/rowan-lewis/frontendmembermanager.git
+    git clone git://github.com/rowan-lewis/globalresourceloader.git
+    git clone git://github.com/rowan-lewis/numericgroupingfield.git
+    git clone git://github.com/rowan-lewis/reflectionfield.git
+    git clone git://github.com/rowan-lewis/repeatingdatefield.git
+    git clone git://github.com/rowan-lewis/textboxfield.git
+    git clone git://github.com/rowan-lewis/textileplusformatter.git
+    git clone git://github.com/scottkf/mass-upload-utility.git
+    git clone git://github.com/tonyarnold/signedfileuploadfield.git
+    git clone git://github.com/yourheropaul/eventex.git
+
+
+
+--------------------------------
+Date
+--------------------------------
+16 May 2009 1:46pm
+
+
+--------------------------------
+Section
+--------------------------------
+Journal
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+extensions, symphony cms

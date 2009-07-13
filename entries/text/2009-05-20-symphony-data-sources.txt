@@ -1,0 +1,161 @@
+--------------------------------
+Title
+--------------------------------
+Symphony Data Sources
+
+
+--------------------------------
+Description
+--------------------------------
+Once the sections have been set up in Symphony, data sources can be configured to output XML that can be used by the XSLT page templates to output HTML pages. These are the data sources that have been used to create this site.
+
+
+
+--------------------------------
+Body
+--------------------------------
+#### Sections Data Sources
+
+To view or create data sources, navigate to Blueprints : Components. I created four data sources and attached them to the Journal page: Entries, Entry, Section and Navigation.
+
+##### Entries Data Source
+
+The Entries data source provides an overview of the 50 most recent entries. This data source excludes the "body" field to keep the XML output from being unnecessarily large, since we only need enough information to display the title and a short description of each entry, with the possibility of including some metadata information regarding date, category and tags.
+
+###### Essentials
+
+* Name: Entries
+* Source: Entries
+
+###### Filter Results
+
+* Publish (checkbox): Value: Yes
+
+###### Sorting and Limiting
+
+* Sort By: Date
+* Sort Order: descending
+* Show a Maximum of 50 results
+* Show Page 1 of results
+* Required URL Parameter: (none)
+* Redirect to 404 page when no results are found: no
+
+###### Output Options
+
+* Parameter Output: Use Field: (None)
+* XML Output: Group By: (None)
+* Included Elements: pagination, title, description, section, category, tags, date
+
+##### Entry Data Source
+
+The Entry data source provides the complete XML data for a single entry: all available fields have been included. A URL parameter of "entry" has been specified for the Journal page. The Entry data source is configured to filter the XML output to include only those entries where the Title field matches the $entry parameter. Also, the data source will output XML only if the $entry parameter has a value. 
+
+###### Essentials
+
+* Name: Entry
+* Source: Entries
+
+###### Filter Results
+
+* Title (text input): Value: {$entry}
+
+###### Sorting and Limiting
+
+* Sort By: System ID
+* Sort Order: descending
+* Show a Maximum of 20 results
+* Show Page 1 of results
+* Required URL Parameter: {$entry}
+* Redirect to 404 page when no results are found: no
+
+###### Output Options
+
+* Parameter Output: Use Field: (None)
+* XML Output: Group By: (None)
+* Included Elements: pagination, title, description, body, section, category, tags, date, publish
+
+##### Section Data Source
+
+The Section data source provides a means of filtering entries by section. The results of the data source are filtered to include only those sections where the Title field matches the `$current-page` parameter. Under Output Options, the System ID numbers will be output for every section included in the XML output as a page parameter with the name `$ds-section`. Since this data source will filter sections by the `$current-page` parameter, there should only be a single section in the XML output. Since a Select Box Link can only be filtered by an ID number, we can use this ID number from the `$ds-section` parameter to filter other data sources.
+
+###### Essentials
+
+* Name: Section
+* Source: Sections
+
+###### Filter Results
+
+* Title (text input): Value: {$current-page}
+
+###### Sorting and Limiting
+
+* Sort By: System ID
+* Sort Order: descending
+* Show a Maximum of 20 results
+* Show Page 1 of results
+* Required URL Parameter: (none)
+* Redirect to 404 page when no results are found: no
+
+###### Output Options
+
+* Parameter Output: Use Field: System ID
+* XML Output: Group By: (None)
+* Included Elements: title, description, body, parent-section, menu
+
+#### System Data Sources
+
+Two types of system data are available as data sources in a default Symphony install: Authors and Navigation.
+
+An Authors data source can be created to output XML data for the Symphony admin Authors. This can allow for different views and features for different types of Authors or when distinguishing between admin users and the general public. For example, the default Symphony theme, Spectrum, uses the Authors data source to display certain features and pages on the front end of the site only when the owner of a website is logged into the admin area.
+
+The Navigation data source provides the XML data that describes the hierarchical structure of the pages created in Blueprints : Pages. If pages have been configured with parent pages, the XML will reflect the relationship with a nested node structure, with parent pages output as parent or ancestor nodes of the child or descendant pages.
+
+##### Navigation Data Source
+
+The main navigation menu for this site uses a Navigation data source with the following settings:
+
+###### Essentials
+
+* Name: Navigation
+* Source: Navigation
+
+###### Filter Results
+
+* (none)
+
+###### Sorting and Limiting
+* Required URL Parameter: (none)
+* Redirect to 404 page when no results are found: no
+
+#### Custom Data Sources
+
+Custom data sources can be created as either Dynamic XML or Static XML. Dynamic XML data sources can dynamically pull and cache any valid XML from various online sources. The most common source would be RSS feeds, which use a specific XML schema. Several web services use XML as part of their application programming interface (API), such as Flickr, Delicious, etc.
+
+Static XML can be used to include any valid XML in the XML output. It is also possible to use the document() function in the XSLT page template, but this XML will not show up on the ?debug page. 
+
+#### Data Source Extensions
+
+Extensions can be used to provide additional data sources for those parts of the admin area not covered by the default data sources. For example, the Section Schema extension can be used to create data sources to output XML data that define the structure and settings for sections and fields. Theoretically, these can then be used to recreate the admin area using XML and XSLT instead of PHP. In fact, the future direction of Symphony development proposes an XML and XSLT implementation of the admin area that will allow those with XSLT skills to develop extensions and improvements to the admin area without requiring PHP programming skills.
+
+--------------------------------
+Date
+--------------------------------
+20 May 2009 2:47pm
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms

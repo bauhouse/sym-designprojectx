@@ -1,0 +1,27 @@
+/* Syntax Highlighting
+----------------------------------------------- */
+
+.box pre {
+	background-color: #eee;
+	white-space: pre;
+}
+
+.box pre.element {
+	color: #881280;
+}
+pre .text {
+	color: #000;
+}
+pre .attribute {
+	color: #994500;
+}
+pre .attribute-data {
+	color: #1A1AA6;
+}
+pre .comment {
+	color: #236E25;
+	border: none !important;
+}
+pre .doctype {
+	color: #999;
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="31" items="0">
+	<title handle="fluid-960-grid-system">Fluid 960 Grid System</title>
+	<description word-count="44"><p>Nathan Smith created the <a href="http://960.gs/">960 Grid System</a> as a CSS framework that provides classes to easily create web pages that can be designed with a 12-column or 16-column grid. I decided to extend his grids as the <a href="http://www.designinfluences.com/fluid960gs/">Fluid 960 Grid System</a> for fluid layouts.</p></description>
+	<body word-count="622"><p>To make using this grid system worthwhile, we need to add some classes to our HTML elements that provide the hooks necessary to quickly control the layout of our pages.</p>
+
+<h4>The Grid Container</h4>
+
+<p>The first step is to choose a grid container. You have a choice of two grids: 12 columns and 16 columns. Im sure it would be possible to create more by modifying the grid.css file to account for the different ratios required if you preferred, say, a 7-column grid. For now, well stick to what we have out-of-the-box. Ill choose the 12-column grid, so I can easily have the flexibility to try a 2-column, 3-column, 4-column or 6-column layout, since each of these numbers divides easily into the 12 columns available to work with. Wrap the content with a div with a class of container_12.</p>
+
+<h4>A Grid Column</h4>
+
+<p>Now, to use the grid, it is necessary to define columns. A column can be a width of a single column in the grid, in which case you would create a div with a class of grid_1, and fill it with your content. Using a 12-column grid, to create three equal columns, divide the total number of columns by 3. Then, add the result to the name of the class: grid_4. Two equal columns would each have the class, grid_6.</p>
+
+<h4>Boxes</h4>
+
+<p>Then, create a box to contain your content. Yes, well be adding a few boxes that make the layout more apparent and easier to deal with, but it might not be the best way to build the finished markup. This workflow does not follow the rules about creating semantic markup, this is true. For now, the goal is to quickly put together a site layout that conforms to web standards, employs a little JavaScript and allows us to easily move elements around on the page until were happy with it. Ideally, then, the idea would be to create semantic IDs and classes to replace the presentational classes used by the grid system. The purpose of the grid system is not to produce finished sites with non-semantic code that tries to reproduce what might be much more easily accomplished using table layouts, if that was the route we wanted to take. Its about creating a system that helps to avoid the problems that might arise when trying to quickly produce a layout and test the flow of the site by actually navigating through each page rather than trying to envision how someone would interact with a site by looking at static wireframes. The benefit being that it is possible to start working with a set of common markup patterns to create the content on the page and quickly move the content modules around on the page without worry about breaking the layout because of the constant requirement of tweaking the CSS so that it will work in the modified layout. Its called rapid interactive prototyping.</p>
+
+<h4>Blocks</h4>
+
+<p>Yet another div element. Someones got to be saying, This system has a really bad case of divitis. That person would be correct. I was trying to solve the problem of being able to have content that could be hidden or revealed, using a little JavaScript, by clicking on the heading of the box. This is the markup that I came up with that used the minimum number of divisions to accomplish this effect. As with anything, browser limitations, specification limitations and plain ignorance, perhaps, on my part, means there is going to be some compromise between efficient workflow, semantic markup and presentational markup. Given the goal, I needed a div to wrap the content that could slide in and out. So, I created a block div that would be contained by the box div.</p></body>
+	<section>
+		<item handle="journal" id="17">Journal</item>
+	</section>
+	<category>
+		<item handle="technology" id="15">Technology</item>
+	</category>
+	<date time="16:07" weekday="2">2009-05-05</date>
+	<publish>Yes</publish>
+	<tags>
+		<item handle="960-grid-system">960 grid system</item>
+		<item handle="css">css</item>
+		<item handle="framework">framework</item>
+	</tags>
+</entry>

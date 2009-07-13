@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="26" items="0">
+	<title handle="design-project-x">Design Project X</title>
+	<description word-count="33"><h4>A site about learning by doing</h4>
+
+<p>This is my playground, my sandbox for projects that I am toying with. I learn by doing. So this is where I do some of my stuff.</p></description>
+	<body word-count="106"><p>I love to experiment with new things. Design is my passion. I desire to create, inspire, transform, revolutionize. The tools of my experimentation are an Apple Mac G5, Compaq Presario, Adobe InDesign, Photoshop and Illustrator, Macromedia Dreamweaver and Flash, XHTML, CSS, Apache, PHP, MySQL, Symphony, Joyent. My design is influenced by the Modernist roots of art and design at the Bauhaus, a school founded by Walter Gropius in 1919 in Weimar, Germany. The influence tends to show up less in design style, but more in my idealism and my hope to encourage social unity in diversity through the synthesis of art and technology. Stephen Bau, MGDC</p></body>
+	<section>
+		<item handle="home" id="4">Home</item>
+	</section>
+	<category>
+		<item handle="technology" id="15">Technology</item>
+	</category>
+	<date time="09:00" weekday="5">2009-05-01</date>
+	<publish>Yes</publish>
+</entry>

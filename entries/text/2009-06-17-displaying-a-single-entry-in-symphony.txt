@@ -1,0 +1,446 @@
+--------------------------------
+Title
+--------------------------------
+Master/Detail Views in Symphony
+
+
+--------------------------------
+Description
+--------------------------------
+A common question on the Symphony CMS forum is about [how to display a single entry](http://symphony-cms.com/forum/discussions/22439/) in Symphony. The answer to this question involves Symphony data sources and URL parameters, and XSL conditional statements. This tutorial will go through the process of using Symphony to create a section, two data sources, a utility and a couple pages to describe step-by-step the process of building a page template that will output a list view or detail view of a page depending on the currently selected URL.
+
+
+--------------------------------
+Body
+--------------------------------
+
+#### Install Symphony
+
+Create a clean install of Symphony by omitting the workspace directory during the installation process and login to the Symphony admin area. For more information about installing Symphony, consult the [documentation](http://symphony-cms.com/documentation/installation/).
+
+#### Create the Entries Section
+
+Create a section called "Entries" with the following configuration by navigating to Blueprints : Sections and clicking on the "Create New" button:
+
+###### Essentials
+
+* Name: **Entries**
+
+###### Fields
+
+* Text Input
+	* Label: **Title**
+	* Placement: **Main content**
+	* Validation Rule: (none)
+	* Make this a required field: **yes**
+	* Show column: **yes**
+* Textarea
+	* Label: **Body**
+	* Placement: **Main content**
+	* Make textarea **15** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **no**
+
+#### Create the Data Sources
+
+Create two data sources, one for the master view and one for the detail view. Navigate to Blueprints : Components and click on the "Create New" button.
+
+##### Entries Data Source
+
+The Entries data source provides an overview of the 20 most recent entries. To start with, the data source will include the "body" field. By the end of the tutorial, this data source will exclude the "body" field to keep the XML output from being unnecessarily large, since we only need enough information to display a list of titles.
+
+###### Essentials
+
+* Name: Entries
+* Source: Entries
+
+###### Filter Results
+
+* Publish (checkbox): Value: Yes
+
+###### Sorting and Limiting
+
+* Sort By: Date
+* Sort Order: descending
+* Show a Maximum of 20 results
+* Show Page 1 of results
+* Required URL Parameter: (none)
+* Redirect to 404 page when no results are found: no
+
+###### Output Options
+
+* Parameter Output: Use Field: (None)
+* XML Output: Group By: (None)
+* Included Elements: title, body
+
+##### Entry Data Source
+
+The Entry data source provides the complete XML data for a single entry: all available fields have been included. A URL parameter of "entry" has been specified for the Entries page. The Entry data source is configured to filter the XML output to include only those entries where the Title field matches the $entry parameter. Also, the data source will output XML only if the $entry parameter has a value. 
+
+###### Essentials
+
+* Name: Entry
+* Source: Entries
+
+###### Filter Results
+
+* Title (text input): Value: {$entry}
+
+###### Sorting and Limiting
+
+* Sort By: System ID
+* Sort Order: descending
+* Show a Maximum of 20 results
+* Show Page 1 of results
+* Required URL Parameter: $entry
+* Redirect to 404 page when no results are found: no
+
+###### Output Options
+
+* Parameter Output: Use Field: (None)
+* XML Output: Group By: (None)
+* Included Elements: title, body
+
+
+#### Page URL Handles
+
+In Symphony, a URL represents the currently selected page and, if the page has been configured to use URL parameters, the values assigned to any URL parameters. For example, the home page of this site uses a page template called "Home". To create a page template, navigate to Blueprints : Pages in the Symphony admin. When creating a page template, the URL Handle field can be left blank, but the title of the page must be defined, in this case of the home page, as "Home". When saved, the URL handle is automatically created by taking the page title and changing any uppercase characters to lowercase, removing punctuation and replacing spaces with hyphens. The URL handle can then be used to indicate the currently selected page. The Home page has also been given the page type, "index", so that when navigating to the root of the site, the page template that has the "index" page type will be displayed. For that reason, there can only be one page with a page type of "index". The home page for this site can be viewed by either navigating to the root URL or by navigating to the page by its page handle, "home": [http://designprojectx.com/home/](http://designprojectx.com/home/). If I defined the title of the page as "My Home Page", the URL handle would be automatically created as `my-home-page`, and my home page could be viewed by going to either of the following URLs: `http://designprojectx.com/` or `http://designprojectx.com/my-home-page/`. Alternatively, I could change the value of URL handle to `index` and the page would keep the title, "My Home Page", but it would be accessible by navigating to `http://designprojectx.com/index/`.
+
+All pages other than the "index" page can be viewed only by navigating to the URL handle. If no parent page has been specified, the page URLs will have the following signature:
+
+	http://www.example.com/page-url-handle/
+
+In Symphony, it is best when building URLs to include the trailing slash for all page URL handles and URL parameters to avoid a page redirect. If the trailing slash is not provided, Symphony will automatically redirect to a URL that includes a trailing slash.
+
+If a page is defined with a parent page, the page can be viewed only by navigating to the URL that includes the parent page handle and handle of the page itself:
+
+	http://www.example.com/parent-page-url-handle/page-url-handle/
+
+First, let's find out how we can make our page templates dynamic by using some of the default parameters.
+
+### Default Parameters
+
+In Symphony, there is a [list of default parameters](http://symphony-cms.com/documentation/templating/) that can be used by page templates to use dynamically generated values. View these parameters by adding `?debug` to the URL of any Symphony generated page. The Debug pages can only be viewed by admin authors that are logged into Symphony.
+
+| Parameter        | Description                           |
+| ---------------- | ------------------------------------- |
+| $today           | 2009-01-29 date format                |
+| $current-time    | 11:28 time format                     |
+| $this-year       | 2009 format                           |
+| $this-month      | 01 format                             |
+| $this-day        | 29 format                             |
+| $timezone        | -05:00 format represents the difference between GMT and your preference setting in config.php. |
+| $website-name    | As defined in the config.php          |
+| $page-title      | Page title given to the current page  |
+| $root            | Root URL                              |
+| $workspace       | URL to the workspace folder           |
+| $root-page       | Handle of root page                   |
+| $current-page    | Handle of current page                |
+| $current-page-id | ID of the current page                |
+| $current-path    | Path of the URL is excluding root     |
+| $parent-path     | Path of parent pages if they exist    |
+| $symphony-bundle | Current version of Symphony           |
+| $current-url     | Current URL in its entirety           |
+
+View the Symphony `?debug` page to view the parameters available to a page, and to view how some of these parameters are context sensitive, changing as you navigate to different pages and URLs.
+
+#### A Basic Page Template
+
+Of the default parameters, some of the most often used are `$website-name` and `$page-title`. The following template uses these parameters to dynamically generate values for the `title` element of the HTML `head` element and for a couple headings in the `body` element of the page. Create a Home page with the following configuration:
+
+###### URL Settings
+
+* Parent Page: /
+* URL Handle: home
+* URL Parameters: (none)
+
+###### Page Metadata
+
+* Events: (none)
+* Data Sources: Entries, Entry
+* Page Type: index
+
+###### Page Data
+
+* Title: Home
+* Body: (see the page template below)
+* Utilities: (none)
+
+##### The Page Template
+
+Using a couple of the default page parameters, `$website-name` and `$page-title`, add a page title to the template using some `xsl:value-of` instructions. Attribute value templates and the `$root` parameter are used to specify the root URL of the site in the `href` attribute of anchor elements to create a basic navigation menu.
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsl:stylesheet version="1.0"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	
+	<xsl:output method="xml"
+		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+		omit-xml-declaration="yes"
+		encoding="UTF-8"
+		indent="yes" />
+	
+	<xsl:template match="/">
+		<html>
+			<head>
+				<title>
+					<xsl:value-of select="$page-title"/> | 
+					<xsl:value-of select="$website-name"/>
+				</title>
+			</head>
+			<body>
+				<h1><xsl:value-of select="$website-name"/></h1>
+				<ul>
+					<li><a href="{$root}/">Home</a></li>
+					<li><a href="{$root}/entries/">Entries</a></li>
+				</ul>
+				<h2><xsl:value-of select="$page-title"/></h2>
+			</body>
+		</html>
+	</xsl:template>
+	
+	</xsl:stylesheet>
+
+
+It is possible to create a detail view by creating one child page for every detail view. While possible, this would not be ideal. Managing several page templates would be cumbersome when the same thing could be accomplished much more elegantly using URL parameters.
+
+### URL Parameters
+
+URL parameters are defined by page templates and are added at the bottom of the list of parameters in the `?debug` information for each page. In Symphony, these parameters and those defined by data sources and, in some cases, extensions, are called the "parameter pool". The information provided by the `?debug` page indicates the values supplied in the URL and how each value in the URL is mapped to a parameter that can be used in page templates. As an example, a page template could have a URL parameter `$entry` defined by adding a value of `entry` in the URL Parameters field. To configure more than one URL parameter, separate the name of each parameter by a forward slash, just as if creating a URL to navigate a folder structure on a file server. For example, the URL Parameters field can be defined as `a/b/c/d/e` and the page template would add the following parameters to the parameter pool:
+
+* $a
+* $b
+* $c
+* $d
+* $e
+
+As far as I can recall, there has never been a stated limit to the number of URL parameters that can be used, but reason dictates that you should use the least number of parameters possible to build the pages views required by your site development objectives. As with any XSL parameter, be sure not to start the name of any URL parameter with a number, as this would result in an XSL processing error.
+
+#### XSL Conditionals
+
+XSLT provides a number of methods to control output to the result document by testing for certain conditions. The `xsl:if` and `xsl:choose` instructions will control output based on the evaluation of a `test` attribute. Another method is to use predicates in an XPath expression, for example, when using an `xsl:for-each` instruction to select an XML node set that meets specific conditions.
+
+The following example uses `xsl:if` instructions.
+
+	<xsl:if test="$entry and $entry = 'my-first-entry'">
+		<!-- display My First Entry -->
+	</xsl:if>
+	<xsl:if test="$entry = ''">
+		<!-- display a list of entries -->
+	</xsl:otherwise>
+	
+This example uses `xsl:choose`, `xsl:when` and `xsl:otherwise` instructions.
+
+	<xsl:choose>
+		<xsl:when test="$entry = 'my-first-entry'">
+			<!-- display My First Entry -->
+		</xsl:when>
+		<xsl:otherwise>
+			<!-- display a list of entries -->
+		</xsl:otherwise>
+	</xsl:choose>
+
+This last example uses an XPath predicate (the condition expressed inside the square brackets] to control the output. In this case, a predicate cannot be used to prevent the output of the list of entries, so a conditional instruction must be added so that the list will display only when an individual entry has not been selected.
+
+	<xsl:for-each select="/data/entries/entry[title/@handle = $entry]">
+		<!-- display My First Entry -->
+	</xsl:for-each>
+	<xsl:if test="$entry = ''">
+		<xsl:for-each select="/data/entries/entry">
+			<!-- display a list of entries -->
+		</xsl:for-each>
+	</xsl:if>
+	
+#### A Page Template to Display List and Detail Views
+
+By using XSL conditional instructions, we can control the information that is displayed, depending on the currently selected URL. So, rather than creating a new page to display each individual entry, we need only a single page template to display multiple views of the same data in Symphony. For greater flexibility, it is best to use the `xsl:choose` instruction. Create the Entries page with the following configuration (notice that a URL parameter of `entry` has been included):
+
+###### URL Settings
+
+* Parent Page: /
+* URL Handle: entries
+* URL Parameters: entry
+
+###### Page Metadata
+
+* Events: (none)
+* Data Sources: Entries, Entry
+* Page Type: (none)
+
+###### Page Data
+
+* Title: Entries
+* Body: (see the page template below)
+* Utilities: (none)
+
+##### The Page Template
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsl:stylesheet version="1.0"
+		 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	
+	<xsl:output method="xml"
+		 doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+		 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+		 omit-xml-declaration="yes"
+		 encoding="UTF-8"
+		 indent="yes" />
+	
+	<xsl:template match="/">
+		<html>
+			<head>
+				<title>
+					<xsl:value-of select="$page-title"/> | 
+					<xsl:value-of select="$website-name"/>
+				</title>
+			</head>
+			<body>
+				<h1><xsl:value-of select="$website-name"/></h1>
+				<ul>
+					<li><a href="{$root}/">Home</a></li>
+					<li><a href="{$root}/entries/">Entries</a></li>
+				</ul>
+				<h2><xsl:value-of select="$page-title"/></h2>
+				<xsl:choose>
+					<xsl:when test="title/@handle = $entry">
+						 <xsl:for-each select="data/entries/entry[title/@handle = $entry]">
+							<h3><xsl:value-of select="title"/></h3>
+							<xsl:copy-of select="body/*"/>
+						</xsl:for-each>
+					</xsl:when>
+					<xsl:otherwise>
+						<ul>
+							<xsl:for-each select="data/entries/entry">
+								<li>
+									<a href="{$root}/{$current-page}/{title/@handle}/">
+										<xsl:value-of select="title"/>
+									</a>
+								</li>
+							</xsl:for-each>
+						</ul>
+					</xsl:otherwise>
+				</xsl:choose>
+			</body>
+		</html>
+	</xsl:template>
+	
+	</xsl:stylesheet>
+
+There are many ways to accomplish the same thing in Symphony, but this method provides a basic structure to build on as you learn the basics about XSLT and about how to build sites with Symphony. As you learn more about data sources, you'll discover that it is best to keep the XML optimized and use data sources that are filtered based on page and URL parameters to display lists of entries and individual entries.
+
+#### Master Utility
+
+To easily maintain a series of pages that use the same design template, using common HTML structures, such as the HTML head elements, header, navigation and footer, several page templates can import the same master template. In Symphony, a master template can be created as a utility by navigating to Blueprints : Components and clicking on the "Create New" button next to "Utilities". Give the utility the name "master" and Symphony will automatically add the extension, ".xsl" when the utility is saved. In the body, paste the following template, which uses the `xsl:apply-templates` instruction to replace the content area of the page:
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsl:stylesheet version="1.0"
+		 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	
+	<xsl:output method="xml"
+		 doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+		 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+		 omit-xml-declaration="yes"
+		 encoding="UTF-8"
+		 indent="yes" />
+	
+	<xsl:template match="/">
+		<html>
+			<head>
+				<title>
+					<xsl:value-of select="$page-title"/> | 
+					<xsl:value-of select="$website-name"/>
+				</title>
+			</head>
+			<body>
+				<h1><xsl:value-of select="$website-name"/></h1>
+				<ul>
+					<li><a href="{$root}/">Home</a></li>
+					<li><a href="{$root}/entries/">Entries</a></li>
+				</ul>
+				<h2><xsl:value-of select="$page-title"/></h2>
+				<xsl:apply-templates />
+			</body>
+		</html>
+	</xsl:template>
+	
+	</xsl:stylesheet>
+
+
+#### Import the Master
+
+A page template imports the `master.xsl` file using an `xsl:import` instruction. The `href` attribute is relative to the XSL file that imports the XSL stylesheet, which, in Symphony, is always stored in `/workspace/pages/`. Notice that, while the match template for the utility matches the root of the XML data, the match template for the page matches the data node set. With the `master.xsl` utility created, paste the following XSL stylesheet into the body of the Entries page.
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsl:stylesheet version="1.0"
+		 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	
+	<xsl:import href="../utilities/master.xsl"/>
+	
+	<xsl:output method="xml"
+		 doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+		 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+		 omit-xml-declaration="yes"
+		 encoding="UTF-8"
+		 indent="yes" />
+	
+	<xsl:template match="data">
+		<xsl:choose>
+			<xsl:when test="$entry">
+				 <xsl:for-each select="data/entry/entry">
+					<h3><xsl:value-of select="title"/></h3>
+					<xsl:copy-of select="body/*"/>
+				</xsl:for-each>
+			</xsl:when>
+			<xsl:otherwise>
+				<ul>
+					<xsl:for-each select="data/entries/entry">
+						<li>
+							<a href="{$root}/{$current-page}/{title/@handle}/">
+								<xsl:value-of select="title"/>
+							</a>
+						</li>
+					</xsl:for-each>
+				</ul>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	</xsl:stylesheet>
+
+Since the Entry data source performs the filtering of entries based on the value of the `$entry` URL parameter, the data source should output a single entry: the entry where the handle of the Title field matches the value of the `$entry` URL parameter. The `xsl:when` instruction tests whether the `$entry` parameter has a value. If the `$entry` parameter has a value, that is, when the URL looks something like `http://www.example.com/entries/my-entry-title/`, the template will display the detail view. If the $entry value has no value, that is, when the URL looks something like `http://www.example.com/entries/`, the template will display an overview. 
+
+This structure allows for a page template to use different data sources than other pages as a way to keep XML output optimized by including only the data necessary to build each page.
+
+#### Optimize the XML Output
+
+Optimize the XML output of the Entries data source by omitting the `body` element from the Included Elements select box under Output Options. See the effect of this change by navigating to the Entries page and adding `?debug` to the end of the URL to view the Debug page. The XML data for the Entries section will include only the Title field values.
+
+#### Learn More
+
+Once you understand these basics about getting around in Symphony, a good place to start might be to first learn more about how to create [sections](http://www.designprojectx.com/tutorials/symphony-sections/) and [data sources](http://www.designprojectx.com/tutorials/symphony-data-sources/). Then find out more about [utilities](http://www.designprojectx.com/tutorials/symphony-utilities/) that can help to build navigation menus and other commonly used elements. If you have any questions, there are many helpful people contributing to the community on the Symphony CMS Forum, and I would be happy to respond as I am able to [questions about these tutorials](http://www.symphony-cms.com/forum/discussions/21781/) and suggestions about how they might be improved. Your feedback will help as the community works to build a library of [documentation](http://www.symphony-cms.com/documentation/) to help people learn more about Symphony.
+
+
+--------------------------------
+Date
+--------------------------------
+17 Jun 2009 6:58am
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xslt

@@ -1,0 +1,43 @@
+--------------------------------
+Title
+--------------------------------
+Symphony Data Sources
+
+
+--------------------------------
+Description
+--------------------------------
+Once the sections have been set up in Symphony, data sources can be configured to output XML that can be used by the XSLT page templates to output HTML pages. These are the data sources that have been used to create this site.
+
+
+
+--------------------------------
+Body
+--------------------------------
+#### XML Output and the Debug Page
+
+The purpose of configuring data sources is to produce the XML output that XSLT page templates can process to create HTML to render to the browser. The smaller the XML data source and the faster it is to build the XML, the sooner the processor can render the HTML and serve the page to the browser. So, it is important to optimize the XML output to include only what is necessary to build the page. The options to filter, sort, limit and paginate the data sources provide several options to optimize the performance of the site. Symphony provides a means of being able to view the XSLT Page Parameters, the XML data, and to analyze performance data by providing debug information in the browser. If  
+
+
+--------------------------------
+Date
+--------------------------------
+20 May 2009 2:47pm
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms

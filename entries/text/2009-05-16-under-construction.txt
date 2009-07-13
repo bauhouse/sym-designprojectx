@@ -1,0 +1,57 @@
+--------------------------------
+Title
+--------------------------------
+Under Construction
+
+
+--------------------------------
+Description
+--------------------------------
+Continuing with my live build of a Symphony site
+
+
+
+--------------------------------
+Body
+--------------------------------
+#### An XML Importer for Symphony
+
+So, I visited the forum to find some discussion about importing data into Symphony. I have experimented with [the technique the Nils suggested](http://symphony-cms.com/forum/discussions/21401/1/#position-6) in the Forum. In fact, when Symphony 2 was in beta, I created a [Destinations ensemble](http://symphony-cms.com/forum/discussions/333/) that demonstrated the technique of importing XML data into a front end form that will save multiple entries at once. The set up for the import took a little bit more effort than I would have liked. It wasn’t terribly user friendly, but it worked great.
+
+#### Symphony
+
+So, here’s the idea. Start with [Symphony](http://symphony-cms.com/), now that it has matured as a flexible, powerful, open source and feature stable version 2.0.2.
+
+I have dabbled with TextPattern and produced a few sites with it, a few years back. However, I became disatisfied with the pace of development, and the requirement of a plugin for every basic feature that I wanted to incorporate.
+
+Since discovering Symphony, I haven’t turned back. Admittedly, there have been some growing pains, as the community dreamed up new features to include. We were excited as each of these features found their way into the core, leading to a feature stable version 1.7, and I was happy to contribute to the community with my shiny new site, and with the beginnings of a [step-by-step Symphony tutorial](http://bauhouse.ca/journal/creating-a-theme-for-symphony/). But with the announcement of the development of Symphony 2, I decided to hold off on development of further tutorials, to avoid having to rewrite the tutorials for the new version. The Symphony 2 Beta started off strong and I created a number of ensembles to test out the features and performance of the new version. Working on a site that was not going to be easily updated from version 1.7 to version 2.0 did not interest me. So I turned to other projects to wait for the final release.
+
+With concerns of performance issues and new ideas about features, the development took a left turn after Symphony 2 Beta Revision 5. News flowed slowly from the developers as they worked furiously to rebuild Symphony 2 from the ground up with an updated feature set.
+
+However, with several production sites being deployed using the beta version, with many useful extensions being released, it was decided that the community should have ownership over the open source code and have the ability to contribute bug fixes and improvements. Symphony 2.0 was officially released as open source in December of 2008, marking the beginning of renewed interest and activity on the forum and on the Symphony Github project. With the preliminary release of much needed documentation for Symphony 2, the application had the opportunity to extend its reach beyond a relatively small core of dedicated users. Now with the redesign of the Symphony CMS site, the application is well-positioned to grow its user base.
+
+It appears that a lack of in-depth documentation and tutorials is still an impediment to wide-spread adoption of the application. So, this is a project designed to alleviate this problem.
+
+
+
+--------------------------------
+Date
+--------------------------------
+16 May 2009 9:40am
+
+
+--------------------------------
+Section
+--------------------------------
+Journal
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------

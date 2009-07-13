@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="28" items="0">
+	<title handle="the-title-of-my-entry">The Title of My Entry</title>
+	<description word-count="6"><p>A brief description of my entry.</p></description>
+	<body word-count="20"><p>This is the body of my entry, using <a href="http://daringfireball.net/projects/markdown/">Markdown</a> to format the text as HTML, using the Symphony Markdown extension.</p></body>
+	<section>
+		<item handle="journal" id="17">Journal</item>
+	</section>
+	<date time="09:00" weekday="2">2009-05-05</date>
+	<publish>Yes</publish>
+</entry>

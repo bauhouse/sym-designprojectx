@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="29" items="0">
+	<title handle="hello-world-a-basic-xsl-stylesheet">Hello World - A Basic XSL Stylesheet</title>
+	<description word-count="19"><p>Developing a site with Symphony CMS starts with a basic XSL stylesheet. This is the traditional “Hello, world” example.</p></description>
+	<body word-count="176"><p>First, I need a home page. I already have this, but, I’ll show the guts of the XSL file. Why XSL? That’s what Symphony uses as a templating system. Unfortunately, it is not as widely used as it probably should be, in my opinion. It is also the opinion of the W3C that it should be more widely used. They created the standard, and I think standards are good. At least, better than the alternative.</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet version="1.0"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+
+&lt;xsl:output method="xml"
+doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+omit-xml-declaration="yes"
+encoding="UTF-8"
+indent="yes" /&gt;
+
+&lt;xsl:template match="/"&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Hello&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, world&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+
+<p>So, you can have one XSL stylesheet that contains several XSL templates that do a number of different things. But, we’ll find out about that later. Just be aware that everything is based on XML, so everything has to be “well-formed” or “valid” XML. And that includes the HTML.</p>
+
+<h4>Note</h4>
+
+<p>For this XSL template to work as a home page in Symphony, the page type needs to be designated as “index”.</p></body>
+	<section>
+		<item handle="journal" id="17">Journal</item>
+	</section>
+	<category>
+		<item handle="technology" id="15">Technology</item>
+	</category>
+	<date time="18:00" weekday="2">2009-05-05</date>
+	<publish>Yes</publish>
+	<tags>
+		<item handle="symphony-cms">symphony cms</item>
+	</tags>
+</entry>

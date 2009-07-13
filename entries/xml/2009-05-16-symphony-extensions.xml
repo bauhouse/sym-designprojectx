@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry id="23" items="0">
+	<title handle="symphony-extensions">Symphony Extensions</title>
+	<description word-count="49"><p>To get the most out of Symphony, we’re going to need to extend the core system using extensions. Out of the box, Symphony provides some very powerful features. But it assumes nothing about the type of site that we create. To extend the system, let’s explore the available extensions.</p></description>
+	<body word-count="355"><h4>Symphony CMS Extensions Library</h4>
+
+<p>As of this writing, there are several extensions available: 62 currently in the list of <a href="http://symphony-cms.com/downloads/">Downloads</a> at the <a href="http://symphony-cms.com/">Symphony CMS</a> site.</p>
+
+<p>In alphabetical order:</p>
+
+<ul>
+<li>akismet</li>
+<li>asdc</li>
+<li>bilinkfield</li>
+<li>breadcrumb</li>
+<li>cachelite</li>
+<li>calendaroverlay</li>
+<li>canofspam</li>
+<li>cleanurlparams</li>
+<li>content_type_mappings</li>
+<li>cookiemonster</li>
+<li>dynamic_event_redirect</li>
+<li>emailtemplatefilter</li>
+<li>enhancedtaglist</li>
+<li>entity_diagram</li>
+<li>export_ensemble</li>
+<li>extension–time-field</li>
+<li>filemanager</li>
+<li>filterfield</li>
+<li>flexdatefield</li>
+<li>frontend_authentication</li>
+<li>frontendmembermanager</li>
+<li>gcse</li>
+<li>german</li>
+<li>globalparamloader</li>
+<li>globalresourceloader</li>
+<li>gravatar</li>
+<li>hashfield</li>
+<li>iplocation_lookup</li>
+<li>jit_image_manipulation</li>
+<li>languagefield</li>
+<li>mailchimp</li>
+<li>maintenance_mode</li>
+<li>maplocationfield</li>
+<li>markdown</li>
+<li>markitup</li>
+<li>mediathek</li>
+<li>multiselect_to_checkboxes</li>
+<li>new_visiter</li>
+<li>numberfield</li>
+<li>numericgroupingfield</li>
+<li>order_entries</li>
+<li>pages_editor_minimal</li>
+<li>pagesfield</li>
+<li>publishfiltering</li>
+<li>recaptcha</li>
+<li>referencelink</li>
+<li>reflectionfield</li>
+<li>repeatingdatefield</li>
+<li>richtext_tinymce</li>
+<li>section_schemas</li>
+<li>selectbox_link_field</li>
+<li>serverheaders</li>
+<li>sessionmonster</li>
+<li>signedfileuploadfield</li>
+<li>templatedtextformatters</li>
+<li>textboxfield</li>
+<li>textileplusformatter</li>
+<li>uniqueinputfield</li>
+<li>uniqueuploadfield</li>
+<li>vimeo_videos</li>
+<li>xmlfield</li>
+<li>ysboss</li>
+</ul>
+
+<h4>The Default Extensions</h4>
+
+<p>The default Symphony install (the Spectrum theme) uses a set of extensions that could be considered a minimum for any Symphony site. Of course, this really depends on the developer and user preferences. A minimum set of extensions might include the following 4 extensions:</p>
+
+<ul>
+<li><a href="http://github.com/pointybeard/maintenance_mode">Maintenance Mode</a></li>
+<li><a href="http://github.com/pointybeard/selectbox_link_field">Select Box Link Field</a></li>
+<li><a href="http://github.com/pointybeard/export_ensemble">Export Ensemble</a></li>
+<li><a href="http://github.com/pointybeard/markdown">Markdown</a></li>
+</ul>
+
+<h4>Symphony Extensions on Github</h4>
+
+<p>To get the latest version of all the extensions, install Git and run the following commands:</p>
+
+<pre><code>git clone git://github.com/ahwayakchih/filterfield.git
+git clone git://github.com/ahwayakchih/gcse.git
+git clone git://github.com/ahwayakchih/languagefield.git
+git clone git://github.com/ahwayakchih/markitup.git
+git clone git://github.com/ahwayakchih/templatedtextformatters.git
+git clone git://github.com/ahwayakchih/ysboss.git
+git clone git://github.com/carsten/globalparamloader.git
+git clone git://github.com/czheng/enhancedtaglist.git
+git clone git://github.com/czheng/referencelink.git
+git clone git://github.com/Demwunz/multiselect_to_checkboxes.git
+git clone git://github.com/lewiswharf/mailchimp.git
+git clone git://github.com/lewiswharf/new_visiter.git
+git clone git://github.com/makenosound/cachelite.git
+git clone git://github.com/makenosound/dynamic_event_redirect.git
+git clone git://github.com/michael-e/uniqueuploadfield.git
+git clone git://github.com/nickdunn/entity_diagram.git
+git clone git://github.com/nickdunn/gravatar.git
+git clone git://github.com/nickdunn/order_entries.git
+git clone git://github.com/nickdunn/publishfiltering.git
+git clone git://github.com/nickdunn/section_schemas.git
+git clone git://github.com/nickdunn/vimeo_videos.git
+git clone git://github.com/nilshoerrmann/german.git
+git clone git://github.com/nilshoerrmann/mediathek.git
+git clone git://github.com/pointybeard/akismet.git
+git clone git://github.com/pointybeard/asdc.git
+git clone git://github.com/pointybeard/breadcrumb.git
+git clone git://github.com/pointybeard/content_type_mappings.git
+git clone git://github.com/pointybeard/cookiemonster.git
+git clone git://github.com/pointybeard/export_ensemble.git
+git clone git://github.com/pointybeard/extension--time-field.git
+git clone git://github.com/pointybeard/filemanager.git
+git clone git://github.com/pointybeard/frontend_authentication.git
+git clone git://github.com/pointybeard/hashfield.git
+git clone git://github.com/pointybeard/iplocation_lookup.git
+git clone git://github.com/pointybeard/jit_image_manipulation.git
+git clone git://github.com/pointybeard/maintenance_mode.git
+git clone git://github.com/pointybeard/maplocationfield.git
+git clone git://github.com/pointybeard/markdown.git
+git clone git://github.com/pointybeard/numberfield.git
+git clone git://github.com/pointybeard/pages_editor_minimal.git
+git clone git://github.com/pointybeard/pagesfield.git
+git clone git://github.com/pointybeard/recaptcha.git
+git clone git://github.com/pointybeard/richtext_tinymce.git
+git clone git://github.com/pointybeard/selectbox_link_field.git
+git clone git://github.com/pointybeard/serverheaders.git
+git clone git://github.com/pointybeard/sessionmonster.git
+git clone git://github.com/pointybeard/uniqueinputfield.git
+git clone git://github.com/pointybeard/xmlfield.git
+git clone git://github.com/rowan-lewis/bilinkfield.git
+git clone git://github.com/rowan-lewis/calendaroverlay.git
+git clone git://github.com/rowan-lewis/canofspam.git
+git clone git://github.com/rowan-lewis/cleanurlparams.git
+git clone git://github.com/rowan-lewis/emailtemplatefilter.git
+git clone git://github.com/rowan-lewis/flexdatefield.git
+git clone git://github.com/rowan-lewis/frontendmembermanager.git
+git clone git://github.com/rowan-lewis/globalresourceloader.git
+git clone git://github.com/rowan-lewis/numericgroupingfield.git
+git clone git://github.com/rowan-lewis/reflectionfield.git
+git clone git://github.com/rowan-lewis/reflectionfield.git
+git clone git://github.com/rowan-lewis/repeatingdatefield.git
+git clone git://github.com/rowan-lewis/textboxfield.git
+git clone git://github.com/rowan-lewis/textileplusformatter.git
+git clone git://github.com/tonyarnold/signedfileuploadfield.git
+</code></pre></body>
+	<section>
+		<item handle="journal" id="17">Journal</item>
+	</section>
+	<category>
+		<item handle="technology" id="15">Technology</item>
+	</category>
+	<date time="13:46" weekday="6">2009-05-16</date>
+	<publish>Yes</publish>
+	<tags>
+		<item handle="extensions">extensions</item>
+		<item handle="symphony-cms">symphony cms</item>
+	</tags>
+</entry>

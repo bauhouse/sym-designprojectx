@@ -1,0 +1,116 @@
+--------------------------------
+Title
+--------------------------------
+Maintaining a Simple Backup System in Symphony
+
+
+--------------------------------
+Description
+--------------------------------
+I want to be able to have easy access to all my site content. I also want to be able to write the content in a text editor so that I can use the features that help the writing process go a lot smoother, such as multiple undos.
+
+
+
+--------------------------------
+Body
+--------------------------------
+Since Symphony is a system based on XML and XSLT, it makes sense to store these files as XML. I could potentially import the XML files into Symphony instead of relying on the MySQL database to pull the appropriate data for each of my entries.
+
+I’m still going to use Markdown to format my entries, rather than write HTML. Although, it might make sense in the long run to keep the structure of the article body as XML that the XSLT processor can transform. But I’m a little lazy when it comes to that. Why don’t I let Symphony create the XML for me. I simply need to write the text document and copy and paste the text into Symphony. Symphony will create the HTML formatted content and insert this content into the XML data. I just need to find the entry in the database and copy the XML.
+
+#### A Sample Text File
+
+The structure of the TXT file will look something like this:
+
+    --------------------------------
+    Title
+    --------------------------------
+    
+    The Title of My Entry
+    
+    
+    --------------------------------
+    Description
+    --------------------------------
+    
+    A brief description of my entry.
+    
+    
+    --------------------------------
+    Body
+    --------------------------------
+    
+    This is the body of my entry, using 
+    [Markdown](http://daringfireball.net/projects/markdown/) 
+    to format the text as HTML, using the Symphony Markdown extension.
+    
+    --------------------------------
+    Date
+    --------------------------------
+    17 May 2009 9:07:59 am
+    
+    
+    --------------------------------
+    Section
+    --------------------------------
+    Journal
+    
+    
+    --------------------------------
+    Category
+    --------------------------------
+    Technology
+    
+    
+    --------------------------------
+    Tags
+    --------------------------------
+    symphony cms, backup, xml
+
+#### A Sample XML File
+
+Once I have saved my entry, I can actually grab the formatted HTML from the ?debug page and I have XML that can be imported into my site as a fall back to using the database. The XML will look like this:
+
+    <entry id="28" items="0">
+        <title handle="the-title-of-my-entry">The Title of My Entry</title>
+        <description word-count="6"><p>A brief description of my entry.</p></description>
+        <body word-count="20"><p>This is the body of my entry, using 
+            <a href="http://daringfireball.net/projects/markdown/">Markdown</a> 
+            to format the text as HTML, using the Symphony Markdown extension.</p>
+        </body>
+        <section>
+            <item handle="journal" id="17">Journal</item>
+        </section>
+        <category>
+            <item handle="technology" id="15">Technology</item>
+        </category>
+        <date time="09:07" weekday="7">2009-05-17</date>
+    </entry>
+
+This is similar to what Symphony already does. For each textarea field, the database stores a raw text version and the formatted HTML version. I’ll create a directory in my workspace called “entries” to store the formatted XML entries which also contains a “markdown” directory containing the raw Markdown formatted TXT files.
+
+We’ll see if I like this method enough to actually use it going forward.
+
+
+
+--------------------------------
+Date
+--------------------------------
+17 May 2009 8:18am
+
+
+--------------------------------
+Section
+--------------------------------
+Journal
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------

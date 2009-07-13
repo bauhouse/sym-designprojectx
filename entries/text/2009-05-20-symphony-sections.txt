@@ -1,0 +1,329 @@
+--------------------------------
+Title
+--------------------------------
+Symphony Sections
+
+
+--------------------------------
+Description
+--------------------------------
+In Symphony, creating Sections is a way of dynamically creating the database structure for your site and the navigation system of the Symphony admin area. This tutorial assumes that you have a clean install of the integration branch of Symphony 2.0.2 from Github (although, this is not essential), and that the Markdown, Select Box Link and Entry Order extensions have been enabled.
+
+
+
+--------------------------------
+Body
+--------------------------------
+Don’t worry if you don’t have the integration branch installed. This simply means you won’t be able to organize sections into different menus in the Symphony admin area.
+
+For this site, I have created 5 sections. Two sections deal with metadata. Three sections deal with content.
+
+#### Metadata Sections
+
+First, let’s create the metadata sections:
+
+##### Types Section
+
+Navigate to Blueprints : Sections and create a new section with the following settings:
+
+###### Essentials
+
+* Name: **Types**
+* Navigation Group: **Meta**
+
+###### Fields
+
+* Text Input
+	* Label: **Title**
+	* Placement: **Main content**
+	* Validation Rule: (none)
+	* Make this a required field: **yes**
+	* Show column: **yes**
+* Textarea
+	* Label: **Description**
+	* Placement: **Main content**
+	* Make textarea **15** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **yes**
+
+##### Categories Section
+
+Next, create the "Categories" section with the following settings:
+
+###### Essentials
+
+* Name: **Types**
+* Navigation Group: **Meta**
+
+###### Fields
+
+* Text Input
+	* Label: **Title**
+	* Placement: **Main content**
+	* Validation Rule: (none)
+	* Make this a required field: **yes**
+	* Show column: **yes**
+* Textarea
+	* Label: **Description**
+	* Placement: **Main content**
+	* Make textarea **6** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **yes**
+* Textarea
+	* Label: **Body**
+	* Placement: **Main content**
+	* Make textarea **15** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **no**
+	
+##### Symphony Admin Navigation
+
+If you are working with a clean install of Symphony, you will notice that once you have created the first section, a new menu item will be added to the Symphony admin menu. If you are using the version 2.0.2 integration branch, the name of the menu will be labelled with the name you designated as the Navigation Group. For earlier versions, all sections will appear in the Publish menu. To re-order the menu, navigate to Blueprints : Sections and drag the row for each section to a different position.
+
+#### Content Sections
+
+Now, let’s create the content sections:
+
+##### Sections Section
+
+Create a new section with the following settings. (**Note**: for the Parent Section select box link field, select Types:Title, save the section, then select Sections:Title. It is possible for a Select Box Link to select itself to be able to create hierarchies of sections, but the section must first be saved to make the section available in the list of options.)
+
+###### Essentials
+
+* Name: **Sections**
+* Navigation Group: **Content**
+
+###### Fields
+
+* Text Input
+	* Label: **Title**
+	* Placement: **Main content**
+	* Validation Rule: (none)
+	* Make this a required field: **yes**
+	* Show column: **yes**
+* Textarea
+	* Label: **Description**
+	* Placement: **Main content**
+	* Make textarea **6** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **yes**
+* Textarea
+	* Label: **Body**
+	* Placement: **Main content**
+	* Make textarea **15** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **no**
+* Select Box Link
+	* Label: **Parent Section**
+	* Placement: **Sidebar**
+	* Options: **Sections: Title**
+	* Limit to the **20** most recent entries
+	* Allow selection of multiple options: **no**
+	* Make this a required field: **no**
+	* Show column: **yes**
+* Select Box
+	* Label: **Menu**
+	* Placement: **Sidebar**
+	* Static Options: **Main, Content**
+	* Dynamic Options: **None**
+	* Allow selection of multiple options: **no**
+	* Show column: **yes**
+* Entry Order
+	* Label: **Sort**
+	* Placement: **Sidebar**
+	* Show column: **yes**
+
+##### Entries Section
+
+Next, create the "Entries" section with the following settings:
+
+###### Essentials
+
+* Name: **Entries**
+* Navigation Group: **Content**
+
+###### Fields
+
+* Text Input
+	* Label: **Title**
+	* Placement: **Main content**
+	* Validation Rule: (none)
+	* Make this a required field: **yes**
+	* Show column: **yes**
+* Textarea
+	* Label: **Description**
+	* Placement: **Main content**
+	* Make textarea **6** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **no**
+* Textarea
+	* Label: **Body**
+	* Placement: **Main content**
+	* Make textarea **15** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **no**
+* Select Box Link
+	* Label: **Section**
+	* Placement: **Sidebar**
+	* Options: **Sections: Title**
+	* Limit to the **20** most recent entries
+	* Allow selection of multiple options: **no**
+	* Make this a required field: **no**
+	* Show column: **yes**
+* Select Box Link
+	* Label: **Category**
+	* Placement: **Sidebar**
+	* Options: **Categories: Title**
+	* Limit to the **20** most recent entries
+	* Allow selection of multiple options: **no**
+	* Make this a required field: **no**
+	* Show column: **yes**
+* Tag List
+	* Label: **Tags**
+	* Placement: **Sidebar**
+	* Suggestion List: **Existing Values**
+	* Validation Rule: (none)
+	* Show column: **yes**
+* Date
+	* Label: **Date**
+	* Placement: **Sidebar**
+	* Pre-populate this field with today's date: **yes**
+	* Show column: **yes**
+* Checkbox
+	* Label: **Publish**
+	* Placement: **Sidebar**
+	* Long Description: (none)
+	* Checked by default: **yes**
+	* Show column: **yes**
+
+##### Items Section
+
+Finally, create the "Items" section with the following settings:
+
+###### Essentials
+
+* Name: **Items**
+* Navigation Group: **Content**
+
+###### Fields
+
+* Text Input
+	* Label: **Title**
+	* Placement: **Main content**
+	* Validation Rule: (none)
+	* Make this a required field: **yes**
+	* Show column: **yes**
+* Select Box Link
+	* Label: **Type**
+	* Placement: **Main content**
+	* Options: **Types: Title**
+	* Limit to the **20** most recent entries
+	* Allow selection of multiple options: **no**
+	* Make this a required field: **yes**
+	* Show column: **yes**
+* Select Box Link
+	* Label: **Entry**
+	* Placement: **Sidebar**
+	* Options: **Entries: Title**
+	* Limit to the **20** most recent entries
+	* Allow selection of multiple options: **no**
+	* Make this a required field: **no**
+	* Show column: **no**
+* Text Input
+	* Label: **URL**
+	* Placement: **Main content**
+	* Validation Rule: (none)
+	* Make this a required field: **no**
+	* Show column: **yes**
+* Textarea
+	* Label: **Description**
+	* Placement: **Main content**
+	* Make textarea **6** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **no**
+* Textarea
+	* Label: **Body**
+	* Placement: **Main content**
+	* Make textarea **15** rows tall
+	* Make this a required field: **no**
+	* Text Formatter: **Markdown Extra plus SmartyPants**
+	* Show column: **no**
+* Select Box Link
+	* Label: **Category**
+	* Placement: **Sidebar**
+	* Options: **Categories: Title**
+	* Limit to the **20** most recent entries
+	* Allow selection of multiple options: **no**
+	* Make this a required field: **no**
+	* Show column: **no**
+* Tag List
+	* Label: **Tags**
+	* Placement: **Sidebar**
+	* Suggestion List: **Existing Values**
+	* Validation Rule: (none)
+	* Show column: **no**
+* Date
+	* Label: **Date**
+	* Placement: **Sidebar**
+	* Pre-populate this field with today's date: **yes**
+	* Show column: **yes**
+* Checkbox
+	* Label: **Publish**
+	* Placement: **Sidebar**
+	* Long Description: (none)
+	* Checked by default: **yes**
+	* Show column: **yes**
+* File Upload
+	* Label: **Image**
+	* Placement: **Main content**
+	* Destination Directory: **/workspace/images**
+	* Validation Rule: (none)
+	* Make this a required field: **no**
+	* Show column: **yes**
+* File Upload
+	* Label: **File**
+	* Placement: **Main content**
+	* Destination Directory: **/workspace/files**
+	* Validation Rule: (none)
+	* Make this a required field: **no**
+	* Show column: **yes**
+
+##### Data Structure and Backup System
+
+This is the data structure of this site as of this writing. Feel free to keep the data structure of your site as simple or as complex as you like. You can always add or remove fields and sections as you like. But, be aware that removing sections and fields will also remove the associated data from the database. So, be careful.
+
+As a simple backup system, it is a good idea to install the Export Ensemble extension. This extension will create a ZIP archive that contains everything needed to reproduce your entire site, except for your author settings and server/database configuration settings. You would install an ensemble in the same way you would install Symphony. The Symphony install file is itself an Ensemble. The Ensemble can be used to share site files, build themes or migrate sites from one server to another, or from a local test server to a production server.
+
+Of course, if you have several Authors, it would be far better to maintain a backup of the files and database that could be used to restore the entire site, including Authors, .htaccess files and configuration settings.
+
+
+--------------------------------
+Date
+--------------------------------
+20 May 2009 9:45am
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms

@@ -1,0 +1,180 @@
+--------------------------------
+Title
+--------------------------------
+Symphony URL Parameters: Managing Page Views
+
+
+--------------------------------
+Description
+--------------------------------
+Symphony URL Parameters allow a single page template to manage several different views of the XML data. Using XSLT and some flexible URL parameters, it is possible to filter entries by different sets of categories or other forms of metadata to create nested lists. This tutorial is in answer to a question about [filtering content](http://symphony-cms.com/forum/discussions/21790/) on the Symphony forum.
+
+
+
+--------------------------------
+Body
+--------------------------------
+When creating a page template, specify URL parameters to be able to control different page views, depending on the value of each URL parameter. If the URL Parameters `a/b` have been specified in the page template, you could display a couple links to select two different overviews.
+
+    <ul>
+        <li><a href="{$root}/products/categories/">View Products by Category</a></li>
+        <li><a href="{$root}/products/materials/">View Products by Material</a></li>
+    </ul>
+
+Let’s assume that a site needs to display a list of products which can be viewed by category or by material. One strategy might be to create three sections: one for Categories and another for Materials, then a separate section for Products. The Products section could include two Select Box Link fields: one called Category linked to the Title field of the Categories section, and one called Material linked to the Title field of the Materials section. Create three data sources for the overviews that include the elements that would display on an overview page: Products, Categories and Materials.
+
+#### Creating Lists with XSLT
+
+List the products by category by first creating a list of the categories:
+
+    <h3><a href="{$root}/products/categories/">Categories</a></h3>
+    <ul>
+        <xsl:for-each select="/data/categories/entry">
+            <li><a href="{$root}/products/{title/@handle}/"><xsl:value-of select="title"/></a></li>
+        </xsl:for-each>
+    </ul>
+
+A list of the materials would be similar:
+
+    <h3><a href="{$root}/products/materials/">Materials</a></h3>
+    <ul>
+        <xsl:for-each select="/data/materials/entry">
+            <li><a href="{$root}/products/{title/@handle}/"><xsl:value-of select="title"/></a></li>
+        </xsl:for-each>
+    </ul>
+
+##### Lists of Lists
+
+Use a named template to call a list of products for each category, and another to call a list of products for each material:
+
+    <xsl:template name="products-by-category">
+        <xsl:param name="category"/>
+        <xsl:for-each select="/data/products/entry[category/item/@handle = $category]">
+            <li><a href="{$root}/products/{$category}/{title/@handle}/"><xsl:value-of select="title"/></a></li>
+        </xsl:for-each>
+    </xsl:template>
+    
+    <xsl:template name="products-by-material">
+        <xsl:param name="material"/>
+        <xsl:for-each select="/data/products/entry[material/item/@handle = $material]">
+            <li><a href="{$root}/products/{$category}/{title/@handle}/"><xsl:value-of select="title"/></a></li>
+        </xsl:for-each>
+    </xsl:template>
+
+##### Products by Category
+
+Call the “products-by-category” template to create a list of products organized by category:
+
+    <xsl:template name="products-categories">
+        <h3><a href="{$root}/products/categories/">Categories</a></h3>
+        <ul>
+            <xsl:for-each select="/data/categories/entry">
+                <li>
+                    <a href="{$root}/products/{title/@handle}/"><xsl:value-of select="title"/></a>
+                    <ul>
+                        <xsl:call-template name="products-by-category">
+                            <xsl:with-param name="category" select="title/@handle"/>
+                        </xsl:call-template>
+                    </ul>
+                </li>
+            </xsl:for-each>
+        </ul>
+    </xsl:template>
+
+##### Products by Material
+
+Call the “products-by-material” template to create a list of products organized by material:
+
+    <xsl:template name="products-materials">
+        <h3><a href="{$root}/products/materials/">Materials</a></h3>
+        <ul>
+            <xsl:for-each select="/data/materials/entry">
+                <li>
+                    <a href="{$root}/products/{title/@handle}/"><xsl:value-of select="title"/></a>
+                    <ul>
+                        <xsl:call-template name="products-by-material">
+                            <xsl:with-param name="material" select="title/@handle"/>
+                        </xsl:call-template>
+                    </ul>
+                </li>
+            </xsl:for-each>
+        </ul>
+    </xsl:template>
+
+#### A Named Template to Display Entries
+
+Create a named template for displaying each product entry:
+
+    <xsl:template name="product-entry">
+        <h4><a href="{$root}/products/{$a}/{title/@handle}/"><xsl:value-of select="title"/></a></h4>
+        <xsl:copy-of select="description/*"/>
+    </xsl:template>
+
+#### Managing Page Views
+
+Then, create the logic to display each view by using an `xsl:choose` instruction:
+
+    <xsl:choose>
+        <xsl:when test="$b">
+            <xsl:for-each select="/data/products/entry[title/@handle = $b]">
+                <xsl:call-template name="product-entry"/>
+            </xsl:for-each>
+        </xsl:when>
+        <xsl:when test="$a = 'materials'">
+            <!-- Display a list of materials when the URL is 
+                http://www.example.com/products/materials/ -->
+            <xsl:call-template name="products-materials">
+        </xsl:when>
+        <xsl:when test="$a">
+            <h3>
+                <!-- Assuming no category will be identical to a name for a material, 
+                    this should display a single value for the matching material/category -->
+                <xsl:value-of select="/data/materials/entry[title/@handle = $a]/title"/>
+                <xsl:value-of select="/data/catgories/entry[title/@handle = $a]/title"/>
+            </h3>
+            <xsl:for-each select="/data/products/entry[materials/item/@handle = $a]">
+                <!-- Display products with a material that matches $a -->
+                <xsl:call-template name="product-entry"/>
+            </xsl:for-each>
+            <xsl:for-each select="/data/products/entry[category/item/@handle = $a]">
+                <!-- Display products with a category that matches $a -->
+                <xsl:call-template name="product-entry"/>
+            </xsl:for-each>
+        </xsl:when>
+        <xsl:otherwise>
+            <!-- Display a list of categories when the URL is 
+                http://www.example.com/products/ -->
+            <xsl:call-template name="products-categories">
+        </xsl:otherwise>
+    </xsl:choose>
+
+#### Data Source Optimization
+
+These templates use XSLT to filter entries. To be able to display full entries for each product, it would be best to use data source filtering to ensure that the XML output is optimized in order to keep page load times as fast as possible. With different data sources, adjust the XPath expressions to select the appropriate XML nodes.
+
+Read more about [Symphony Data Sources](http://www.designprojectx.com/tutorials/symphony-data-sources/) or refer to the [Symphony documentation](http://symphony-cms.com/documentation/interface/).
+
+
+
+--------------------------------
+Date
+--------------------------------
+22 May 2009 9:50am
+
+
+--------------------------------
+Section
+--------------------------------
+Tutorials
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, xslt

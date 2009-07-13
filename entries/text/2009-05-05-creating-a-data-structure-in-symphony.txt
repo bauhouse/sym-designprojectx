@@ -1,0 +1,103 @@
+--------------------------------
+Title
+--------------------------------
+
+Creating a Data Structure in Symphony
+
+
+--------------------------------
+Description
+--------------------------------
+
+Symphony CMS allows the developer the freedom to create a data structure that suits the content of the site. I won't be straying far from the usual, to demonstrate the basics. We can always extend these data structures at any time, although, it's better to have a clear idea in mind at the outset.
+
+
+--------------------------------
+Body
+--------------------------------
+
+### Types
+
+I want to be able to blog and have a number of different types of content
+
+* Bookmarks
+* Books
+* Files
+* Photos
+* Sites
+
+
+### Sections
+
+I want to organize my site content into sections
+
+* Resources
+* Calendar
+* Journal
+* Contact
+* About
+* Home
+
+### Categories
+
+I also want to organize my site content in categories
+
+* Applications
+* Design
+* History
+* Ideas
+* Technology
+* Typography
+
+### Entries
+
+Basic content entries don't need much more than:
+
+* Title
+* Description
+* Body
+* Section
+* Category
+* Date
+* Publish
+
+### Items
+
+Could be a lot of different items that get attached to entries or exist just on their own. Here's where types of content come into play.
+
+* Title
+* URL
+* Type
+* Category
+* Date
+* Entry
+* Description
+* Body
+* Tags
+* Image
+* File
+* Publish
+
+
+--------------------------------
+Date
+--------------------------------
+17 May 2009 9:07:59 am
+
+
+--------------------------------
+Section
+--------------------------------
+Journal
+
+
+--------------------------------
+Category
+--------------------------------
+Technology
+
+
+--------------------------------
+Tags
+--------------------------------
+symphony cms, data structure

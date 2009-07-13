@@ -1,0 +1,45 @@
+<entry>
+
+<meta>
+	<date handle="2009-05-17">May 17, 2009</date>
+	<section>Journal</section>
+	<category>Technology</category>
+	<tags>symphony cms, backup, xml</tags>
+</meta>
+
+<title>Maintaining a Simple Backup System in Symphony</title>
+<description>I want to be able to have easy access to all my site content. I also want to be able to write the content in a text editor so that I can use the features that help the writing process go a lot smoother, such as multiple undos.</description>
+<body>
+
+Since Symphony is a system based on XML and XSLT, it makes sense to store these files as XML. I could potentially import the XML files into Symphony instead of relying on the MySQL database to pull the appropriate data for each of my entries.
+
+I'm still going to use Markdown to format my entries, rather than write HTML. Although, it might make sense in the long run to keep the structure of the article body as XML that the XSLT processor can transform. But I'm a little lazy when it comes to that. So, I'll keep things simple.
+
+The structure of the XML file will look something like this:
+
+	<entry>
+	
+	<meta>
+		<date handle="2009-05-17">May 17, 2009</date>
+		<section>Journal</section>
+		<category>Technology</category>
+		<tags>symphony cms, backup, xml</tags>
+	</meta>
+	
+	<title>Title</title>
+	<description>A brief description can go here.</description>
+	<body>
+	
+	### The Body of My Entry
+	
+	This is the body of my entry, using [Markdown](http://daringfireball.net/projects/markdown/) to format the text as HTML, using the Symphony Markdown extension.
+	
+	</body>
+	
+	</entry>
+
+Once I have saved my entry, I can actually grab the formatted HTML from the ?debug page and I have XML that can be imported into my site as a fall back to using the database.
+
+</body>
+
+</entry>
