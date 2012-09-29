@@ -2,12 +2,12 @@
 -- *** STRUCTURE: `tbl_fields_author` ***
 DROP TABLE IF EXISTS `tbl_fields_author`;
 CREATE TABLE `tbl_fields_author` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  `allow_author_change` enum('yes','no') collate utf8_unicode_ci NOT NULL,
-  `allow_multiple_selection` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  `default_to_current_user` enum('yes','no') collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`id`),
+  `allow_author_change` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL,
+  `allow_multiple_selection` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `default_to_current_user` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -16,11 +16,11 @@ CREATE TABLE `tbl_fields_author` (
 -- *** STRUCTURE: `tbl_fields_checkbox` ***
 DROP TABLE IF EXISTS `tbl_fields_checkbox`;
 CREATE TABLE `tbl_fields_checkbox` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  `default_state` enum('on','off') collate utf8_unicode_ci NOT NULL default 'on',
-  `description` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
+  `default_state` enum('on','off') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'on',
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -31,25 +31,24 @@ INSERT INTO `tbl_fields_checkbox` (`id`, `field_id`, `default_state`, `descripti
 -- *** STRUCTURE: `tbl_fields_date` ***
 DROP TABLE IF EXISTS `tbl_fields_date`;
 CREATE TABLE `tbl_fields_date` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  `pre_populate` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  `calendar` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  PRIMARY KEY  (`id`),
+  `pre_populate` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  PRIMARY KEY (`id`),
   KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- *** DATA: `tbl_fields_date` ***
-INSERT INTO `tbl_fields_date` (`id`, `field_id`, `pre_populate`, `calendar`) VALUES (10, 24, 'yes', 'no');
-INSERT INTO `tbl_fields_date` (`id`, `field_id`, `pre_populate`, `calendar`) VALUES (14, 32, 'yes', 'no');
+INSERT INTO `tbl_fields_date` (`id`, `field_id`, `pre_populate`) VALUES (10, 24, 'yes');
+INSERT INTO `tbl_fields_date` (`id`, `field_id`, `pre_populate`) VALUES (14, 32, 'yes');
 
 -- *** STRUCTURE: `tbl_fields_input` ***
 DROP TABLE IF EXISTS `tbl_fields_input`;
 CREATE TABLE `tbl_fields_input` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  `validator` varchar(100) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
+  `validator` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -64,9 +63,9 @@ INSERT INTO `tbl_fields_input` (`id`, `field_id`, `validator`) VALUES (45, 37, N
 -- *** STRUCTURE: `tbl_fields_member` ***
 DROP TABLE IF EXISTS `tbl_fields_member`;
 CREATE TABLE `tbl_fields_member` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
@@ -75,9 +74,9 @@ CREATE TABLE `tbl_fields_member` (
 -- *** STRUCTURE: `tbl_fields_memberlink` ***
 DROP TABLE IF EXISTS `tbl_fields_memberlink`;
 CREATE TABLE `tbl_fields_memberlink` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
@@ -86,70 +85,61 @@ CREATE TABLE `tbl_fields_memberlink` (
 -- *** STRUCTURE: `tbl_fields_memberrole` ***
 DROP TABLE IF EXISTS `tbl_fields_memberrole`;
 CREATE TABLE `tbl_fields_memberrole` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- *** DATA: `tbl_fields_memberrole` ***
 
--- *** STRUCTURE: `tbl_fields_order_entries` ***
-DROP TABLE IF EXISTS `tbl_fields_order_entries`;
-CREATE TABLE `tbl_fields_order_entries` (
-  `id` int(11) unsigned NOT NULL auto_increment,
-  `field_id` int(11) unsigned NOT NULL,
-  `force_sort` enum('yes','no') collate utf8_unicode_ci default 'no',
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `field_id` (`field_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- *** DATA: `tbl_fields_order_entries` ***
-
 -- *** STRUCTURE: `tbl_fields_select` ***
 DROP TABLE IF EXISTS `tbl_fields_select`;
 CREATE TABLE `tbl_fields_select` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  `allow_multiple_selection` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  `static_options` text collate utf8_unicode_ci,
-  `dynamic_options` int(11) unsigned default NULL,
-  PRIMARY KEY  (`id`),
+  `allow_multiple_selection` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `static_options` text COLLATE utf8_unicode_ci,
+  `dynamic_options` int(11) unsigned DEFAULT NULL,
+  `show_association` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `sort_options` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  PRIMARY KEY (`id`),
   KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- *** DATA: `tbl_fields_select` ***
-INSERT INTO `tbl_fields_select` (`id`, `field_id`, `allow_multiple_selection`, `static_options`, `dynamic_options`) VALUES (7, 13, 'no', 'Content, Main', NULL);
+INSERT INTO `tbl_fields_select` (`id`, `field_id`, `allow_multiple_selection`, `static_options`, `dynamic_options`, `show_association`, `sort_options`) VALUES (7, 13, 'no', 'Content, Main', NULL, 'yes', 'no');
 
 -- *** STRUCTURE: `tbl_fields_selectbox_link` ***
 DROP TABLE IF EXISTS `tbl_fields_selectbox_link`;
 CREATE TABLE `tbl_fields_selectbox_link` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  `allow_multiple_selection` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  `related_field_id` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `limit` int(4) unsigned NOT NULL default '20',
-  PRIMARY KEY  (`id`),
+  `allow_multiple_selection` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `related_field_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `limit` int(4) unsigned NOT NULL DEFAULT '20',
+  `show_association` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  PRIMARY KEY (`id`),
   KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- *** DATA: `tbl_fields_selectbox_link` ***
-INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`) VALUES (43, 12, 'no', 9, 20);
-INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`) VALUES (30, 18, 'yes', 9, 20);
-INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`) VALUES (35, 22, 'no', 9, 20);
-INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`) VALUES (36, 23, 'no', 15, 20);
-INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`) VALUES (47, 27, 'no', 7, 20);
-INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`) VALUES (48, 28, 'no', 19, 20);
-INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`) VALUES (49, 33, 'no', 15, 20);
+INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`, `show_association`) VALUES (43, 12, 'no', 9, 20, 'yes');
+INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`, `show_association`) VALUES (30, 18, 'yes', 9, 20, 'yes');
+INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`, `show_association`) VALUES (35, 22, 'no', 9, 20, 'yes');
+INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`, `show_association`) VALUES (36, 23, 'no', 15, 20, 'yes');
+INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`, `show_association`) VALUES (47, 27, 'no', 7, 20, 'yes');
+INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`, `show_association`) VALUES (48, 28, 'no', 19, 20, 'yes');
+INSERT INTO `tbl_fields_selectbox_link` (`id`, `field_id`, `allow_multiple_selection`, `related_field_id`, `limit`, `show_association`) VALUES (49, 33, 'no', 15, 20, 'yes');
 
 -- *** STRUCTURE: `tbl_fields_taglist` ***
 DROP TABLE IF EXISTS `tbl_fields_taglist`;
 CREATE TABLE `tbl_fields_taglist` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  `validator` varchar(100) collate utf8_unicode_ci default NULL,
-  `pre_populate_source` varchar(15) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
+  `validator` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pre_populate_source` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `field_id` (`field_id`),
   KEY `pre_populate_source` (`pre_populate_source`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -161,33 +151,33 @@ INSERT INTO `tbl_fields_taglist` (`id`, `field_id`, `validator`, `pre_populate_s
 -- *** STRUCTURE: `tbl_fields_textarea` ***
 DROP TABLE IF EXISTS `tbl_fields_textarea`;
 CREATE TABLE `tbl_fields_textarea` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  `formatter` varchar(100) collate utf8_unicode_ci default NULL,
+  `formatter` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `size` int(3) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  PRIMARY KEY (`id`),
   KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- *** DATA: `tbl_fields_textarea` ***
-INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (19, 8, 'pb_markdownextrasmartypants', 15);
-INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (56, 10, 'pb_markdownextrasmartypants', 6);
-INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (57, 11, 'pb_markdownextrasmartypants', 15);
-INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (44, 16, 'pb_markdownextrasmartypants', 6);
-INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (45, 17, 'pb_markdownextrasmartypants', 15);
-INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (50, 20, 'pb_markdownextrasmartypants', 6);
-INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (51, 21, 'pb_markdownextrasmartypants', 15);
-INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (60, 29, 'pb_markdownextrasmartypants', 6);
-INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (61, 30, 'pb_markdownextrasmartypants', 15);
+INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (19, 8, 'markdown_extra_with_smartypants', 15);
+INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (56, 10, 'markdown_extra_with_smartypants', 6);
+INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (57, 11, 'markdown_extra_with_smartypants', 15);
+INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (44, 16, 'markdown_extra_with_smartypants', 6);
+INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (45, 17, 'markdown_extra_with_smartypants', 15);
+INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (50, 20, 'markdown_extra_with_smartypants', 6);
+INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (51, 21, 'markdown_extra_with_smartypants', 15);
+INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (60, 29, 'markdown_extra_with_smartypants', 6);
+INSERT INTO `tbl_fields_textarea` (`id`, `field_id`, `formatter`, `size`) VALUES (61, 30, 'markdown_extra_with_smartypants', 15);
 
 -- *** STRUCTURE: `tbl_fields_upload` ***
 DROP TABLE IF EXISTS `tbl_fields_upload`;
 CREATE TABLE `tbl_fields_upload` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `field_id` int(11) unsigned NOT NULL,
-  `destination` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `validator` varchar(50) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
+  `destination` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `validator` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `field_id` (`field_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -198,12 +188,12 @@ INSERT INTO `tbl_fields_upload` (`id`, `field_id`, `destination`, `validator`) V
 -- *** STRUCTURE: `tbl_entries_data_10` ***
 DROP TABLE IF EXISTS `tbl_entries_data_10`;
 CREATE TABLE `tbl_entries_data_10` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` text collate utf8_unicode_ci,
-  `value_formatted` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` mediumtext COLLATE utf8_unicode_ci,
+  `value_formatted` mediumtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   FULLTEXT KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -217,12 +207,12 @@ INSERT INTO `tbl_entries_data_10` (`id`, `entry_id`, `value`, `value_formatted`)
 -- *** STRUCTURE: `tbl_entries_data_11` ***
 DROP TABLE IF EXISTS `tbl_entries_data_11`;
 CREATE TABLE `tbl_entries_data_11` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` text collate utf8_unicode_ci,
-  `value_formatted` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` mediumtext COLLATE utf8_unicode_ci,
+  `value_formatted` mediumtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   FULLTEXT KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -236,10 +226,10 @@ INSERT INTO `tbl_entries_data_11` (`id`, `entry_id`, `value`, `value_formatted`)
 -- *** STRUCTURE: `tbl_entries_data_12` ***
 DROP TABLE IF EXISTS `tbl_entries_data_12`;
 CREATE TABLE `tbl_entries_data_12` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `relation_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  `relation_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `relation_id` (`relation_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -249,11 +239,11 @@ CREATE TABLE `tbl_entries_data_12` (
 -- *** STRUCTURE: `tbl_entries_data_13` ***
 DROP TABLE IF EXISTS `tbl_entries_data_13`;
 CREATE TABLE `tbl_entries_data_13` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `handle` varchar(255) collate utf8_unicode_ci default NULL,
-  `value` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
+  `handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `handle` (`handle`),
   KEY `value` (`value`)
@@ -269,10 +259,10 @@ INSERT INTO `tbl_entries_data_13` (`id`, `entry_id`, `handle`, `value`) VALUES (
 -- *** STRUCTURE: `tbl_entries_data_14` ***
 DROP TABLE IF EXISTS `tbl_entries_data_14`;
 CREATE TABLE `tbl_entries_data_14` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` double default NULL,
-  PRIMARY KEY  (`id`),
+  `value` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -287,12 +277,12 @@ INSERT INTO `tbl_entries_data_14` (`id`, `entry_id`, `value`) VALUES (5, 37, 5);
 -- *** STRUCTURE: `tbl_entries_data_15` ***
 DROP TABLE IF EXISTS `tbl_entries_data_15`;
 CREATE TABLE `tbl_entries_data_15` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `handle` varchar(255) collate utf8_unicode_ci default NULL,
-  `value` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `handle` (`handle`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -307,12 +297,12 @@ INSERT INTO `tbl_entries_data_15` (`id`, `entry_id`, `handle`, `value`) VALUES (
 -- *** STRUCTURE: `tbl_entries_data_16` ***
 DROP TABLE IF EXISTS `tbl_entries_data_16`;
 CREATE TABLE `tbl_entries_data_16` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` text collate utf8_unicode_ci,
-  `value_formatted` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` mediumtext COLLATE utf8_unicode_ci,
+  `value_formatted` mediumtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   FULLTEXT KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -326,12 +316,12 @@ INSERT INTO `tbl_entries_data_16` (`id`, `entry_id`, `value`, `value_formatted`)
 -- *** STRUCTURE: `tbl_entries_data_17` ***
 DROP TABLE IF EXISTS `tbl_entries_data_17`;
 CREATE TABLE `tbl_entries_data_17` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` text collate utf8_unicode_ci,
-  `value_formatted` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` mediumtext COLLATE utf8_unicode_ci,
+  `value_formatted` mediumtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   FULLTEXT KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -345,10 +335,10 @@ INSERT INTO `tbl_entries_data_17` (`id`, `entry_id`, `value`, `value_formatted`)
 -- *** STRUCTURE: `tbl_entries_data_18` ***
 DROP TABLE IF EXISTS `tbl_entries_data_18`;
 CREATE TABLE `tbl_entries_data_18` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `relation_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  `relation_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `relation_id` (`relation_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -358,12 +348,12 @@ CREATE TABLE `tbl_entries_data_18` (
 -- *** STRUCTURE: `tbl_entries_data_19` ***
 DROP TABLE IF EXISTS `tbl_entries_data_19`;
 CREATE TABLE `tbl_entries_data_19` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `handle` varchar(255) collate utf8_unicode_ci default NULL,
-  `value` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `handle` (`handle`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=340 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -412,12 +402,12 @@ INSERT INTO `tbl_entries_data_19` (`id`, `entry_id`, `handle`, `value`) VALUES (
 -- *** STRUCTURE: `tbl_entries_data_20` ***
 DROP TABLE IF EXISTS `tbl_entries_data_20`;
 CREATE TABLE `tbl_entries_data_20` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` text collate utf8_unicode_ci,
-  `value_formatted` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` mediumtext COLLATE utf8_unicode_ci,
+  `value_formatted` mediumtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   FULLTEXT KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=340 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -465,12 +455,12 @@ INSERT INTO `tbl_entries_data_20` (`id`, `entry_id`, `value`, `value_formatted`)
 -- *** STRUCTURE: `tbl_entries_data_21` ***
 DROP TABLE IF EXISTS `tbl_entries_data_21`;
 CREATE TABLE `tbl_entries_data_21` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` text collate utf8_unicode_ci,
-  `value_formatted` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` mediumtext COLLATE utf8_unicode_ci,
+  `value_formatted` mediumtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   FULLTEXT KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=340 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -518,10 +508,10 @@ INSERT INTO `tbl_entries_data_21` (`id`, `entry_id`, `value`, `value_formatted`)
 -- *** STRUCTURE: `tbl_entries_data_22` ***
 DROP TABLE IF EXISTS `tbl_entries_data_22`;
 CREATE TABLE `tbl_entries_data_22` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `relation_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  `relation_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `relation_id` (`relation_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=340 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -570,10 +560,10 @@ INSERT INTO `tbl_entries_data_22` (`id`, `entry_id`, `relation_id`) VALUES (339,
 -- *** STRUCTURE: `tbl_entries_data_23` ***
 DROP TABLE IF EXISTS `tbl_entries_data_23`;
 CREATE TABLE `tbl_entries_data_23` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `relation_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  `relation_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `relation_id` (`relation_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=325 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -620,13 +610,13 @@ INSERT INTO `tbl_entries_data_23` (`id`, `entry_id`, `relation_id`) VALUES (324,
 -- *** STRUCTURE: `tbl_entries_data_24` ***
 DROP TABLE IF EXISTS `tbl_entries_data_24`;
 CREATE TABLE `tbl_entries_data_24` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` varchar(80) collate utf8_unicode_ci default NULL,
-  `local` int(11) default NULL,
-  `gmt` int(11) default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `local` int(11) DEFAULT NULL,
+  `gmt` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=340 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -674,11 +664,11 @@ INSERT INTO `tbl_entries_data_24` (`id`, `entry_id`, `value`, `local`, `gmt`) VA
 -- *** STRUCTURE: `tbl_entries_data_25` ***
 DROP TABLE IF EXISTS `tbl_entries_data_25`;
 CREATE TABLE `tbl_entries_data_25` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=340 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -726,12 +716,12 @@ INSERT INTO `tbl_entries_data_25` (`id`, `entry_id`, `value`) VALUES (339, 57, '
 -- *** STRUCTURE: `tbl_entries_data_26` ***
 DROP TABLE IF EXISTS `tbl_entries_data_26`;
 CREATE TABLE `tbl_entries_data_26` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `handle` varchar(255) collate utf8_unicode_ci default NULL,
-  `value` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `handle` (`handle`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -741,10 +731,10 @@ CREATE TABLE `tbl_entries_data_26` (
 -- *** STRUCTURE: `tbl_entries_data_27` ***
 DROP TABLE IF EXISTS `tbl_entries_data_27`;
 CREATE TABLE `tbl_entries_data_27` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `relation_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  `relation_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `relation_id` (`relation_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -754,10 +744,10 @@ CREATE TABLE `tbl_entries_data_27` (
 -- *** STRUCTURE: `tbl_entries_data_28` ***
 DROP TABLE IF EXISTS `tbl_entries_data_28`;
 CREATE TABLE `tbl_entries_data_28` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `relation_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  `relation_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `relation_id` (`relation_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -767,12 +757,12 @@ CREATE TABLE `tbl_entries_data_28` (
 -- *** STRUCTURE: `tbl_entries_data_29` ***
 DROP TABLE IF EXISTS `tbl_entries_data_29`;
 CREATE TABLE `tbl_entries_data_29` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` text collate utf8_unicode_ci,
-  `value_formatted` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` mediumtext COLLATE utf8_unicode_ci,
+  `value_formatted` mediumtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   FULLTEXT KEY `value` (`value`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -781,12 +771,12 @@ CREATE TABLE `tbl_entries_data_29` (
 -- *** STRUCTURE: `tbl_entries_data_30` ***
 DROP TABLE IF EXISTS `tbl_entries_data_30`;
 CREATE TABLE `tbl_entries_data_30` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` text collate utf8_unicode_ci,
-  `value_formatted` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` mediumtext COLLATE utf8_unicode_ci,
+  `value_formatted` mediumtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   FULLTEXT KEY `value` (`value`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -795,11 +785,11 @@ CREATE TABLE `tbl_entries_data_30` (
 -- *** STRUCTURE: `tbl_entries_data_31` ***
 DROP TABLE IF EXISTS `tbl_entries_data_31`;
 CREATE TABLE `tbl_entries_data_31` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `handle` varchar(255) collate utf8_unicode_ci default NULL,
-  `value` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
+  `handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `handle` (`handle`),
   KEY `value` (`value`)
@@ -810,13 +800,13 @@ CREATE TABLE `tbl_entries_data_31` (
 -- *** STRUCTURE: `tbl_entries_data_32` ***
 DROP TABLE IF EXISTS `tbl_entries_data_32`;
 CREATE TABLE `tbl_entries_data_32` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` varchar(80) collate utf8_unicode_ci default NULL,
-  `local` int(11) default NULL,
-  `gmt` int(11) default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `local` int(11) DEFAULT NULL,
+  `gmt` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -825,10 +815,10 @@ CREATE TABLE `tbl_entries_data_32` (
 -- *** STRUCTURE: `tbl_entries_data_33` ***
 DROP TABLE IF EXISTS `tbl_entries_data_33`;
 CREATE TABLE `tbl_entries_data_33` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `relation_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY  (`id`),
+  `relation_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `relation_id` (`relation_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -838,11 +828,11 @@ CREATE TABLE `tbl_entries_data_33` (
 -- *** STRUCTURE: `tbl_entries_data_34` ***
 DROP TABLE IF EXISTS `tbl_entries_data_34`;
 CREATE TABLE `tbl_entries_data_34` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -851,14 +841,14 @@ CREATE TABLE `tbl_entries_data_34` (
 -- *** STRUCTURE: `tbl_entries_data_35` ***
 DROP TABLE IF EXISTS `tbl_entries_data_35`;
 CREATE TABLE `tbl_entries_data_35` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `file` varchar(255) collate utf8_unicode_ci default NULL,
-  `size` int(11) unsigned NOT NULL,
-  `mimetype` varchar(50) collate utf8_unicode_ci default NULL,
-  `meta` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `file` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `size` int(11) unsigned DEFAULT NULL,
+  `mimetype` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `meta` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `file` (`file`),
   KEY `mimetype` (`mimetype`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -868,14 +858,14 @@ CREATE TABLE `tbl_entries_data_35` (
 -- *** STRUCTURE: `tbl_entries_data_36` ***
 DROP TABLE IF EXISTS `tbl_entries_data_36`;
 CREATE TABLE `tbl_entries_data_36` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `file` varchar(255) collate utf8_unicode_ci default NULL,
-  `size` int(11) unsigned NOT NULL,
-  `mimetype` varchar(50) collate utf8_unicode_ci default NULL,
-  `meta` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `file` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `size` int(11) unsigned DEFAULT NULL,
+  `mimetype` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `meta` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `file` (`file`),
   KEY `mimetype` (`mimetype`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -885,12 +875,12 @@ CREATE TABLE `tbl_entries_data_36` (
 -- *** STRUCTURE: `tbl_entries_data_37` ***
 DROP TABLE IF EXISTS `tbl_entries_data_37`;
 CREATE TABLE `tbl_entries_data_37` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `handle` varchar(255) collate utf8_unicode_ci default NULL,
-  `value` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `handle` (`handle`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -900,11 +890,11 @@ CREATE TABLE `tbl_entries_data_37` (
 -- *** STRUCTURE: `tbl_entries_data_38` ***
 DROP TABLE IF EXISTS `tbl_entries_data_38`;
 CREATE TABLE `tbl_entries_data_38` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `handle` varchar(255) collate utf8_unicode_ci default NULL,
-  `value` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
+  `handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `entry_id` (`entry_id`),
   KEY `handle` (`handle`),
   KEY `value` (`value`)
@@ -970,12 +960,12 @@ INSERT INTO `tbl_entries_data_38` (`id`, `entry_id`, `handle`, `value`) VALUES (
 -- *** STRUCTURE: `tbl_entries_data_7` ***
 DROP TABLE IF EXISTS `tbl_entries_data_7`;
 CREATE TABLE `tbl_entries_data_7` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `handle` varchar(255) collate utf8_unicode_ci default NULL,
-  `value` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `handle` (`handle`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -990,12 +980,12 @@ INSERT INTO `tbl_entries_data_7` (`id`, `entry_id`, `handle`, `value`) VALUES (6
 -- *** STRUCTURE: `tbl_entries_data_8` ***
 DROP TABLE IF EXISTS `tbl_entries_data_8`;
 CREATE TABLE `tbl_entries_data_8` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `value` text collate utf8_unicode_ci,
-  `value_formatted` text collate utf8_unicode_ci,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `value` mediumtext COLLATE utf8_unicode_ci,
+  `value_formatted` mediumtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   FULLTEXT KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -1009,12 +999,12 @@ INSERT INTO `tbl_entries_data_8` (`id`, `entry_id`, `value`, `value_formatted`) 
 -- *** STRUCTURE: `tbl_entries_data_9` ***
 DROP TABLE IF EXISTS `tbl_entries_data_9`;
 CREATE TABLE `tbl_entries_data_9` (
-  `id` int(11) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_id` int(11) unsigned NOT NULL,
-  `handle` varchar(255) collate utf8_unicode_ci default NULL,
-  `value` varchar(255) collate utf8_unicode_ci default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `entry_id` (`entry_id`),
+  `handle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entry_id` (`entry_id`),
   KEY `handle` (`handle`),
   KEY `value` (`value`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -1083,49 +1073,37 @@ INSERT INTO `tbl_entries` (`id`, `section_id`, `author_id`, `creation_date`, `cr
 INSERT INTO `tbl_entries` (`id`, `section_id`, `author_id`, `creation_date`, `creation_date_gmt`) VALUES (57, 4, 1, '2009-09-16 14:02:17', '2009-09-16 21:02:17');
 
 -- *** DATA: `tbl_extensions` ***
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (2, 'markdown', 'enabled', 1.8);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (9, 'selectbox_link_field', 'enabled', 1.9);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (54, 'order_entries', 'enabled', 1.6);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (25, 'markitup', 'enabled', 1);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (49, 'entity_diagram', 'enabled', 1.3);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (33, 'section_schemas', 'enabled', 1.2);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (43, 'browsedevkit', 'enabled', 1);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (56, 'publishfiltering', 'enabled', 1.2);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (60, 'export_ensemble', 'disabled', 1.9);
+INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (2, 'markdown', 'enabled', 1.13);
+INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (9, 'selectbox_link_field', 'enabled', 1.22);
+INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (63, 'order_entries', 'enabled', '1.9.8');
+INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (60, 'export_ensemble', 'enabled', 1.16);
 INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (50, 'content_type_mappings', 'enabled', 1.3);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (41, 'debugdevkit', 'enabled', 1);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (42, 'profiledevkit', 'enabled', 1);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (44, 'logsdevkit', 'enabled', 1);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (57, 'maintenance_mode', 'enabled', 1.1);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (47, 'jit_image_manipulation', 'enabled', 1.02);
-INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (61, 'export_install_file', 'enabled', 1.1);
+INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (41, 'debugdevkit', 'enabled', '1.2.1');
+INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (42, 'profiledevkit', 'enabled', '1.0.4');
+INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (57, 'maintenance_mode', 'enabled', 1.5);
+INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (47, 'jit_image_manipulation', 'enabled', 1.14);
+INSERT INTO `tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (66, 'xssfilter', 'enabled', 1.1);
 
 -- *** DATA: `tbl_extensions_delegates` ***
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (32, 25, '/administration/', 'AdminPagePostGenerate', '__settingsPanelInject');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (80, 54, '/backend/', 'AppendElementBelowView', 'appendOrderFieldId');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (79, 54, '/backend/', 'InitaliseAdminPageHead', 'appendScriptToHead');
 INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (69, 50, '/frontend/', 'FrontendPreRenderHeaders', 'setContentType');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (30, 25, '/backend/', 'InitaliseAdminPageHead', '__missingDelegateWorkaround');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (31, 25, '/administration/', 'AdminPagePreGenerate', '__publishPanelJS');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (29, 25, '/backend/', 'ModifyTextareaFieldPublishWidget', '__publishPanelInject');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (50, 41, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (88, 57, '/backend/', 'AppendPageAlert', '__appendAlert');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (82, 56, '/backend/', 'InitaliseAdminPageHead', 'initaliseAdminPageHead');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (51, 41, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (52, 42, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (53, 42, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (54, 43, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (55, 43, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (56, 44, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (57, 44, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (86, 57, '/frontend/', 'FrontendPrePageResolve', '__checkForMaintenanceMode');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (87, 57, '/frontend/', 'FrontendParamsResolve', '__addParam');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (85, 57, '/system/preferences/', 'CustomActions', '__toggleMaintenanceMode');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (84, 57, '/system/preferences/', 'Save', '__SavePreferences');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (83, 57, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (66, 47, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (67, 47, '/system/preferences/', 'Save', '__SavePreferences');
-INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (92, 61, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (115, 57, '/frontend/', 'FrontendParamsResolve', '__addParam');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (106, 60, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (105, 41, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (114, 57, '/frontend/', 'FrontendPrePageResolve', '__checkForMaintenanceMode');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (116, 63, '/backend/', 'InitaliseAdminPageHead', 'appendScriptToHead');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (104, 41, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (118, 42, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (117, 42, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (103, 66, '/frontend/', 'EventPreSaveFilter', 'eventPreSaveFilter');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (101, 66, '/blueprints/events/new/', 'AppendEventFilter', 'appendEventFilter');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (102, 66, '/blueprints/events/edit/', 'AppendEventFilter', 'appendEventFilter');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (113, 57, '/blueprints/pages/', 'AppendPageContent', '__appendType');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (112, 57, '/backend/', 'AppendPageAlert', '__appendAlert');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (111, 57, '/system/preferences/', 'CustomActions', '__toggleMaintenanceMode');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (110, 57, '/system/preferences/', 'Save', '__SavePreferences');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (109, 57, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (107, 47, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
+INSERT INTO `tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (108, 47, '/system/preferences/', 'Save', '__SavePreferences');
 
 -- *** DATA: `tbl_fields` ***
 INSERT INTO `tbl_fields` (`id`, `label`, `element_name`, `type`, `parent_section`, `required`, `sortorder`, `location`, `show_column`) VALUES (9, 'Title', 'title', 'input', 2, 'yes', 0, 'main', 'yes');
@@ -1192,10 +1170,10 @@ INSERT INTO `tbl_sections` (`id`, `name`, `handle`, `sortorder`, `entry_order`, 
 INSERT INTO `tbl_sections` (`id`, `name`, `handle`, `sortorder`, `entry_order`, `entry_order_direction`, `hidden`, `navigation_group`) VALUES (5, 'Items', 'items', 1, NULL, 'asc', 'no', 'Content');
 
 -- *** DATA: `tbl_sections_association` ***
-INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `cascading_deletion`) VALUES (43, 2, 9, 2, 12, 'no');
-INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `cascading_deletion`) VALUES (30, 2, 9, 3, 18, 'no');
-INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `cascading_deletion`) VALUES (35, 2, 9, 4, 22, 'no');
-INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `cascading_deletion`) VALUES (36, 3, 15, 4, 23, 'no');
-INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `cascading_deletion`) VALUES (47, 1, 7, 5, 27, 'no');
-INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `cascading_deletion`) VALUES (48, 4, 19, 5, 28, 'no');
-INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `cascading_deletion`) VALUES (49, 3, 15, 5, 33, 'no');
+INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `hide_association`) VALUES (43, 2, 9, 2, 12, 'no');
+INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `hide_association`) VALUES (30, 2, 9, 3, 18, 'no');
+INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `hide_association`) VALUES (35, 2, 9, 4, 22, 'no');
+INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `hide_association`) VALUES (36, 3, 15, 4, 23, 'no');
+INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `hide_association`) VALUES (47, 1, 7, 5, 27, 'no');
+INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `hide_association`) VALUES (48, 4, 19, 5, 28, 'no');
+INSERT INTO `tbl_sections_association` (`id`, `parent_section_id`, `parent_section_field_id`, `child_section_id`, `child_section_field_id`, `hide_association`) VALUES (49, 3, 15, 5, 33, 'no');
