@@ -18,11 +18,13 @@ Visit the site at <http://designprojectx.com/>
 
 ## Installation
 
-It is best to install this ensemble with Git, but you can also install this ensemble by downloading a copy of Symphony 2.0.6 and each of the required extensions and this workspace. Be sure to rename the directory to `workspace`.
+It is best to install this ensemble with Git, but you can also install this ensemble by downloading a copy of Symphony 2.3 and each of the required extensions and this workspace. Be sure to rename the directory to `workspace`.
 
 ### Installing with Git
 
-1. Clone a copy of Symphony 2.0.6 and rename the directory:
+With a recent version of Git, you can do the first three steps with a single command: `git clone --recursive git://github.com/symphonycms/symphony-2.git designprojectx`. The `--recursive` option will recursively initialize submodules and update them. The last, optional argument is the name of the directory in which the parent repository is cloned into.
+
+1. Clone a copy of Symphony 2.3 and rename the directory:
 
 		git clone git://github.com/symphonycms/symphony-2.git
 
@@ -34,7 +36,6 @@ It is best to install this ensemble with Git, but you can also install this ense
 3. Initialize the submodules for the default extensions:
 
 		git submodule update --init
-
 
 4. Clone the required extensions:
 
