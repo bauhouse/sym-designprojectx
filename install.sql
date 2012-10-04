@@ -1090,7 +1090,6 @@ INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (2, 'mark
 INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (9, 'selectbox_link_field', 'enabled', 1.23);
 INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (63, 'order_entries', 'enabled', '1.10.1');
 INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (60, 'export_ensemble', 'enabled', '2.0.1');
-INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (50, 'content_type_mappings', 'enabled', 1.5);
 INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (41, 'debugdevkit', 'enabled', '1.2.2');
 INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (42, 'profiledevkit', 'enabled', 1.1);
 INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (57, 'maintenance_mode', 'enabled', 1.6);
@@ -1098,28 +1097,24 @@ INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (47, 'jit
 INSERT INTO`tbl_extensions` (`id`, `name`, `status`, `version`) VALUES (66, 'xssfilter', 'enabled', '1.1.1');
 
 -- *** DATA: `sym_extensions_delegates` ***
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (140, 42, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (120, 50, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'addCustomPreferenceFieldsets');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (121, 50, '/system/preferences/', 'Save', 'save');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (119, 50, '/frontend/', 'FrontendPreRenderHeaders', 'setContentType');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (128, 60, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (137, 57, '/frontend/', 'FrontendParamsResolve', '__addParam');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (127, 41, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (155, 42, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
 INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (141, 63, '/backend/', 'InitaliseAdminPageHead', 'appendScriptToHead');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (126, 41, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (139, 42, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (123, 66, '/blueprints/events/new/', 'AppendEventFilter', 'appendEventFilter');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (125, 66, '/frontend/', 'EventPreSaveFilter', 'eventPreSaveFilter');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (124, 66, '/blueprints/events/edit/', 'AppendEventFilter', 'appendEventFilter');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (135, 57, '/blueprints/pages/', 'AppendPageContent', '__appendType');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (134, 57, '/backend/', 'AppendPageAlert', '__appendAlert');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (133, 57, '/system/preferences/', 'CustomActions', '__toggleMaintenanceMode');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (132, 57, '/system/preferences/', 'Save', '__SavePreferences');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (131, 57, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (129, 47, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (136, 57, '/frontend/', 'FrontendPrePageResolve', '__checkForMaintenanceMode');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (130, 47, '/system/preferences/', 'Save', '__SavePreferences');
-INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (122, 50, '/backend/', 'AdminPagePreGenerate', '__appendAssets');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (153, 57, '/frontend/', 'FrontendParamsResolve', '__addParam');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (144, 60, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (152, 57, '/frontend/', 'FrontendPrePageResolve', '__checkForMaintenanceMode');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (143, 41, '/frontend/', 'ManipulateDevKitNavigation', 'manipulateDevKitNavigation');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (142, 41, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (154, 42, '/frontend/', 'FrontendDevKitResolve', 'frontendDevKitResolve');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (158, 66, '/frontend/', 'EventPreSaveFilter', 'eventPreSaveFilter');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (157, 66, '/blueprints/events/edit/', 'AppendEventFilter', 'appendEventFilter');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (156, 66, '/blueprints/events/new/', 'AppendEventFilter', 'appendEventFilter');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (151, 57, '/blueprints/pages/', 'AppendPageContent', '__appendType');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (150, 57, '/backend/', 'AppendPageAlert', '__appendAlert');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (149, 57, '/system/preferences/', 'CustomActions', '__toggleMaintenanceMode');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (148, 57, '/system/preferences/', 'Save', '__SavePreferences');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (146, 47, '/system/preferences/', 'Save', '__SavePreferences');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (147, 57, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
+INSERT INTO`tbl_extensions_delegates` (`id`, `extension_id`, `page`, `delegate`, `callback`) VALUES (145, 47, '/system/preferences/', 'AddCustomPreferenceFieldsets', 'appendPreferences');
 
 -- *** DATA: `sym_fields` ***
 INSERT INTO`tbl_fields` (`id`, `label`, `element_name`, `type`, `parent_section`, `required`, `sortorder`, `location`, `show_column`) VALUES (9, 'Title', 'title', 'input', 2, 'yes', 0, 'main', 'yes');
