@@ -2,7 +2,7 @@
 
 - Author: Stephen Bau
 - Version: 0.4
-- Date: 29 September 2012
+- Date: 4 October 2012
 - Github Repository: <http://github.com/bauhouse/designprojectx>
 - Requirements: Symphony 2.3
 
@@ -64,7 +64,7 @@ With a recent version of Git, you can do the first three steps with a single com
 
 ### Viewing XSL Source
 
-One of the features of this ensemble, because it is intended as a learning resource for people who are starting to learn about Symphony and XSLT, is the ability to view the XSL, XML and text used to build this site. You'll see this in the Journal section, where each entry display meta data under the entry title with links to XSL, XML and Text. However, as a security precaution, the latest versions of Symphony have forbidden the viewing of XSL files by adding a couple lines to the `.htaccess` file.
+One of the features of this ensemble, because it is intended as a learning resource for people who are starting to learn about Symphony and XSLT, is the ability to view the XSL, XML and text used to build this site. You'll see this in the Journal section, where each entry displays meta data under the entry title with links to XSL, XML and Text. However, as a security precaution, the latest versions of Symphony have forbidden the viewing of XSL files by adding a couple lines to the `.htaccess` file.
 
 		RewriteRule ^workspace/utilities/(.*).xsl$ - [F]
 		RewriteRule ^workspace/pages/(.*).xsl$ - [F]
