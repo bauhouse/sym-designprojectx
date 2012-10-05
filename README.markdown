@@ -3,7 +3,7 @@
 - Author: Stephen Bau
 - Version: 0.4
 - Date: 4 October 2012
-- Github Repository: <http://github.com/bauhouse/designprojectx>
+- Github Repository: <http://github.com/bauhouse/sym-designprojectx>
 - Requirements: Symphony 2.3
 
 ## Overview
