@@ -28,3 +28,6 @@
 [submodule "extensions/order_entries"]
 	path = extensions/order_entries
 	url = git://github.com/symphonists/order_entries.git
+[submodule "workspace"]
+	path = workspace
+	url = git://github.com/bauhouse/sym-designprojectx.git
