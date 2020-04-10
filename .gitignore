@@ -1,5 +1,4 @@
 .htaccess
-workspace/
 manifest/
 node_modules/
 install-log.txt
